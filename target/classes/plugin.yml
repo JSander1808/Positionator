@@ -1,0 +1,7 @@
+name: Position_Plugin
+version: '1.0-SNAPSHOT'
+main: de.rembel.Main.Main
+api-version: 1.19
+
+commands:
+  pos:
