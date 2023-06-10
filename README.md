@@ -20,7 +20,7 @@ This plugin offers an efficient and user-friendly solution for marking, saving, 
 | Command      | Function                   |
 |-----------|---------------------------------|
 | /pos  | Open Positionator Menu  |
-| /pos <Position Name>  | Create new Position  |
+| /pos [Position Name]  | Create new Position  |
 
 # Installation
 
