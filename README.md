@@ -83,7 +83,7 @@ If you should be in a different dimension than the position, the boss bar only s
 
 You can download Positionator here.
 
-[Positionator Download](https://github.com/JSander1808/Positionator/releases/tag/Minecraft-Plugin)
+[Positionator Download](https://github.com/JSander1808/Positionator/releases)
 
 Thanks for Using Positionator.   \\(^-^)/
  
