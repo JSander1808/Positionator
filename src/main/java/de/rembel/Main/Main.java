@@ -3,6 +3,7 @@ package de.rembel.Main;
 import de.rembel.Commands.PositionCommand;
 import de.rembel.Config.Config;
 import de.rembel.Listener.*;
+import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BossBar;
 import org.bukkit.boss.KeyedBossBar;
@@ -16,7 +17,8 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Config publicConfig = new Config("data//position//public.conf");
+        Metrics metrics = new Metrics(this,  	18738);
+        Config publicConfig = new Config("plugins//Positionator//public.conf");
         publicConfig.init();
 
         PluginManager pluginManager = Bukkit.getPluginManager();

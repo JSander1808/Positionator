@@ -1,6 +1,7 @@
-name: Position_Plugin
+name: Positionator
 version: '${project.version}'
 main: de.rembel.Main.Main
+description: This plugin allows easy position marking and saving. It offers public and private lists for collaborative or personal use, and features markers upon death, BossBar integration, and dimension information.
 api-version: 1.19
 
 commands:

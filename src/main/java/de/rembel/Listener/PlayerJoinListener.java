@@ -9,7 +9,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Config config = new Config("data//position//"+event.getPlayer().getUniqueId()+".conf");
+        Config config = new Config("plugins//Positionator//"+event.getPlayer().getUniqueId()+".conf");
         config.init();
     }
 }

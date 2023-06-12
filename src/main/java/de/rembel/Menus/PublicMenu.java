@@ -18,7 +18,7 @@ public class PublicMenu {
     public static Inventory inv;
 
     public PublicMenu(Player player, int page){
-        Config config = new Config("data//position//public.conf");
+        Config config = new Config("plugins//Positionator//public.conf");
         inv = Bukkit.createInventory(null,9*6, ChatColor.GOLD+"Public Liste - Page "+page+" / "+((config.list().length/(9*5))+1));
         player.openInventory(inv);
 

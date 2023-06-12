@@ -67,7 +67,9 @@ public class StartMenu {
                     case ARROW:
                         BossBar bar = Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
                         General.BossBarPosition.remove(player.getUniqueId());
-                        bar.removeAll();
+                        try{
+                            bar.removeAll();
+                        }catch(Exception e){}
                         break;
                     default:
                         break;

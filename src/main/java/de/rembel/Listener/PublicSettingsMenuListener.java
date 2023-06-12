@@ -23,7 +23,7 @@ public class PublicSettingsMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
-            Config config = new Config("data//position//public.conf");
+            Config config = new Config("plugins//Positionator//public.conf");
             if(event.getView().getTitle().split(" ").length==4){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Settings - "+event.getView().getTitle().split(" ")[3])){
                     String positionName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"","");
@@ -63,7 +63,7 @@ public class PublicSettingsMenuListener implements Listener {
                             break;
                         case ENDER_CHEST:
                             if(event.getClick() == ClickType.LEFT){
-                                Config publicconfig = new Config("data//position//"+player.getUniqueId()+".conf");
+                                Config publicconfig = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
                                 publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
                                 player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your private list");
                             }else if(event.getClick() == ClickType.RIGHT){

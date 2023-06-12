@@ -18,7 +18,7 @@ public class PrivateMenu {
     public static Inventory inv;
 
     public PrivateMenu(Player player, int page){
-        Config config = new Config("data//position//"+player.getUniqueId()+".conf");
+        Config config = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
         inv = Bukkit.createInventory(null,9*6, ChatColor.GOLD+"Private Liste - Page "+page+" / "+((config.list().length/(9*5))+1));
         player.openInventory(inv);
 
