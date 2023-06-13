@@ -30,7 +30,7 @@ public class PrivateMenuListener implements Listener {
                     int pagemax = Integer.valueOf(event.getView().getTitle().split(" ")[6]);
                     switch(event.getCurrentItem().getType()){
                         case SPRUCE_SIGN:
-                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Last Page")&&page>1){
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Previous Page")&&page>1){
                                 new PrivateMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
                             }else{
                                 event.setCancelled(true);

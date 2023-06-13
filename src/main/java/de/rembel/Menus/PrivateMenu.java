@@ -33,7 +33,7 @@ public class PrivateMenu {
 
         ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta previousmeta = previouspage.getItemMeta();
-        previousmeta.setDisplayName(ChatColor.GOLD+"Last Page");
+        previousmeta.setDisplayName(ChatColor.GOLD+"Previous Page");
         previouspage.setItemMeta(previousmeta);
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);

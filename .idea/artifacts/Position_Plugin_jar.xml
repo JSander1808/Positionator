@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Position-Plugin:jar">
-    <output-path>$PROJECT_DIR$/../minecraft-server/Server/plugins/</output-path>
+    <output-path>$PROJECT_DIR$/../minecraft-server/1.20 Experimental Server/plugins/</output-path>
     <root id="archive" name="Position-Plugin.jar">
       <element id="module-output" name="Position-Plugin" />
     </root>
