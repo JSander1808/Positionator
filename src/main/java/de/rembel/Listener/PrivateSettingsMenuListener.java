@@ -24,7 +24,7 @@ public class PrivateSettingsMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
-            Config config = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
+            Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
             if(event.getView().getTitle().split(" ").length==4){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Settings - "+event.getView().getTitle().split(" ")[3])){
                     String positionName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");;

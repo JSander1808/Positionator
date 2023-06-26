@@ -16,7 +16,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Config playerConfig = new Config("plugins//Positionator//"+event.getPlayer().getUniqueId()+".conf");
+        Config playerConfig = new Config("plugins//Positionator//"+ event.getPlayer().getUniqueId().toString()+".conf");
         playerConfig.init();
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
@@ -26,11 +26,11 @@ public class PlayerJoinListener implements Listener {
             config.set("firstUse","false");
             event.getPlayer().sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
-            event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name>"+ChatColor.GREEN+"Create a new Position");
+            event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
         }else if(config.get("firstUse").equalsIgnoreCase("true")){
             event.getPlayer().sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
-            event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name>"+ChatColor.GREEN+"Create a new Position");
+            event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
             config.set("firstUse","false");
         }
     }

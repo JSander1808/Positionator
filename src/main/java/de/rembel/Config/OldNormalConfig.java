@@ -1,15 +1,13 @@
 package de.rembel.Config;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.*;
 import java.util.ArrayList;
 
-public class NormalConfig {
+public class OldNormalConfig {
     private String path;
-    private String prefix = ": ";
+    private String prefix = "->";
 
-    public NormalConfig(String path){
+    public OldNormalConfig(String path){
         this.path=path;
     }
 
@@ -116,14 +114,6 @@ public class NormalConfig {
         return false;
     }
 
-    public void setBoolean(String key, Boolean value){
-        set(key, String.valueOf(value));
-    }
-
-    public Boolean getBoolean(String key){
-        return Boolean.valueOf(get(key));
-    }
-
     public void clearFile(){
         try {
             PrintWriter writer = new PrintWriter(new File(path));
@@ -133,6 +123,4 @@ public class NormalConfig {
             throw new RuntimeException(e);
         }
     }
-
-
 }

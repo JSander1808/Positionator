@@ -102,7 +102,6 @@ public class Config {
                 String[] result = temp.split("->");
                 if(result[0].equalsIgnoreCase(keyword)){
                     if(result.length>=2){
-                        System.out.println(result.length);
                         return true;
                     }
                 }

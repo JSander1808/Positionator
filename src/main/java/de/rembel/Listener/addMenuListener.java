@@ -18,7 +18,6 @@ public class addMenuListener implements Listener {
                     String positionName = event.getView().getTitle().split(" ")[1];
                     switch(event.getCurrentItem().getType()){
                         case CHEST:
-                            System.out.println("debug");
                             Config publicconfig = new Config("plugins//Positionator//public.conf");
                             String publicposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
                             if(!publicconfig.existdata(positionName)){
@@ -30,7 +29,7 @@ public class addMenuListener implements Listener {
                             }
                             break;
                         case ENDER_CHEST:
-                            Config privateconfig = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
+                            Config privateconfig = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
                             String privateposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
                             if(!privateconfig.existdata(positionName)){
                                 privateconfig.set(positionName,privateposition,player.getName(),player.getWorld().getEnvironment().name(),0);

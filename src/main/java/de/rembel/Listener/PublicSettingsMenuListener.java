@@ -63,7 +63,7 @@ public class PublicSettingsMenuListener implements Listener {
                             break;
                         case ENDER_CHEST:
                             if(event.getClick() == ClickType.LEFT){
-                                Config publicconfig = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
+                                Config publicconfig = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
                                 publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
                                 player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your private list");
                             }else if(event.getClick() == ClickType.RIGHT){

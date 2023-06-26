@@ -23,7 +23,7 @@ public class PrivateMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
-            Config config = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
+            Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
             if(event.getView().getTitle().split(" ").length==7){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list().length/(9*5))+1))){
                     int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);

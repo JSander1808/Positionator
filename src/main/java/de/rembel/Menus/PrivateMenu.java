@@ -1,6 +1,7 @@
 package de.rembel.Menus;
 
 import de.rembel.Config.Config;
+import de.rembel.Config.NormalConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,7 +19,7 @@ public class PrivateMenu {
     public static Inventory inv;
 
     public PrivateMenu(Player player, int page){
-        Config config = new Config("plugins//Positionator//"+player.getUniqueId()+".conf");
+        Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
         inv = Bukkit.createInventory(null,9*6, ChatColor.GOLD+"Private Liste - Page "+page+" / "+((config.list().length/(9*5))+1));
         player.openInventory(inv);
 
@@ -47,7 +48,10 @@ public class PrivateMenu {
         nextpage.setItemMeta(nextmeta);
 
         String[][] data = config.listFormToEnd((page-1)*(9*5),page*(9*5)-1);
-        for(int i = 0;i<data.length;i++){
+
+        NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+        int itemSlot = 0;
+        for(int i = 0;i< data.length;i++){
             ItemStack item;
             if(Integer.valueOf(data[i][4])==0){
                 item = new ItemStack(Material.CHEST);
@@ -59,19 +63,24 @@ public class PrivateMenu {
                 itemlore.add(ChatColor.GREEN+"Dimension: "+ChatColor.BLUE+data[i][3]);
                 itemmeta.setLore(itemlore);
                 item.setItemMeta(itemmeta);
-                inv.setItem(i,item);
+                inv.setItem(itemSlot,item);
             }else{
-                item = new ItemStack(Material.TOTEM_OF_UNDYING);
-                ItemMeta itemmeta = item.getItemMeta();
-                itemmeta.setDisplayName(ChatColor.RED+data[i][0]);
-                ArrayList<String> itemlore = new ArrayList<String>();
-                itemlore.add(ChatColor.RED+"Creator: "+ChatColor.BLUE+data[i][2]);
-                itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i][1]);
-                itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i][3]);
-                itemmeta.setLore(itemlore);
-                item.setItemMeta(itemmeta);
-                inv.setItem(i,item);
+                if(normalConfig.getBoolean("showDeathPositionInList")){
+                    item = new ItemStack(Material.TOTEM_OF_UNDYING);
+                    ItemMeta itemmeta = item.getItemMeta();
+                    itemmeta.setDisplayName(ChatColor.RED+data[i][0]);
+                    ArrayList<String> itemlore = new ArrayList<String>();
+                    itemlore.add(ChatColor.RED+"Creator: "+ChatColor.BLUE+data[i][2]);
+                    itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i][1]);
+                    itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i][3]);
+                    itemmeta.setLore(itemlore);
+                    item.setItemMeta(itemmeta);
+                    inv.setItem(itemSlot,item);
+                }else{
+                    itemSlot--;
+                }
             }
+            itemSlot++;
         }
         inv.setItem(45,previouspage);
         inv.setItem(51,nextpage);
