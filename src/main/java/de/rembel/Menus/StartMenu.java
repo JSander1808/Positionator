@@ -1,10 +1,8 @@
 package de.rembel.Menus;
 
+import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.boss.BossBar;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -75,6 +73,8 @@ public class StartMenu {
                         break;
                 }
                 event.setCancelled(true);
+                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
         }
     }

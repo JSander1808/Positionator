@@ -4,6 +4,9 @@ import de.rembel.Commands.PositionCommand;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.Config.OldNormalConfig;
+import de.rembel.General.DataFixer;
+import de.rembel.General.General;
+import de.rembel.General.PositionFilter;
 import de.rembel.Listener.*;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
@@ -12,6 +15,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.logging.Level;
 
 public final class PositionatorMain extends JavaPlugin {
 
@@ -21,19 +25,9 @@ public final class PositionatorMain extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        //convert old config from V.1.0.3-SNAPSHOT to config from V.1.0.4
-        OldNormalConfig oldConfig = new OldNormalConfig("plugins//Positionator//config.yml");
-        oldConfig.init();
-        if(oldConfig.existdata("firstUse")) oldConfig.clearFile();
+        new DataFixer();
 
         Metrics metrics = new Metrics(this,  	18738);
-        Config publicConfig = new Config("plugins//Positionator//public.conf");
-        publicConfig.init();
-
-        NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
-        config.init();
-        if(!config.existdata("showDeathPositionInList")) config.set("showDeathPositionInList","true");
-        if(!config.existdata("setDeathPositionInBossbar")) config.set("setDeathPositionInBossbar","true");
 
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new InventoryListener(),this);
@@ -45,6 +39,8 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PlayerDeathListener(),this);
         pluginManager.registerEvents(new PlayerMoveListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new PublicFilterMenuListener(), this);
+        pluginManager.registerEvents(new PrivateFilterMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
     }

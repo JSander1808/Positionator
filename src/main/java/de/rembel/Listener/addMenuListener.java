@@ -1,7 +1,9 @@
 package de.rembel.Listener;
 
 import de.rembel.Config.Config;
+import de.rembel.Config.NormalConfig;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,6 +46,8 @@ public class addMenuListener implements Listener {
                             break;
                     }
                     event.setCancelled(true);
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                    if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
                 }
             }
         }

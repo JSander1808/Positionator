@@ -1,5 +1,7 @@
 package de.rembel.Config;
 
+import de.rembel.General.PositionFilter;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -114,14 +116,18 @@ public class Config {
         return false;
     }
 
-    public String[][] list(){
+    public String[][] list(PositionFilter filter){
         File file = new File(path);
         try {
             ArrayList<String[]> data = new ArrayList<String[]>();
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp = reader.readLine())!=null){
-                data.add(temp.split("->"));
+                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equalsIgnoreCase(temp.split("->")[2])){
+                    if(filter == null || !filter.hasDimension() || filter.getDimension().equalsIgnoreCase(temp.split("->")[3])){
+                        data.add(temp.split("->"));
+                    }
+                }
             }
             String[][] finalData = new String[data.size()][2];
             for(int i = 0;i< data.size();i++){

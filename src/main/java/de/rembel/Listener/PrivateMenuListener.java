@@ -1,15 +1,21 @@
 package de.rembel.Listener;
 
 import de.rembel.Config.Config;
+import de.rembel.Config.NormalConfig;
+import de.rembel.General.General;
+import de.rembel.Menus.PrivateFilterMenu;
 import de.rembel.Menus.PrivateMenu;
 import de.rembel.Menus.PublicMenu;
 import de.rembel.Menus.StartMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Panda;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -25,10 +31,18 @@ public class PrivateMenuListener implements Listener {
             Player player = (Player) event.getWhoClicked();
             Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
             if(event.getView().getTitle().split(" ").length==7){
-                if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list().length/(9*5))+1))){
+                if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
                     int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);
                     int pagemax = Integer.valueOf(event.getView().getTitle().split(" ")[6]);
                     switch(event.getCurrentItem().getType()){
+                        case PAPER:
+                            if(event.getClick() == ClickType.RIGHT){
+                                General.PrivateFilter.remove(player.getUniqueId().toString());
+                                new PrivateMenu(player, page);
+                            }else if(event.getClick() == ClickType.LEFT){
+                                new PrivateFilterMenu(player);
+                            }
+                            break;
                         case SPRUCE_SIGN:
                             if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Previous Page")&&page>1){
                                 new PrivateMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
@@ -60,8 +74,8 @@ public class PrivateMenuListener implements Listener {
                                 ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
                                 setInOtherListMeta.setDisplayName(ChatColor.GREEN+"Add "+positionName1+" to public list");
                                 ArrayList setInOtherListLore = new ArrayList();
-                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click add");
-                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Right-Click open public list");
+                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: add");
+                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Right-Click: open public list");
                                 setInOtherListMeta.setLore(setInOtherListLore);
                                 setInOtherList.setItemMeta(setInOtherListMeta);
                                 inv1.setItem(3,setInOtherList);
@@ -107,6 +121,8 @@ public class PrivateMenuListener implements Listener {
                             break;
                     }
                     event.setCancelled(true);
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                    if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
                 }
             }
         }
