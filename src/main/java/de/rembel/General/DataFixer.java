@@ -27,6 +27,8 @@ public class DataFixer {
         if(!config.existdata("setDeathPositionInBossbar")) config.set("setDeathPositionInBossbar","true");
         if(!config.existdata("enableFilter")) config.set("enableFilter","true");
         if(!config.existdata("enableMenuClickSound")) config.set("enableMenuClickSound","false");
+        if(!config.existdata("enableDeletePositionsFromOtherPlayer")) config.set("enableDeletePositionsFromOtherPlayer","true");
+        if(!config.existdata("sendUpdateMessages")) config.set("sendUpdateMessages","true");
         plugin.getLogger().log(Level.INFO, "[DataFixer] Completed");
     }
 

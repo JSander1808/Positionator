@@ -7,6 +7,7 @@ import de.rembel.Config.OldNormalConfig;
 import de.rembel.General.DataFixer;
 import de.rembel.General.General;
 import de.rembel.General.PositionFilter;
+import de.rembel.General.UpdateChecker;
 import de.rembel.Listener.*;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
@@ -20,10 +21,12 @@ import java.util.logging.Level;
 public final class PositionatorMain extends JavaPlugin {
 
     public static Plugin plugin;
+    public static JavaPlugin javaPlugin;
 
     @Override
     public void onEnable() {
         plugin = this;
+        javaPlugin = this;
 
         new DataFixer();
 
@@ -41,6 +44,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PublicFilterMenuListener(), this);
         pluginManager.registerEvents(new PrivateFilterMenuListener(), this);
+        pluginManager.registerEvents(new ConfirmationListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
     }
@@ -52,5 +56,9 @@ public final class PositionatorMain extends JavaPlugin {
 
     public static Plugin getPlugin() {
         return plugin;
+    }
+
+    public static JavaPlugin getJavaPlugin() {
+        return javaPlugin;
     }
 }
