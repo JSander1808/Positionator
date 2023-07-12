@@ -21,6 +21,7 @@ public class DataFixer {
         log("checked for Main Folder");
 
         if(checkVersion(1)) Fix1();
+        if(checkVersion(2)) Fix2();
 
 
 
@@ -93,6 +94,41 @@ public class DataFixer {
                 log("created playerconfig for "+tempFile.getName().split("\\.")[0]);
             }
         }
+        return true;
+    }
+
+    private boolean Fix2(){
+        try{
+            for(File temp : new File("plugins//Positionator//Data//User").listFiles()){
+                File dataFile = new File("plugins//Positionator//Data//User//"+temp.getName()+"//data.conf");
+                ArrayList<String> data = new ArrayList<String>();
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+                    String tempData = null;
+                    while((tempData = reader.readLine()) != null){
+                        System.out.println(tempData);
+                        data.add(tempData);
+                    }
+                    reader.close();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    PrintWriter writer = new PrintWriter(dataFile);
+                    for(String tempData : data){
+                        writer.write(General.encode(tempData)+"\n");
+                    }
+                    writer.flush();
+                    writer.close();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                log("encoded data for File "+dataFile.toPath().toString());
+            }
+        }catch(Exception e){}
         return true;
     }
 
