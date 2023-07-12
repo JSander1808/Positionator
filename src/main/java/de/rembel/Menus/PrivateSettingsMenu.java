@@ -17,6 +17,10 @@ public class PrivateSettingsMenu {
         NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
         Inventory inv = Bukkit.createInventory(null, 9*3, ChatColor.GOLD+"Settings");
 
+        for(int i = 0;i<9*3;i++){
+            inv.setItem(i,placeholder());
+        }
+
         ItemStack showDeathInList = new ItemStack(Material.OBSERVER);
         ItemMeta showDeathInListMeta = showDeathInList.getItemMeta();
         showDeathInListMeta.setDisplayName(ChatColor.GOLD+"Show Death's");
@@ -89,5 +93,13 @@ public class PrivateSettingsMenu {
         inv.setItem(26, close);
 
         player.openInventory(inv);
+    }
+
+    public ItemStack placeholder(){
+        ItemStack nul = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta nulmeta = nul.getItemMeta();
+        nulmeta.setDisplayName(" ");
+        nul.setItemMeta(nulmeta);
+        return nul;
     }
 }

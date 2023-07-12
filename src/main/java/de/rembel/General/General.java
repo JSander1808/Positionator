@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -25,5 +26,13 @@ public class General {
             if(!playerList.contains(player.getName())) playerList.add(player.getName());
         }
         return playerList;
+    }
+
+    public static String encode(String data){
+        return new String(Base64.getEncoder().encode(data.getBytes()));
+    }
+
+    public static String decode(String data){
+        return new String(Base64.getDecoder().decode(data.getBytes()));
     }
 }

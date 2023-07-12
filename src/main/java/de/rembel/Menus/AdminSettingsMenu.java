@@ -17,6 +17,10 @@ public class AdminSettingsMenu {
         Inventory inv = Bukkit.createInventory(null, 9*3, ChatColor.RED+"Admin Settings");
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
 
+        for(int i = 0;i<9*3;i++){
+            inv.setItem(i,placeholder());
+        }
+
         ItemStack deletePositionsFromOtherPlayer = new ItemStack(Material.COMPARATOR);
         ItemMeta deletePositionFromOtherPlayerMeta = deletePositionsFromOtherPlayer.getItemMeta();
         deletePositionFromOtherPlayerMeta.setDisplayName(ChatColor.GOLD+"Allow Player to delete position from other player");
@@ -62,5 +66,13 @@ public class AdminSettingsMenu {
         inv.setItem(26, close);
 
         player.openInventory(inv);
+    }
+
+    public ItemStack placeholder(){
+        ItemStack nul = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemMeta nulmeta = nul.getItemMeta();
+        nulmeta.setDisplayName(" ");
+        nul.setItemMeta(nulmeta);
+        return nul;
     }
 }
