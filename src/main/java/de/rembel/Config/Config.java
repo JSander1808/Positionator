@@ -1,5 +1,6 @@
 package de.rembel.Config;
 
+import de.rembel.General.General;
 import de.rembel.General.PositionFilter;
 
 import java.io.*;
@@ -40,20 +41,21 @@ public class Config {
             String temp = null;
             boolean exist = false;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 String[] result = temp.split("->");
                 if(result[0].equalsIgnoreCase(keyword)){
-                    data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type+"\n");
+                    data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type);
                     exist = true;
                 }else{
-                    data.add(temp+"\n");
+                    data.add(temp);
                 }
             }
             if(!exist){
-                data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type+"\n");
+                data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type);
             }
             PrintWriter writer = new PrintWriter(file);
             for(int i = 0;i<data.size();i++){
-                writer.write(data.get(i).toString());
+                writer.write(General.encode(data.get(i).toString())+"\n");
             }
             writer.flush();
         } catch (FileNotFoundException e) {
@@ -69,6 +71,7 @@ public class Config {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 String[] result = temp.split("->");
                 if(result[0].equalsIgnoreCase(keyword)){
                     String[] finalresult = new String[result.length];
@@ -101,6 +104,7 @@ public class Config {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 String[] result = temp.split("->");
                 if(result[0].equalsIgnoreCase(keyword)){
                     if(result.length>=2){
@@ -123,6 +127,7 @@ public class Config {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 if(filter == null || !filter.hasPlayername() || filter.getPlayername().equalsIgnoreCase(temp.split("->")[2])){
                     if(filter == null || !filter.hasDimension() || filter.getDimension().equalsIgnoreCase(temp.split("->")[3])){
                         data.add(temp.split("->"));
@@ -150,6 +155,7 @@ public class Config {
             String temp = null;
             int index = 0;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 if(index>=from&&index<=end){
                     data.add(temp.split("->"));
                 }
@@ -175,14 +181,15 @@ public class Config {
             String temp = null;
             boolean exist = false;
             while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
                 String[] result = temp.split("->");
                 if(!result[0].equalsIgnoreCase(keyword)){
-                    data.add(temp+"\n");
+                    data.add(temp);
                 }
             }
             PrintWriter writer = new PrintWriter(file);
             for(int i = 0;i<data.size();i++){
-                writer.write(data.get(i).toString());
+                writer.write(General.encode(data.get(i).toString())+"\n");
             }
             writer.flush();
         } catch (FileNotFoundException e) {
