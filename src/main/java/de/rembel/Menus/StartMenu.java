@@ -44,9 +44,28 @@ public class StartMenu {
         clearBossBarMeta.setDisplayName(ChatColor.RED+"Remove Position from Bossbar");
         clearBossBar.setItemMeta(clearBossBarMeta);
 
-        inv.setItem(1,publicList);
-        inv.setItem(4,privateList);
-        inv.setItem(7,clearBossBar);
+        ItemStack privateSettings = new ItemStack(Material.CRAFTING_TABLE);
+        ItemMeta privateSettingsMeta = privateSettings.getItemMeta();
+        privateSettingsMeta.setDisplayName(ChatColor.GOLD+"Settings");
+        privateSettings.setItemMeta(privateSettingsMeta);
+
+        ItemStack publicSettings = new ItemStack(Material.ANVIL);
+        ItemMeta publicSettingsMeta = publicSettings.getItemMeta();
+        publicSettingsMeta.setDisplayName(ChatColor.RED+"Admin Settings");
+        publicSettings.setItemMeta(publicSettingsMeta);
+
+        if(!player.isOp()){
+            inv.setItem(1,publicList);
+            inv.setItem(3,privateList);
+            inv.setItem(5,clearBossBar);
+            inv.setItem(7,privateSettings);
+        }else{
+            inv.setItem(1, publicList);
+            inv.setItem(2, privateList);
+            inv.setItem(4, clearBossBar);
+            inv.setItem(6, privateSettings);
+            inv.setItem(7, publicSettings);
+        }
         player.openInventory(inv);
     }
 
@@ -69,11 +88,17 @@ public class StartMenu {
                             bar.removeAll();
                         }catch(Exception e){}
                         break;
+                    case CRAFTING_TABLE:
+                        new PrivateSettingsMenu(player);
+                        break;
+                    case ANVIL:
+                        new AdminSettingsMenu(player);
+                        break;
                     default:
                         break;
                 }
                 event.setCancelled(true);
-                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
                 if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
         }

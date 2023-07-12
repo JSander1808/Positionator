@@ -45,6 +45,8 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PublicFilterMenuListener(), this);
         pluginManager.registerEvents(new PrivateFilterMenuListener(), this);
         pluginManager.registerEvents(new ConfirmationListener(), this);
+        pluginManager.registerEvents(new SettingsMenuListener(), this);
+        pluginManager.registerEvents(new AdminSettingsMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
     }

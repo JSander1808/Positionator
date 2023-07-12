@@ -23,7 +23,7 @@ public class PrivateMenu {
     public static Inventory inv;
 
     public PrivateMenu(Player player, int page){
-        Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
+        Config config = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
         inv = Bukkit.createInventory(null,9*6, ChatColor.GOLD+"Private Liste - Page "+page+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString())).length/(9*5))+1));
         player.openInventory(inv);
 
@@ -76,7 +76,7 @@ public class PrivateMenu {
         filterMeta.setLore(filterLore);
         filter.setItemMeta(filterMeta);
 
-        NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+        NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
         int itemSlot = 0;
         String[][] data = config.list(General.PrivateFilter.get(player.getUniqueId().toString()));
 

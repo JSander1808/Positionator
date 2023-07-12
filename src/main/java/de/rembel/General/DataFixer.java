@@ -6,6 +6,9 @@ import de.rembel.Config.OldNormalConfig;
 import de.rembel.Main.PositionatorMain;
 import org.bukkit.plugin.Plugin;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class DataFixer {
@@ -13,33 +16,161 @@ public class DataFixer {
     private Plugin plugin = PositionatorMain.getPlugin();
 
     public DataFixer(){
-        plugin.getLogger().log(Level.INFO, "[DataFixer] Starting...");
-        DataFixerV1_0_4();
+        log("started...");
+        if(!new File("plugins//Positionator").exists()) new File("plugins//Positionator").mkdir();
+        log("checked for Main Folder");
 
-        //after Fixes
+        if(checkVersion(1)) Fix1();
 
-        Config publicConfig = new Config("plugins//Positionator//public.conf");
-        publicConfig.init();
+
+
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
-        if(!config.existdata("showDeathPositionInList")) config.set("showDeathPositionInList","true");
-        if(!config.existdata("setDeathPositionInBossbar")) config.set("setDeathPositionInBossbar","true");
-        if(!config.existdata("enableFilter")) config.set("enableFilter","true");
-        if(!config.existdata("enableMenuClickSound")) config.set("enableMenuClickSound","false");
         if(!config.existdata("enableDeletePositionsFromOtherPlayer")) config.set("enableDeletePositionsFromOtherPlayer","true");
         if(!config.existdata("sendUpdateMessages")) config.set("sendUpdateMessages","true");
-        plugin.getLogger().log(Level.INFO, "[DataFixer] Completed");
+        log("config initialized");
+
+        log("completed");
     }
 
-    private boolean DataFixerV1_0_4(){
-        //convert old config from V.1.0.3-SNAPSHOT to config from V.1.0.4
-        OldNormalConfig oldConfig = new OldNormalConfig("plugins//Positionator//config.yml");
-        oldConfig.init();
-        if(oldConfig.existdata("firstUse")){
-            oldConfig.clearFile();
-            plugin.getLogger().log(Level.INFO,"[DataFixer] convert Config in new Format");
+    private boolean Fix1(){
+        File configFile = new File("plugins//Positionator//config.yml");
+        File dataFolder = new File("plugins//Positionator//Data");
+        File userFolder = new File("plugins//Positionator//Data//User");
+
+        configFile.delete();
+        log("Config deleted");
+        dataFolder.mkdir();
+        log("Data Folder created");
+        userFolder.mkdir();
+        log("User Folder created");
+
+        if(new File("plugins//Positionator//public.conf").exists()){
+            moveFile(new File("plugins//Positionator//public.conf"),new File("plugins//Positionator//Data//public.conf"));
+        }else{
+            try {
+                new File("plugins//Positionator//Data//public.conf").createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            log("new public data File created");
+        }
+
+        ArrayList<String> ignoreFiles = new ArrayList<String>();
+        ignoreFiles.add("buildVersion.yml");
+        ignoreFiles.add("config.yml");
+        ignoreFiles.add("public.conf");
+        log("set up ignored Files");
+
+        for(File tempFile : new File("plugins//Positionator//").listFiles()){
+            if(!ignoreFiles.contains(tempFile.getName()) && tempFile.isFile()){
+                File playerFolder = new File("plugins//Positionator//Data//User//"+tempFile.getName().split("\\.")[0]);
+                playerFolder.mkdir();
+                File playerPositionFile = new File("plugins//Positionator//Data//User//"+tempFile.getName().split("\\.")[0]+"//data.conf");
+                try {
+                    playerPositionFile.createNewFile();
+                    BufferedReader reader = new BufferedReader(new FileReader(tempFile));
+                    PrintWriter writer = new PrintWriter(playerPositionFile);
+                    String lineData = null;
+                    while((lineData = reader.readLine())!= null){
+                        writer.write(lineData+"\n");
+                    }
+                    writer.flush();
+                    writer.close();
+                    reader.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                log("converted playerdata for "+tempFile.getName().split("\\.")[0]);
+                NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+tempFile.getName().split("\\.")[0]+"//config.yml");
+                playerConfig.init();
+                if(!playerConfig.existdata("showDeathPositionInList")) playerConfig.set("showDeathPositionInList","true");
+                if(!playerConfig.existdata("setDeathPositionInBossbar")) playerConfig.set("setDeathPositionInBossbar","true");
+                if(!playerConfig.existdata("enableFilter")) playerConfig.set("enableFilter","true");
+                if(!playerConfig.existdata("enableMenuClickSound")) playerConfig.set("enableMenuClickSound","true");
+                tempFile.delete();
+                log("created playerconfig for "+tempFile.getName().split("\\.")[0]);
+            }
         }
         return true;
+    }
+
+    private boolean checkVersion(int version){
+        File file = new File("plugins//Positionator//buildVersion.yml");
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+                log("created buildVersion File");
+                PrintWriter writer = new PrintWriter(file);
+                writer.write("V: 0\n");
+                writer.write("#Do never change this Value!");
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        int buildVersion;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            buildVersion = Integer.valueOf(reader.readLine().split(": ")[1]);
+            reader.close();
+            log("read buildVersion from File");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if(buildVersion<version){
+            try {
+                PrintWriter writer = new PrintWriter(file);
+                writer.write("V: "+version+"\n");
+                writer.write("#Do never change this Value");
+                writer.flush();
+                writer.close();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            log("update buildVersion");
+            return true;
+        }
+        return false;
+    }
+
+    private void log(String message){
+        plugin.getLogger().log(Level.INFO,"[DataFixer] "+message);
+    }
+
+    private void copy(File source, File destination){
+        try {
+            Files.copy(source.toPath(), destination.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        log("copy File "+source.getName()+" to "+destination.toPath().toString());
+    }
+    private void moveFile(File source, File destination){
+        try {
+            Files.copy(source.toPath(), destination.toPath());
+            source.delete();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        log("copy File "+source.getName()+" to "+destination.toPath().toString());
+    }
+
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if(files!=null) {
+            for(File f: files) {
+                if(f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        folder.delete();
     }
 }

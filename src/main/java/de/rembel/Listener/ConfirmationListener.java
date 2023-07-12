@@ -30,7 +30,7 @@ public class ConfirmationListener implements Listener {
                     break;
             }
             event.setCancelled(true);
-            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
             if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
         }
     }

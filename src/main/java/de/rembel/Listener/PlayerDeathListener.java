@@ -19,8 +19,8 @@ public class PlayerDeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
-        Config config = new Config("plugins//Positionator//"+ event.getEntity().getUniqueId().toString()+".conf");
+        NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+event.getEntity().getUniqueId().toString()+"//config.yml");
+        Config config = new Config("plugins//Positionator//Data//User//"+ event.getEntity().getUniqueId().toString()+"//data.conf");
         boolean finish = false;
         int temp = 1;
         Player player = event.getEntity();

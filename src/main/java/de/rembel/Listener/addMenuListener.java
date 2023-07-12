@@ -20,7 +20,7 @@ public class addMenuListener implements Listener {
                     String positionName = event.getView().getTitle().split(" ")[1];
                     switch(event.getCurrentItem().getType()){
                         case CHEST:
-                            Config publicconfig = new Config("plugins//Positionator//public.conf");
+                            Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
                             String publicposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
                             if(!publicconfig.existdata(positionName)){
                                 publicconfig.set(positionName,publicposition,player.getName(),player.getWorld().getEnvironment().name(),0);
@@ -31,7 +31,7 @@ public class addMenuListener implements Listener {
                             }
                             break;
                         case ENDER_CHEST:
-                            Config privateconfig = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
+                            Config privateconfig = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
                             String privateposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
                             if(!privateconfig.existdata(positionName)){
                                 privateconfig.set(positionName,privateposition,player.getName(),player.getWorld().getEnvironment().name(),0);
@@ -46,7 +46,7 @@ public class addMenuListener implements Listener {
                             break;
                     }
                     event.setCancelled(true);
-                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
                     if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
                 }
             }

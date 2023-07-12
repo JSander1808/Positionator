@@ -29,7 +29,7 @@ public class PrivateMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
-            Config config = new Config("plugins//Positionator//"+ player.getUniqueId().toString()+".conf");
+            Config config = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
             if(event.getView().getTitle().split(" ").length==7){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
                     int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);
@@ -121,7 +121,7 @@ public class PrivateMenuListener implements Listener {
                             break;
                     }
                     event.setCancelled(true);
-                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
                     if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
                 }
             }

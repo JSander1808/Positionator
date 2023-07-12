@@ -23,8 +23,15 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        Config playerConfig = new Config("plugins//Positionator//"+ event.getPlayer().getUniqueId().toString()+".conf");
+        Config playerData = new Config("plugins//Positionator//Data//User//"+ event.getPlayer().getUniqueId().toString()+"//data.conf");
+        playerData.init();
+
+        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+event.getPlayer().getUniqueId().toString()+"//config.yml");
         playerConfig.init();
+        if(!playerConfig.existdata("showDeathPositionInList")) playerConfig.set("showDeathPositionInList","true");
+        if(!playerConfig.existdata("setDeathPositionInBossbar")) playerConfig.set("setDeathPositionInBossbar","true");
+        if(!playerConfig.existdata("enableFilter")) playerConfig.set("enableFilter","true");
+        if(!playerConfig.existdata("enableMenuClickSound")) playerConfig.set("enableMenuClickSound","true");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
@@ -45,7 +52,10 @@ public class PlayerJoinListener implements Listener {
                 new UpdateChecker(PositionatorMain.getJavaPlugin(), 110375).getVersion(version -> {
                     if (!PositionatorMain.plugin.getDescription().getVersion().equals(version)) {
                         event.getPlayer().sendMessage(ChatColor.GREEN+"Positionator released a Update - "+ChatColor.GOLD+"V"+version);
-                        event.getPlayer().sendMessage(ChatColor.GREEN+"Check out what's new.");
+                        TextComponent pluginWebsite = new TextComponent(ChatColor.GOLD+"Check out what's new!");
+                        pluginWebsite.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://www.spigotmc.org/resources/positionator.110375/"));
+                        pluginWebsite.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(ChatColor.UNDERLINE+""+ChatColor.GOLD+"Click me")));
+                        event.getPlayer().spigot().sendMessage(pluginWebsite);
                     }
                 });
             }

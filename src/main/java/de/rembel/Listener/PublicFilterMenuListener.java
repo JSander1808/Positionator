@@ -61,7 +61,7 @@ public class PublicFilterMenuListener implements Listener {
                     break;
             }
             event.setCancelled(true);
-            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
             if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
         }else if(event.getView().getTitle().split(" ").length==6){
             if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Playername Filter "+event.getView().getTitle().split(" ")[3]+" / "+((General.getRegisteredPlayers().size()/(9*3))+1))){
@@ -99,7 +99,7 @@ public class PublicFilterMenuListener implements Listener {
                         break;
                 }
                 event.setCancelled(true);
-                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
                 if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
         }else if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Dimension Filter")){
@@ -145,7 +145,7 @@ public class PublicFilterMenuListener implements Listener {
                     break;
             }
             event.setCancelled(true);
-            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
+            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
             if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
         }
     }
