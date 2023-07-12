@@ -106,7 +106,6 @@ public class DataFixer {
                     BufferedReader reader = new BufferedReader(new FileReader(dataFile));
                     String tempData = null;
                     while((tempData = reader.readLine()) != null){
-                        System.out.println(tempData);
                         data.add(tempData);
                     }
                     reader.close();
@@ -128,6 +127,22 @@ public class DataFixer {
                 }
                 log("encoded data for File "+dataFile.toPath().toString());
             }
+
+            File publicFile = new File("plugins//Positionator//Data//public.conf");
+            BufferedReader reader = new BufferedReader(new FileReader(publicFile));
+            ArrayList<String> publicData = new ArrayList<String>();
+            String tempPublicData = null;
+            while((tempPublicData = reader.readLine()) != null){
+                publicData.add(tempPublicData);
+            }
+
+            PrintWriter writer = new PrintWriter(publicFile);
+            for(String tempData : publicData){
+                writer.write(General.encode(tempData)+"\n");
+            }
+            log("encoded public data");
+            writer.flush();
+            writer.close();
         }catch(Exception e){}
         return true;
     }
