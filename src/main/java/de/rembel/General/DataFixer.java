@@ -30,6 +30,8 @@ public class DataFixer {
         config.init();
         if(!config.existdata("enableDeletePositionsFromOtherPlayer")) config.set("enableDeletePositionsFromOtherPlayer","true");
         if(!config.existdata("sendUpdateMessages")) config.set("sendUpdateMessages","true");
+        if(!config.existdata("allowOpToTeleport")) config.set("allowOpToTeleport","false");
+        if(!config.existdata("allowPlayerToTeleport")) config.set("allowPlayerToTeleport","false");
         log("config initialized");
 
         log("completed");

@@ -30,6 +30,10 @@ public class PublicMenuListener implements Listener {
             Config config = new Config("plugins//Positionator//Data//public.conf");
             if(event.getView().getTitle().split(" ").length==7){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
+                    if(event.getCurrentItem() == null){
+                        event.setCancelled(true);
+                        return;
+                    }
                     int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);
                     int pagemax = Integer.valueOf(event.getView().getTitle().split(" ")[6]);
                     switch(event.getCurrentItem().getType()){
@@ -100,6 +104,18 @@ public class PublicMenuListener implements Listener {
                             deletelore.add(ChatColor.RED+"Created: "+config.get(positionName)[2]);
                             deletemeta.setLore(deletelore);
                             delete.setItemMeta(deletemeta);
+
+                            NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
+                            if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
+                                ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
+                                ItemMeta teleportMeta = teleport.getItemMeta();
+                                teleportMeta.setDisplayName(ChatColor.GREEN+"Teleport");
+                                ArrayList teleportLore = new ArrayList();
+                                teleportLore.add(ChatColor.GOLD+"You will be teleported to this point");
+                                teleportMeta.setLore(teleportLore);
+                                teleport.setItemMeta(teleportMeta);
+                                inv.setItem(5, teleport);
+                            }
 
                             ItemStack close = new ItemStack(Material.BARRIER);
                             ItemMeta closemeta = close.getItemMeta();

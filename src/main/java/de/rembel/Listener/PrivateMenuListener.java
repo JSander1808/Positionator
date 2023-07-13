@@ -32,6 +32,10 @@ public class PrivateMenuListener implements Listener {
             Config config = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
             if(event.getView().getTitle().split(" ").length==7){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
+                    if(event.getCurrentItem() == null){
+                        event.setCancelled(true);
+                        return;
+                    }
                     int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);
                     int pagemax = Integer.valueOf(event.getView().getTitle().split(" ")[6]);
                     switch(event.getCurrentItem().getType()){
@@ -108,6 +112,18 @@ public class PrivateMenuListener implements Listener {
                             ItemMeta closemeta = close.getItemMeta();
                             closemeta.setDisplayName(ChatColor.RED+"Close");
                             close.setItemMeta(closemeta);
+
+                            NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
+                            if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
+                                ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
+                                ItemMeta teleportMeta = teleport.getItemMeta();
+                                teleportMeta.setDisplayName(ChatColor.GREEN+"Teleport");
+                                ArrayList teleportLore = new ArrayList();
+                                teleportLore.add(ChatColor.GOLD+"You will be teleported to this point");
+                                teleportMeta.setLore(teleportLore);
+                                teleport.setItemMeta(teleportMeta);
+                                inv1.setItem(5, teleport);
+                            }
 
                             inv1.setItem(4,setOnBossbar);
                             inv1.setItem(0,delete);

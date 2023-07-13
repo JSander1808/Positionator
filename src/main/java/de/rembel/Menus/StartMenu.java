@@ -73,6 +73,10 @@ public class StartMenu {
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
             if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Positionator")){
+                if(event.getCurrentItem() == null){
+                    event.setCancelled(true);
+                    return;
+                }
                 switch(event.getCurrentItem().getType()){
                     case CHEST:
                         player.closeInventory();

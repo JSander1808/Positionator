@@ -26,6 +26,10 @@ public class PublicSettingsMenuListener implements Listener {
             Config config = new Config("plugins//Positionator//Data//public.conf");
             if(event.getView().getTitle().split(" ").length==4){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Settings - "+event.getView().getTitle().split(" ")[3])){
+                    if(event.getCurrentItem() == null){
+                        event.setCancelled(true);
+                        return;
+                    }
                     String positionName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"","");
                     switch(event.getCurrentItem().getType()){
                         case RED_WOOL:
@@ -81,6 +85,23 @@ public class PublicSettingsMenuListener implements Listener {
                                 player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your private list");
                             }else if(event.getClick() == ClickType.RIGHT){
                                 new PrivateMenu(player, 1);
+                            }
+                            break;
+                        case ENDER_PEARL:
+                            NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
+                            if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
+                                String[] cords = config.get(positionName)[1].split(" ");
+                                if(config.get(positionName)[3].equalsIgnoreCase("NORMAL")){
+                                    Location target = new Location(Bukkit.getWorld("world"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
+                                    player.teleport(target);
+                                }else if(config.get(positionName)[3].equalsIgnoreCase("NETHER")){
+                                    Location target = new Location(Bukkit.getWorld("world_nether"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
+                                    player.teleport(target);
+                                }else if(config.get(positionName)[3].equalsIgnoreCase("THE_END")){
+                                    Location target = new Location(Bukkit.getWorld("world_the_end"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
+                                    player.teleport(target);
+                                }
+                                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
                             }
                             break;
                         case SPRUCE_DOOR:

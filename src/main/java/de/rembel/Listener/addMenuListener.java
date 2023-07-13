@@ -17,6 +17,10 @@ public class addMenuListener implements Listener {
             Player player = (Player) event.getWhoClicked();
             if(event.getView().getTitle().split(" ").length==2){
                 if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Add "+event.getView().getTitle().split(" ")[1])){
+                    if(event.getCurrentItem() == null){
+                        event.setCancelled(true);
+                        return;
+                    }
                     String positionName = event.getView().getTitle().split(" ")[1];
                     switch(event.getCurrentItem().getType()){
                         case CHEST:

@@ -17,6 +17,10 @@ public class ConfirmationListener implements Listener {
     public void onClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Confirmation")){
+            if(event.getCurrentItem() == null){
+                event.setCancelled(true);
+                return;
+            }
             switch(event.getCurrentItem().getType()){
                 case GREEN_WOOL:
                     ((Command) Confirmation.Confirm.get(player.getUniqueId().toString())).execute();

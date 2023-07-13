@@ -49,6 +49,21 @@ public class AdminSettingsMenu {
         sendUpdateMessagesMeta.setLore(sendUpdateMessagesLore);
         sendUpdateMessages.setItemMeta(sendUpdateMessagesMeta);
 
+        ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
+        ItemMeta teleportMeta = teleport.getItemMeta();
+        teleportMeta.setDisplayName(ChatColor.GOLD+"Teleport");
+        ArrayList teleportLore = new ArrayList();
+        if(!config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
+            teleportLore.add(ChatColor.RED+"Inactive");
+        }else if(config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
+            teleportLore.add(ChatColor.GREEN+"Active (OP only)");
+        }else if(config.getBoolean("allowOpToTeleport") && config.getBoolean("allowPlayerToTeleport")){
+            teleportLore.add(ChatColor.GREEN+"Active (everyone)");
+        }
+        teleportLore.add(ChatColor.GRAY+"When active you can teleport to a location");
+        teleportMeta.setLore(teleportLore);
+        teleport.setItemMeta(teleportMeta);
+
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
@@ -62,6 +77,7 @@ public class AdminSettingsMenu {
 
         inv.setItem(0, deletePositionsFromOtherPlayer);
         inv.setItem(1, sendUpdateMessages);
+        inv.setItem(2, teleport);
         inv.setItem(25, back);
         inv.setItem(26, close);
 

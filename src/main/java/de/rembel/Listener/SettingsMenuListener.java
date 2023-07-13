@@ -15,6 +15,10 @@ public class SettingsMenuListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event){
         if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Settings")){
+            if(event.getCurrentItem() == null){
+                event.setCancelled(true);
+                return;
+            }
             Player player = (Player) event.getWhoClicked();
             NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
             switch(event.getCurrentItem().getType()){

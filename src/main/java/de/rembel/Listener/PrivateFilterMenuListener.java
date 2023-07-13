@@ -30,6 +30,10 @@ public class PrivateFilterMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Filter Menu")){
+            if(event.getCurrentItem() == null){
+                event.setCancelled(true);
+                return;
+            }
             switch(event.getCurrentItem().getType()){
                 case BARRIER:
                     player.closeInventory();
@@ -75,6 +79,10 @@ public class PrivateFilterMenuListener implements Listener {
             if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
         }else if(event.getView().getTitle().split(" ").length==6){
             if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Playername Filter "+event.getView().getTitle().split(" ")[3]+" / "+((General.getRegisteredPlayers().size()/(9*3))+1))){
+                if(event.getCurrentItem() == null){
+                    event.setCancelled(true);
+                    return;
+                }
                 int page = Integer.valueOf(event.getView().getTitle().split(" ")[3]);
                 int maxPage = Integer.valueOf((General.getRegisteredPlayers().size()/(9*3))+1);
                 switch(event.getCurrentItem().getType()){
@@ -113,6 +121,10 @@ public class PrivateFilterMenuListener implements Listener {
                 if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
         }else if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Dimension Filter")){
+            if(event.getCurrentItem() == null){
+                event.setCancelled(true);
+                return;
+            }
             switch(event.getCurrentItem().getType()){
                 case GRASS_BLOCK:
                     if(event.getClick() == ClickType.LEFT){
