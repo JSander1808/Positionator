@@ -6,6 +6,7 @@ import de.rembel.General.General;
 import de.rembel.General.PositionFilter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -90,7 +91,13 @@ public class PrivateMenu {
                     itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))][0]);
                     ArrayList<String> itemlore = new ArrayList<String>();
                     itemlore.add(ChatColor.GREEN+"Creator: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
-                    itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                    String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
+                    if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
+                        Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
+                        itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                    }else{
+                        itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                    }
                     itemlore.add(ChatColor.GREEN+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
@@ -102,7 +109,13 @@ public class PrivateMenu {
                         itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))][0]);
                         ArrayList<String> itemlore = new ArrayList<String>();
                         itemlore.add(ChatColor.RED+"Creator: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
-                        itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                        String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
+                        if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
+                            Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
+                            itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                        }else{
+                            itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                        }
                         itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
                         itemmeta.setLore(itemlore);
                         item.setItemMeta(itemmeta);

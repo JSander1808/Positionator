@@ -1,5 +1,7 @@
 package de.rembel.General;
 
+import org.bukkit.entity.Player;
+
 public class PositionFilter {
 
     private String Playername;

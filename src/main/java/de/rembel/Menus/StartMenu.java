@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class StartMenu {
 
     public StartMenu(Player player){
-        Inventory inv = Bukkit.createInventory(null, 9*1, ChatColor.GOLD+"Position-StartMenu");
+        Inventory inv = Bukkit.createInventory(null, 9*1, ChatColor.GOLD+"Positionator");
         for(int i = 0;i<9*1;i++){
             inv.setItem(i,placeholder());
         }
@@ -72,7 +72,7 @@ public class StartMenu {
     public static void startMenuListener(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
-            if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Position-StartMenu")){
+            if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Positionator")){
                 switch(event.getCurrentItem().getType()){
                     case CHEST:
                         player.closeInventory();

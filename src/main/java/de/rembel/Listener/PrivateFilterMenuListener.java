@@ -115,32 +115,65 @@ public class PrivateFilterMenuListener implements Listener {
         }else if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Dimension Filter")){
             switch(event.getCurrentItem().getType()){
                 case GRASS_BLOCK:
-                    if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
-                        General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("NORMAL");
-                    }else{
-                        PositionFilter filter = new PositionFilter();
-                        filter.setDimension("NORMAL");
-                        General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                    if(event.getClick() == ClickType.LEFT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("NORMAL");
+                        }else{
+                            PositionFilter filter = new PositionFilter();
+                            filter.setDimension("NORMAL");
+                            General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                        }
+                    }else if(event.getClick() == ClickType.RIGHT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            if(General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("NORMAL")){
+                                General.PrivateFilter.get(player.getUniqueId().toString()).removeDimension();
+                                if(!General.PrivateFilter.get(player.getUniqueId().toString()).hasPlayername()){
+                                    General.PrivateFilter.remove(player.getUniqueId().toString());
+                                }
+                            }
+                        }
                     }
                     PrivateFilterMenu.PrivateDimensionFilterMenu(player);
                     break;
                 case NETHERRACK:
-                    if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
-                        General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("NETHER");
-                    }else{
-                        PositionFilter filter = new PositionFilter();
-                        filter.setDimension("NETHER");
-                        General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                    if(event.getClick() == ClickType.LEFT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("NETHER");
+                        }else{
+                            PositionFilter filter = new PositionFilter();
+                            filter.setDimension("NETHER");
+                            General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                        }
+                    }else if(event.getClick() == ClickType.RIGHT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            if(General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("NETHER")){
+                                General.PrivateFilter.get(player.getUniqueId().toString()).removeDimension();
+                                if(!General.PrivateFilter.get(player.getUniqueId().toString()).hasPlayername()){
+                                    General.PrivateFilter.remove(player.getUniqueId().toString());
+                                }
+                            }
+                        }
                     }
                     PrivateFilterMenu.PrivateDimensionFilterMenu(player);
                     break;
                 case END_STONE:
-                    if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
-                        General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("THE_END");
-                    }else{
-                        PositionFilter filter = new PositionFilter();
-                        filter.setDimension("THE_END");
-                        General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                    if(event.getClick() == ClickType.LEFT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            General.PrivateFilter.get(player.getUniqueId().toString()).setDimension("THE_END");
+                        }else{
+                            PositionFilter filter = new PositionFilter();
+                            filter.setDimension("THE_END");
+                            General.PrivateFilter.put(player.getUniqueId().toString(),filter);
+                        }
+                    }else if(event.getClick() == ClickType.RIGHT){
+                        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                            if(General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("THE_END")){
+                                General.PrivateFilter.get(player.getUniqueId().toString()).removeDimension();
+                                if(!General.PrivateFilter.get(player.getUniqueId().toString()).hasPlayername()){
+                                    General.PrivateFilter.remove(player.getUniqueId().toString());
+                                }
+                            }
+                        }
                     }
                     PrivateFilterMenu.PrivateDimensionFilterMenu(player);
                     break;
