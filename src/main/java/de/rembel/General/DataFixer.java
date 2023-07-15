@@ -4,6 +4,7 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.Config.OldNormalConfig;
 import de.rembel.Main.PositionatorMain;
+import de.rembel.Menus.BackUpMenu;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
@@ -188,6 +189,8 @@ public class DataFixer {
                 throw new RuntimeException(e);
             }
             log("update buildVersion");
+            BackUpManager backUpManager = new BackUpManager();
+            backUpManager.createBackUp("System", "Filesystem updated");
             return true;
         }
         return false;

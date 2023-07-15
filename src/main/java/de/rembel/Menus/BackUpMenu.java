@@ -44,6 +44,15 @@ public class BackUpMenu {
         createBackUpMeta.setDisplayName(ChatColor.GOLD+"Create BackUp");
         createBackUp.setItemMeta(createBackUpMeta);
 
+        ItemStack shortInfo = new ItemStack(Material.PAPER);
+        ItemMeta shortInfoMeta = shortInfo.getItemMeta();
+        shortInfoMeta.setDisplayName(ChatColor.GOLD+"Short Info");
+        ArrayList shortInfoLore = new ArrayList();
+        shortInfoLore.add(ChatColor.GREEN+"BackUps: "+ChatColor.BLUE+new File("plugins//Positionator_BackUp//").listFiles().length);
+        shortInfoLore.add(ChatColor.GREEN+"Size of all BackUps: "+ChatColor.BLUE+(folderSize(new File("plugins//Positionator_BackUp//")) / 1024) + " KB");
+        shortInfoMeta.setLore(shortInfoLore);
+        shortInfo.setItemMeta(shortInfoMeta);
+
 
         for(int i = 0;i<45;i++){
             if(new File("plugins//Positionator_BackUp//").listFiles().length>i+((page-1)*45)){
@@ -69,6 +78,7 @@ public class BackUpMenu {
         }
 
         inv.setItem(52, createBackUp);
+        inv.setItem(48, shortInfo);
         inv.setItem(45,previouspage);
         inv.setItem(51,nextpage);
         inv.setItem(53,close);
@@ -82,5 +92,16 @@ public class BackUpMenu {
         nulmeta.setDisplayName(" ");
         nul.setItemMeta(nulmeta);
         return nul;
+    }
+
+    public static long folderSize(File directory) {
+        long length = 0;
+        for (File file : directory.listFiles()) {
+            if (file.isFile())
+                length += file.length();
+            else
+                length += folderSize(file);
+        }
+        return length;
     }
 }

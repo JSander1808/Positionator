@@ -79,8 +79,8 @@ public class PrivateMenuListener implements Listener {
                                     ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
                                     setInOtherListMeta.setDisplayName(ChatColor.GREEN+"Add "+positionName1+" to public list");
                                     ArrayList setInOtherListLore = new ArrayList();
-                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: add");
-                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Right-Click: open public list");
+                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: Add");
+                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Right-Click: Open public list");
                                     setInOtherListMeta.setLore(setInOtherListLore);
                                     setInOtherList.setItemMeta(setInOtherListMeta);
                                     inv1.setItem(3,setInOtherList);
