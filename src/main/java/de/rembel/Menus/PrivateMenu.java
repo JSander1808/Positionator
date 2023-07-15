@@ -112,9 +112,9 @@ public class PrivateMenu {
                         String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
                         if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
                             Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
-                            itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                            itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
                         }else{
-                            itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                            itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
                         }
                         itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
                         itemmeta.setLore(itemlore);

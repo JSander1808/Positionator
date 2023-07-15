@@ -73,6 +73,7 @@ public class NormalConfig {
             while((temp = reader.readLine())!=null){
                 String[] result = temp.split(prefix);
                 if(result[0].equalsIgnoreCase(keyword)){
+                    reader.close();
                     return result[1];
                 }
             }

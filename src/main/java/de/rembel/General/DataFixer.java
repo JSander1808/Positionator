@@ -5,6 +5,7 @@ import de.rembel.Config.NormalConfig;
 import de.rembel.Config.OldNormalConfig;
 import de.rembel.Main.PositionatorMain;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.StringUtil;
 
 import java.io.*;
 import java.nio.file.Files;

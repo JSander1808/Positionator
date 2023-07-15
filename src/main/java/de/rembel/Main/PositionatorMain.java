@@ -1,14 +1,13 @@
 package de.rembel.Main;
 
+import de.rembel.Commands.BackUpCommand;
 import de.rembel.Commands.PositionCommand;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.Config.OldNormalConfig;
-import de.rembel.General.DataFixer;
-import de.rembel.General.General;
-import de.rembel.General.PositionFilter;
-import de.rembel.General.UpdateChecker;
+import de.rembel.General.*;
 import de.rembel.Listener.*;
+import de.rembel.TabComplet.BackUpCompletor;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -32,6 +31,8 @@ public final class PositionatorMain extends JavaPlugin {
 
         Metrics metrics = new Metrics(this,  	18738);
 
+        BackUpManager backUpManager = new BackUpManager();
+
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new InventoryListener(),this);
         pluginManager.registerEvents(new PublicMenuListener(),this);
@@ -47,13 +48,17 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new ConfirmationListener(), this);
         pluginManager.registerEvents(new SettingsMenuListener(), this);
         pluginManager.registerEvents(new AdminSettingsMenuListener(), this);
+        pluginManager.registerEvents(new BackUpMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
+        getCommand("backup").setExecutor(new BackUpCommand());
+        getCommand("backup").setTabCompleter(new BackUpCompletor());
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        BackUpManager backUpManager = new BackUpManager();
+        backUpManager.createBackUp("System", "Server Shutdown");
     }
 
     public static Plugin getPlugin() {
