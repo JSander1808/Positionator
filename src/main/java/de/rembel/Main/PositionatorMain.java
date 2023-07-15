@@ -57,8 +57,12 @@ public final class PositionatorMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        BackUpManager backUpManager = new BackUpManager();
-        backUpManager.createBackUp("System", "Server Shutdown");
+        NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
+        config.init();
+        if(config.getBoolean("createBackUpByServerRestart")){
+            BackUpManager backUpManager = new BackUpManager();
+            backUpManager.createBackUp("System", "Server Shutdown");
+        }
     }
 
     public static Plugin getPlugin() {

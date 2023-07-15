@@ -6,10 +6,10 @@ import de.rembel.General.General;
 import de.rembel.Menus.PublicFilterMenu;
 import de.rembel.Menus.PublicMenu;
 import de.rembel.Menus.StartMenu;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -64,70 +64,94 @@ public class PublicMenuListener implements Listener {
                             player.closeInventory();
                             break;
                         case CHEST:
-                            Inventory inv = Bukkit.createInventory(null, 1*9,ChatColor.GOLD+"Public Settings - "+event.getCurrentItem().getItemMeta().getDisplayName());
-                            for(int i = 0;i<1*9;i++){
-                                inv.setItem(i,placeholder());
+                            if(event.getClick() == ClickType.LEFT){
+                                Inventory inv = Bukkit.createInventory(null, 1*9,ChatColor.GOLD+"Public Settings - "+event.getCurrentItem().getItemMeta().getDisplayName());
+                                for(int i = 0;i<1*9;i++){
+                                    inv.setItem(i,placeholder());
+                                }
+                                String positionName = event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");;
+
+                                if(event.getCurrentItem().getType() == Material.CHEST){
+                                    ItemStack setInOtherList = new ItemStack(Material.ENDER_CHEST);
+                                    ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
+                                    setInOtherListMeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to private list");
+                                    ArrayList setInOtherListLore = new ArrayList();
+                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: add");
+                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Rechts-Click: open public list.");
+                                    setInOtherListMeta.setLore(setInOtherListLore);
+                                    setInOtherList.setItemMeta(setInOtherListMeta);
+                                    inv.setItem(3,setInOtherList);
+                                }
+
+                                ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
+                                ItemMeta backmeta = back.getItemMeta();
+                                backmeta.setDisplayName(ChatColor.GOLD+"Back");
+                                back.setItemMeta(backmeta);
+
+                                ItemStack setOnBossbar = new ItemStack(Material.BEACON);
+                                ItemMeta setOnBossbarmeta = setOnBossbar.getItemMeta();
+                                setOnBossbarmeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to Bossbar");
+                                ArrayList setOnBossbarlore = new ArrayList();
+                                setOnBossbarlore.add(ChatColor.GOLD+"The coordinates are displayed in the Bossbar ");
+                                setOnBossbarlore.add(ChatColor.GOLD+"so you can always see them");
+                                setOnBossbarlore.add(ChatColor.DARK_GRAY+"(Can be deleted again in the start menu)");
+                                setOnBossbarmeta.setLore(setOnBossbarlore);
+                                setOnBossbar.setItemMeta(setOnBossbarmeta);
+
+                                ItemStack delete = new ItemStack(Material.RED_WOOL);
+                                ItemMeta deletemeta = delete.getItemMeta();
+                                deletemeta.setDisplayName(ChatColor.RED+"Delete "+positionName);
+                                ArrayList deletelore = new ArrayList();
+                                deletelore.add(ChatColor.RED+"Created: "+config.get(positionName)[2]);
+                                deletemeta.setLore(deletelore);
+                                delete.setItemMeta(deletemeta);
+
+                                NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
+                                if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
+                                    ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
+                                    ItemMeta teleportMeta = teleport.getItemMeta();
+                                    teleportMeta.setDisplayName(ChatColor.GREEN+"Teleport");
+                                    ArrayList teleportLore = new ArrayList();
+                                    teleportLore.add(ChatColor.GOLD+"You will be teleported to this point");
+                                    teleportMeta.setLore(teleportLore);
+                                    teleport.setItemMeta(teleportMeta);
+                                    inv.setItem(5, teleport);
+                                }
+
+                                ItemStack close = new ItemStack(Material.BARRIER);
+                                ItemMeta closemeta = close.getItemMeta();
+                                closemeta.setDisplayName(ChatColor.RED+"Close");
+                                close.setItemMeta(closemeta);
+
+                                inv.setItem(4,setOnBossbar);
+                                inv.setItem(0,delete);
+                                inv.setItem(7, back);
+                                inv.setItem(8,close);
+
+                                player.openInventory(inv);
+                            }else if(event.getClick() == ClickType.SHIFT_LEFT){
+                                event.setCancelled(true);
+                                if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
+                                    Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
+                                    Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
+                                }
+
+                                General.BossBarPosition.remove(player.getUniqueId().toString());
+
+                                if(!config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3], BarColor.GREEN, BarStyle.SOLID);
+                                    bar.setProgress(1.0);
+                                    bar.addPlayer(player);
+                                }else{
+                                    String[] position = config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1].split(" ");
+                                    Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1]+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
+                                    bar.setProgress(1.0);
+                                    bar.addPlayer(player);
+                                }
+
+                                General.BossBarPosition.put(player.getUniqueId().toString(), config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3]+"->"+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1]);
                             }
-                            String positionName = event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");;
-
-                            if(event.getCurrentItem().getType() == Material.CHEST){
-                                ItemStack setInOtherList = new ItemStack(Material.ENDER_CHEST);
-                                ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
-                                setInOtherListMeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to private list");
-                                ArrayList setInOtherListLore = new ArrayList();
-                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: add");
-                                setInOtherListLore.add(ChatColor.DARK_GRAY+"Rechts-Click: open public list.");
-                                setInOtherListMeta.setLore(setInOtherListLore);
-                                setInOtherList.setItemMeta(setInOtherListMeta);
-                                inv.setItem(3,setInOtherList);
-                            }
-
-                            ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
-                            ItemMeta backmeta = back.getItemMeta();
-                            backmeta.setDisplayName(ChatColor.GOLD+"Back");
-                            back.setItemMeta(backmeta);
-
-                            ItemStack setOnBossbar = new ItemStack(Material.BEACON);
-                            ItemMeta setOnBossbarmeta = setOnBossbar.getItemMeta();
-                            setOnBossbarmeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to Bossbar");
-                            ArrayList setOnBossbarlore = new ArrayList();
-                            setOnBossbarlore.add(ChatColor.GOLD+"The coordinates are displayed in the Bossbar ");
-                            setOnBossbarlore.add(ChatColor.GOLD+"so you can always see them");
-                            setOnBossbarlore.add(ChatColor.DARK_GRAY+"(Can be deleted again in the start menu)");
-                            setOnBossbarmeta.setLore(setOnBossbarlore);
-                            setOnBossbar.setItemMeta(setOnBossbarmeta);
-
-                            ItemStack delete = new ItemStack(Material.RED_WOOL);
-                            ItemMeta deletemeta = delete.getItemMeta();
-                            deletemeta.setDisplayName(ChatColor.RED+"Delete "+positionName);
-                            ArrayList deletelore = new ArrayList();
-                            deletelore.add(ChatColor.RED+"Created: "+config.get(positionName)[2]);
-                            deletemeta.setLore(deletelore);
-                            delete.setItemMeta(deletemeta);
-
-                            NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
-                            if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
-                                ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
-                                ItemMeta teleportMeta = teleport.getItemMeta();
-                                teleportMeta.setDisplayName(ChatColor.GREEN+"Teleport");
-                                ArrayList teleportLore = new ArrayList();
-                                teleportLore.add(ChatColor.GOLD+"You will be teleported to this point");
-                                teleportMeta.setLore(teleportLore);
-                                teleport.setItemMeta(teleportMeta);
-                                inv.setItem(5, teleport);
-                            }
-
-                            ItemStack close = new ItemStack(Material.BARRIER);
-                            ItemMeta closemeta = close.getItemMeta();
-                            closemeta.setDisplayName(ChatColor.RED+"Close");
-                            close.setItemMeta(closemeta);
-
-                            inv.setItem(4,setOnBossbar);
-                            inv.setItem(0,delete);
-                            inv.setItem(7, back);
-                            inv.setItem(8,close);
-
-                            player.openInventory(inv);
                             break;
                         default:
                             break;

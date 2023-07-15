@@ -64,6 +64,20 @@ public class AdminSettingsMenu {
         teleportMeta.setLore(teleportLore);
         teleport.setItemMeta(teleportMeta);
 
+        ItemStack backUpByServerRestart = new ItemStack(Material.RESPAWN_ANCHOR);
+        ItemMeta backUpByServerRestartMeta = backUpByServerRestart.getItemMeta();
+        backUpByServerRestartMeta.setDisplayName(ChatColor.GOLD+"Auto BackUp");
+        ArrayList backUpByServerRestartLore = new ArrayList();
+        if(config.getBoolean("createBackUpByServerRestart")){
+            backUpByServerRestartLore.add(ChatColor.GREEN+"Active");
+        }else{
+            backUpByServerRestartLore.add(ChatColor.RED+"Inactive");
+        }
+        backUpByServerRestartLore.add(ChatColor.GRAY+"When active, the server automatically backs up");
+        backUpByServerRestartLore.add(ChatColor.GRAY+"the plugin data from the Positionator plugin.");
+        backUpByServerRestartMeta.setLore(backUpByServerRestartLore);
+        backUpByServerRestart.setItemMeta(backUpByServerRestartMeta);
+
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
@@ -78,6 +92,7 @@ public class AdminSettingsMenu {
         inv.setItem(0, deletePositionsFromOtherPlayer);
         inv.setItem(1, sendUpdateMessages);
         inv.setItem(2, teleport);
+        inv.setItem(3, backUpByServerRestart);
         inv.setItem(25, back);
         inv.setItem(26, close);
 

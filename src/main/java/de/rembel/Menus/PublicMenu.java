@@ -97,6 +97,9 @@ public class PublicMenu {
                         itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
                     }
                     itemlore.add(ChatColor.GREEN+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                    itemlore.add(" ");
+                    itemlore.add(ChatColor.DARK_GRAY+"Left-Click: Open Position Settings");
+                    itemlore.add(ChatColor.DARK_GRAY+"Shift + Left-Click: Set Position in Bossbar");
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);
@@ -114,6 +117,9 @@ public class PublicMenu {
                         itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
                     }
                     itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                    itemlore.add(" ");
+                    itemlore.add(ChatColor.DARK_GRAY+"Left-Click: Open Position Settings");
+                    itemlore.add(ChatColor.DARK_GRAY+"Shift + Left-Click: Set Position in Bossbar");
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);

@@ -58,6 +58,8 @@ public class Config {
                 writer.write(General.encode(data.get(i).toString())+"\n");
             }
             writer.flush();
+            writer.close();
+            reader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -78,6 +80,7 @@ public class Config {
                     for(int i = 1;i< result.length;i++){
                         finalresult[i] = result[i];
                     }
+                    reader.close();
                     return finalresult;
                 }
             }
@@ -108,10 +111,12 @@ public class Config {
                 String[] result = temp.split("->");
                 if(result[0].equalsIgnoreCase(keyword)){
                     if(result.length>=2){
+                        reader.close();
                         return true;
                     }
                 }
             }
+            reader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -138,6 +143,7 @@ public class Config {
             for(int i = 0;i< data.size();i++){
                 finalData[i] = data.get(i);
             }
+            reader.close();
             return finalData;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -165,6 +171,7 @@ public class Config {
             for(int i = 0;i< data.size();i++){
                 finalData[i] = data.get(i);
             }
+            reader.close();
             return finalData;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -192,6 +199,8 @@ public class Config {
                 writer.write(General.encode(data.get(i).toString())+"\n");
             }
             writer.flush();
+            writer.close();
+            reader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

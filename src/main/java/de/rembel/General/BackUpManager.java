@@ -81,6 +81,7 @@ public class BackUpManager {
         deleteFolder(new File("plugins//Positionator//"));
         unzip("plugins//Positionator_BackUp//"+backUpId+"//"+backUpId+".zip", new File("plugins//"));
         log("loading BackUp completed");
+        new DataFixer();
         return true;
     }
 

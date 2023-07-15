@@ -35,15 +35,17 @@ public class PlayerJoinListener implements Listener {
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
-        if(!config.existdata("firstUse")){
+        if(!config.existdata("firstUse") && event.getPlayer().isOp()){
             config.set("firstUse","false");
             event.getPlayer().sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
+            event.getPlayer().sendMessage(ChatColor.BLUE+"/backup "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
         }else if(config.get("firstUse").equalsIgnoreCase("true")){
             event.getPlayer().sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
             event.getPlayer().sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
+            event.getPlayer().sendMessage(ChatColor.BLUE+"/backup "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
             config.set("firstUse","false");
         }
 

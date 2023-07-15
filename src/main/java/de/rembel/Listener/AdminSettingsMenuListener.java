@@ -1,7 +1,9 @@
 package de.rembel.Listener;
 
 import de.rembel.Config.NormalConfig;
+import de.rembel.General.Command;
 import de.rembel.Menus.AdminSettingsMenu;
+import de.rembel.Menus.Confirmation;
 import de.rembel.Menus.StartMenu;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -24,6 +26,25 @@ public class AdminSettingsMenuListener implements Listener {
             switch(event.getCurrentItem().getType()){
                 default:
                     break;
+                case RESPAWN_ANCHOR:
+                    if(player.isOp()){
+                        if(config.getBoolean("createBackUpByServerRestart")){
+                            Command confirm = () -> {
+                                config.set("createBackUpByServerRestart", "false");
+                                new AdminSettingsMenu(player);
+                            };
+                            Command cancel = () -> {
+                                new AdminSettingsMenu(player);
+                            };
+                            new Confirmation(player, confirm, cancel);
+                        }else{
+                            config.set("createBackUpByServerRestart", "true");
+                            new AdminSettingsMenu(player);
+                        }
+                    }else{
+                        player.sendMessage(ChatColor.RED+"You are not a Operator");
+                    }
+                    break;
                 case COMPARATOR:
                     if(player.isOp()){
                         if(config.getBoolean("enableDeletePositionsFromOtherPlayer")){
@@ -39,11 +60,18 @@ public class AdminSettingsMenuListener implements Listener {
                 case BELL:
                     if(player.isOp()){
                         if(config.getBoolean("sendUpdateMessages")){
-                            config.set("sendUpdateMessages","false");
+                            Command confirm = () -> {
+                                config.set("sendUpdateMessages","false");
+                                new AdminSettingsMenu(player);
+                            };
+                            Command cancel = () -> {
+                                new AdminSettingsMenu(player);
+                            };
+                            new Confirmation(player, confirm, cancel);
                         }else{
                             config.set("sendUpdateMessages","true");
+                            new AdminSettingsMenu(player);
                         }
-                        new AdminSettingsMenu(player);
                     }else{
                         player.sendMessage(ChatColor.RED+"You are not a Operator");
                     }

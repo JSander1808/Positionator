@@ -16,22 +16,25 @@ public class BackUpCompletor implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
-        String[] commands = new String[]{"create", "load", "delete"};
-        String[] load = new String[new File("plugins//Positionator_BackUp//").list().length];
+        if(sender.isOp()){
+            String[] commands = new String[]{"create", "load", "delete"};
+            String[] load = new String[new File("plugins//Positionator_BackUp//").list().length];
 
-        for(int i = 0;i<new File("plugins//Positionator_BackUp//").list().length;i++){
-            load[i] = new File("plugins//Positionator_BackUp//").listFiles()[i].getName();
+            for(int i = 0;i<new File("plugins//Positionator_BackUp//").list().length;i++){
+                load[i] = new File("plugins//Positionator_BackUp//").listFiles()[i].getName();
+            }
+
+            List<String> collection = new ArrayList<String>();
+
+            if(args.length<=1){
+                StringUtil.copyPartialMatches(args[0], Arrays.asList(commands), collection);
+            }else if((args[0].equalsIgnoreCase("load") || args[0].equalsIgnoreCase("delete")) && args.length == 2){
+                StringUtil.copyPartialMatches(args[1], Arrays.asList(load), collection);
+            }
+
+            Collections.sort(collection);
+            return collection;
         }
-
-        List<String> collection = new ArrayList<String>();
-
-        if(args.length<=1){
-            StringUtil.copyPartialMatches(args[0], Arrays.asList(commands), collection);
-        }else if((args[0].equalsIgnoreCase("load") || args[0].equalsIgnoreCase("delete")) && args.length == 2){
-            StringUtil.copyPartialMatches(args[1], Arrays.asList(load), collection);
-        }
-
-        Collections.sort(collection);
-        return collection;
+        return null;
     }
 }
