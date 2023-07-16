@@ -24,13 +24,14 @@ public class DataFixer {
 
         if(checkVersion(1)) Fix1();
         if(checkVersion(2)) Fix2();
+        if(checkVersion(3)) Fix3();
 
 
 
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
-        if(!config.existdata("enableDeletePositionsFromOtherPlayer")) config.set("enableDeletePositionsFromOtherPlayer","true");
+        if(!config.existdata("enableEditPositionsFromOtherPlayer")) config.set("enableEditPositionsFromOtherPlayer","true");
         if(!config.existdata("sendUpdateMessages")) config.set("sendUpdateMessages","true");
         if(!config.existdata("allowOpToTeleport")) config.set("allowOpToTeleport","false");
         if(!config.existdata("allowPlayerToTeleport")) config.set("allowPlayerToTeleport","false");
@@ -149,6 +150,14 @@ public class DataFixer {
             writer.flush();
             writer.close();
         }catch(Exception e){}
+        return true;
+    }
+
+    private boolean Fix3(){
+        NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
+        boolean data = config.getBoolean("enableDeletePositionsFromOtherPlayer");
+        config.remove("enableDeletePositionsFromOtherPlayer");
+        config.set("enableEditPositionsFromOtherPlayer",String.valueOf(data));
         return true;
     }
 

@@ -36,8 +36,15 @@ public class PublicSettingsMenuListener implements Listener {
                         return;
                     }
                     String positionName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"","");
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
                     switch(event.getCurrentItem().getType()){
                         case NAME_TAG:
+                            if(!normalConfig.getBoolean("enableEditPositionsFromOtherPlayer")){
+                                if(!player.getName().equalsIgnoreCase(event.getCurrentItem().getItemMeta().getLore().get(0).split(" ")[1])){
+                                    player.sendMessage(ChatColor.RED+"You cannot edit this position because someone else created it.");
+                                    break;
+                                }
+                            }
                             event.setCancelled(true);
 
                             new AnvilGUI.Builder()
@@ -72,8 +79,7 @@ public class PublicSettingsMenuListener implements Listener {
                                     .open(player);
                             break;
                         case RED_WOOL:
-                            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//config.yml");
-                            if(!normalConfig.getBoolean("enableDeletePositionsFromOtherPlayer")){
+                            if(!normalConfig.getBoolean("enableEditPositionsFromOtherPlayer")){
                                 if(!player.getName().equalsIgnoreCase(event.getCurrentItem().getItemMeta().getLore().get(0).split(" ")[1])){
                                     player.sendMessage(ChatColor.RED+"You cannot delete this position because someone else created it.");
                                     break;
@@ -154,8 +160,8 @@ public class PublicSettingsMenuListener implements Listener {
                             break;
                     }
                     event.setCancelled(true);
-                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
-                    if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
+                    NormalConfig tempConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                    if(tempConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
                 }
             }
         }

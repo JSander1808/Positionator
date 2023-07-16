@@ -135,5 +135,32 @@ public class NormalConfig {
         }
     }
 
+    public boolean remove(String keyword){
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            ArrayList data = new ArrayList();
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                String[] result = temp.split(prefix);
+                if(!result[0].equalsIgnoreCase(keyword)){
+                    data.add(temp+"\n");
+                }
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for(int i = 0;i<data.size();i++){
+                writer.write(data.get(i).toString());
+            }
+            writer.flush();
+            writer.close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
 }

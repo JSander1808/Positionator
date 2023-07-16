@@ -25,7 +25,7 @@ public class AdminSettingsMenu {
         ItemMeta deletePositionFromOtherPlayerMeta = deletePositionsFromOtherPlayer.getItemMeta();
         deletePositionFromOtherPlayerMeta.setDisplayName(ChatColor.GOLD+"Allow Player to delete position from other player");
         ArrayList deletePositionFromOtherPlayerLore = new ArrayList();
-        if(config.getBoolean("enableDeletePositionsFromOtherPlayer")){
+        if(config.getBoolean("enableEditPositionsFromOtherPlayer")){
             deletePositionFromOtherPlayerLore.add(ChatColor.GREEN+"Active");
         }else{
             deletePositionFromOtherPlayerLore.add(ChatColor.RED+"Inactive");

@@ -47,10 +47,10 @@ public class AdminSettingsMenuListener implements Listener {
                     break;
                 case COMPARATOR:
                     if(player.isOp()){
-                        if(config.getBoolean("enableDeletePositionsFromOtherPlayer")){
-                            config.set("enableDeletePositionsFromOtherPlayer","false");
+                        if(config.getBoolean("enableEditPositionsFromOtherPlayer")){
+                            config.set("enableEditPositionsFromOtherPlayer","false");
                         }else{
-                            config.set("enableDeletePositionsFromOtherPlayer","true");
+                            config.set("enableEditPositionsFromOtherPlayer","true");
                         }
                         new AdminSettingsMenu(player);
                     }else{
