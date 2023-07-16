@@ -106,6 +106,15 @@ public class PublicMenuListener implements Listener {
                                 deletemeta.setLore(deletelore);
                                 delete.setItemMeta(deletemeta);
 
+                                ItemStack rename = new ItemStack(Material.NAME_TAG);
+                                ItemMeta renameMeta = rename.getItemMeta();
+                                renameMeta.setDisplayName(ChatColor.GREEN+"Rename");
+                                ArrayList renameLore = new ArrayList();
+                                renameLore.add(ChatColor.GOLD+"If you rename something you can enter ");
+                                renameLore.add(ChatColor.GOLD+"the new name in the chat.");
+                                renameMeta.setLore(renameLore);
+                                rename.setItemMeta(renameMeta);
+
                                 NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
                                 if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
                                     ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
@@ -124,6 +133,7 @@ public class PublicMenuListener implements Listener {
                                 close.setItemMeta(closemeta);
 
                                 inv.setItem(4,setOnBossbar);
+                                inv.setItem(2, rename);
                                 inv.setItem(0,delete);
                                 inv.setItem(7, back);
                                 inv.setItem(8,close);

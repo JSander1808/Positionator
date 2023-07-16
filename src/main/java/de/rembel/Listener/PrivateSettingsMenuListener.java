@@ -4,9 +4,13 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
 import de.rembel.General.General;
+import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.Confirmation;
 import de.rembel.Menus.PrivateMenu;
+import de.rembel.Menus.PrivateSettingsMenu;
 import de.rembel.Menus.PublicMenu;
+import de.rembel.TextInput.TextInputService;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -17,6 +21,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class PrivateSettingsMenuListener implements Listener {
 
@@ -33,6 +41,42 @@ public class PrivateSettingsMenuListener implements Listener {
                     }
                     String positionName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");
                     switch(event.getCurrentItem().getType()){
+                        case NAME_TAG:
+                            event.setCancelled(true);
+
+                            new AnvilGUI.Builder()
+                                    .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
+                                        if(slot != AnvilGUI.Slot.OUTPUT) {
+                                            return Collections.emptyList();
+                                        }
+
+                                        if(stateSnapshot.getText() != null && stateSnapshot.getText() != ""){
+                                            String oldName = event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");
+                                            String message = stateSnapshot.getText();
+                                            String newName = message.split(" ")[0];
+                                            for(int i = 1;i< message.split(" ").length;i++){
+                                                newName +="-"+message.split(" ")[i];
+                                            }
+                                            for(int i = 0;i<100;i++){
+                                                newName = newName.replace("->","");
+                                            }
+                                            if(config.existdata(newName)) return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Allready exists"));
+                                            if(config.existdata(oldName)) config.rename(oldName, newName);
+                                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
+                                            player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+ChatColor.GREEN+" successfully renamed");
+                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
+                                        }else{
+                                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Invalid Name"));
+                                        }
+                                    })
+                                    .preventClose()
+                                    .text(event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))                              //sets the text the GUI should start with
+                                    .title(ChatColor.GOLD+"Rename Position")                                       //set the title of the GUI (only works in 1.14+)
+                                    .plugin(PositionatorMain.getPlugin())                                          //set the plugin instance
+                                    .open(player);
+
+
+                            break;
                         case RED_WOOL:
                             Command confirm = ()-> {
                                 config.remove(positionName);
@@ -75,8 +119,12 @@ public class PrivateSettingsMenuListener implements Listener {
                         case CHEST:
                             if(event.getClick() == ClickType.LEFT){
                                 Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
-                                publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
-                                player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your public list");
+                                if(publicconfig.existdata(positionName)){
+                                    player.sendMessage(ChatColor.RED+"There is already a position with this name in the Public List. Rename them and try again!");
+                                }else{
+                                    publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
+                                    player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your public list");
+                                }
                             }else if(event.getClick() == ClickType.RIGHT){
                                 new PublicMenu(player, 1);
                             }

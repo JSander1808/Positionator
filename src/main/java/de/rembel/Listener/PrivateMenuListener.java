@@ -114,6 +114,15 @@ public class PrivateMenuListener implements Listener {
                                 closemeta.setDisplayName(ChatColor.RED+"Close");
                                 close.setItemMeta(closemeta);
 
+                                ItemStack rename = new ItemStack(Material.NAME_TAG);
+                                ItemMeta renameMeta = rename.getItemMeta();
+                                renameMeta.setDisplayName(ChatColor.GREEN+"Rename");
+                                ArrayList renameLore = new ArrayList();
+                                renameLore.add(ChatColor.GOLD+"If you rename something you can enter ");
+                                renameLore.add(ChatColor.GOLD+"the new name in the chat.");
+                                renameMeta.setLore(renameLore);
+                                rename.setItemMeta(renameMeta);
+
                                 NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
                                 if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
                                     ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
@@ -127,6 +136,7 @@ public class PrivateMenuListener implements Listener {
                                 }
 
                                 inv1.setItem(4,setOnBossbar);
+                                if(event.getCurrentItem().getType() == Material.CHEST) {inv1.setItem(2, rename);}else{inv1.setItem(3, rename);}
                                 inv1.setItem(0,delete);
                                 inv1.setItem(8,close);
                                 inv1.setItem(7, back);

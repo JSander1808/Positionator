@@ -8,6 +8,8 @@ import de.rembel.Config.OldNormalConfig;
 import de.rembel.General.*;
 import de.rembel.Listener.*;
 import de.rembel.TabComplet.BackUpCompletor;
+import de.rembel.TextInput.ChatListener;
+import de.rembel.TextInput.TextInputService;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -49,6 +51,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new SettingsMenuListener(), this);
         pluginManager.registerEvents(new AdminSettingsMenuListener(), this);
         pluginManager.registerEvents(new BackUpMenuListener(), this);
+        pluginManager.registerEvents(new ChatListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());
@@ -57,6 +60,7 @@ public final class PositionatorMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getScheduler().cancelTask(TextInputService.ServiceTaskId);
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
         if(config.getBoolean("createBackUpByServerRestart")){

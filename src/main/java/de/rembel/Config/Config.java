@@ -33,7 +33,37 @@ public class Config {
         }
     }
 
-    public void set(String keyword, String value,String author,String dimension,int type){
+    public boolean rename(String oldKey, String newKey){
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            ArrayList data = new ArrayList();
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                String[] result = temp.split("->");
+                if(result[0].equalsIgnoreCase(oldKey)){
+                    data.add(newKey+"->"+result[1]+"->"+result[2]+"->"+result[3]+"->"+result[4]);
+                }else{
+                    data.add(temp);
+                }
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for(int i = 0;i<data.size();i++){
+                writer.write(General.encode(data.get(i).toString())+"\n");
+            }
+            writer.flush();
+            writer.close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean set(String keyword, String value,String author,String dimension,int type){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -65,6 +95,7 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     public String[] get(String keyword){
@@ -109,7 +140,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equalsIgnoreCase(keyword)){
+                if(result[0].equals(keyword)){
                     if(result.length>=2){
                         reader.close();
                         return true;
@@ -180,7 +211,7 @@ public class Config {
         }
     }
 
-    public void remove(String keyword){
+    public boolean remove(String keyword){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -206,5 +237,6 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 }
