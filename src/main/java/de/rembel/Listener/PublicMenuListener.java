@@ -109,10 +109,6 @@ public class PublicMenuListener implements Listener {
                                 ItemStack rename = new ItemStack(Material.NAME_TAG);
                                 ItemMeta renameMeta = rename.getItemMeta();
                                 renameMeta.setDisplayName(ChatColor.GREEN+"Rename");
-                                ArrayList renameLore = new ArrayList();
-                                renameLore.add(ChatColor.GOLD+"If you rename something you can enter ");
-                                renameLore.add(ChatColor.GOLD+"the new name in the chat.");
-                                renameMeta.setLore(renameLore);
                                 rename.setItemMeta(renameMeta);
 
                                 NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
