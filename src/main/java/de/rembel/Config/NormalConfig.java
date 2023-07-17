@@ -87,10 +87,14 @@ public class NormalConfig {
     }
 
     public boolean exist(){
-        File file = new File(path);
-        if(file.exists()){
-            return true;
-        }else{
+        try{
+            File file = new File(path);
+            if(file.exists()){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception e){
             return false;
         }
     }

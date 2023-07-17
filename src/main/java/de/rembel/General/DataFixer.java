@@ -16,6 +16,7 @@ import java.util.logging.Level;
 public class DataFixer {
 
     private Plugin plugin = PositionatorMain.getPlugin();
+    private boolean hasCreatedBackup = false;
 
     public DataFixer(){
         log("started...");
@@ -155,9 +156,11 @@ public class DataFixer {
 
     private boolean Fix3(){
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
-        boolean data = config.getBoolean("enableDeletePositionsFromOtherPlayer");
-        config.remove("enableDeletePositionsFromOtherPlayer");
-        config.set("enableEditPositionsFromOtherPlayer",String.valueOf(data));
+        if(config.exist() && config.existdata("enableDeletePositionsFromOtherPlayer")){
+            boolean data = config.getBoolean("enableDeletePositionsFromOtherPlayer");
+            config.remove("enableDeletePositionsFromOtherPlayer");
+            config.set("enableEditPositionsFromOtherPlayer",String.valueOf(data));
+        }
         return true;
     }
 
@@ -198,8 +201,11 @@ public class DataFixer {
                 throw new RuntimeException(e);
             }
             log("update buildVersion");
-            BackUpManager backUpManager = new BackUpManager();
-            backUpManager.createBackUp("System", "Filesystem updated");
+            if(!hasCreatedBackup){
+                BackUpManager backUpManager = new BackUpManager();
+                backUpManager.createBackUp("System", "Filesystem updated");
+                hasCreatedBackup = true;
+            }
             return true;
         }
         return false;
