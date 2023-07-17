@@ -1,6 +1,7 @@
 package de.rembel.Menus;
 
 import de.rembel.General.General;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,7 +20,8 @@ public class PublicFilterMenu {
     public static Inventory inv;
 
     public PublicFilterMenu(Player player){
-        inv = Bukkit.createInventory(null, 3*9, ChatColor.GOLD+"Public Filter Menu");
+        LanguageManager language = new LanguageManager(player);
+        inv = Bukkit.createInventory(null, 3*9, language.transalte(62));
 
         for(int i = 0;i<9*3;i++){
             inv.setItem(i,placeholder());
@@ -27,18 +29,18 @@ public class PublicFilterMenu {
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
         ItemMeta backmeta = back.getItemMeta();
-        backmeta.setDisplayName(ChatColor.GOLD+"Back");
+        backmeta.setDisplayName(language.transalteDefaultEnglish(12));
         back.setItemMeta(backmeta);
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
         ItemStack FilterPlayername = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta FilterPlayernameMeta = (SkullMeta) FilterPlayername.getItemMeta();
         FilterPlayernameMeta.setOwner(player.getName());
-        FilterPlayernameMeta.setDisplayName(ChatColor.GOLD+"Playername");
+        FilterPlayernameMeta.setDisplayName(language.transalte(63));
         ArrayList FilterPlayernameLore = new ArrayList();
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             if(General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
@@ -50,7 +52,7 @@ public class PublicFilterMenu {
 
         ItemStack FilterDimension = new ItemStack(Material.END_PORTAL_FRAME);
         ItemMeta FilterDimensionMeta = FilterDimension.getItemMeta();
-        FilterDimensionMeta.setDisplayName(ChatColor.GOLD+"Dimension");
+        FilterDimensionMeta.setDisplayName(language.transalte(64));
         ArrayList FilterDimensionLore = new ArrayList();
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
@@ -70,7 +72,8 @@ public class PublicFilterMenu {
     }
 
     public static void PublicPlayernameFilterMenu(Player player, int page){
-        Inventory inventory = Bukkit.createInventory(null, 3*9, ChatColor.GOLD+"Public Playername Filter "+page+" / "+((General.getRegisteredPlayers().size()/(9*3))+1));
+        LanguageManager language = new LanguageManager(player);
+        Inventory inventory = Bukkit.createInventory(null, 3*9, language.transalte(65)+page+" / "+((General.getRegisteredPlayers().size()/(9*3))+1));
 
         for(int i = 0;i<9*3;i++){
             inventory.setItem(i,placeholder());
@@ -78,22 +81,22 @@ public class PublicFilterMenu {
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
         ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta previousmeta = previouspage.getItemMeta();
-        previousmeta.setDisplayName(ChatColor.GOLD+"Previous Page");
+        previousmeta.setDisplayName(language.transalte(11));
         previouspage.setItemMeta(previousmeta);
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
         ItemMeta backmeta = back.getItemMeta();
-        backmeta.setDisplayName(ChatColor.GOLD+"Back");
+        backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
         ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta nextmeta = nextpage.getItemMeta();
-        nextmeta.setDisplayName(ChatColor.GOLD+"Next Page");
+        nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 
         ArrayList<String> Players = General.getRegisteredPlayers();
@@ -109,7 +112,7 @@ public class PublicFilterMenu {
                 if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
                     if(General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
                         if(General.PublicFilter.get(player.getUniqueId().toString()).getPlayername().equalsIgnoreCase(Players.get(i+(multiplier*(page-1))))){
-                            playerSkullLore.add(ChatColor.GREEN+"Active");
+                            playerSkullLore.add(language.transalte(66));
                             playerSkull.addUnsafeEnchantment(Enchantment.LURE,1);
                         }
                     }
@@ -130,7 +133,8 @@ public class PublicFilterMenu {
     }
 
     public static void PublicDimensionFilterMenu(Player player){
-        Inventory inventory = Bukkit.createInventory(null, 3*9, ChatColor.GOLD+"Public Dimension Filter");
+        LanguageManager language = new LanguageManager(player);
+        Inventory inventory = Bukkit.createInventory(null, 3*9, language.transalte(67));
 
         for(int i = 0;i<9*3;i++){
             inventory.setItem(i,placeholder());
@@ -138,12 +142,12 @@ public class PublicFilterMenu {
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
         ItemMeta backmeta = back.getItemMeta();
-        backmeta.setDisplayName(ChatColor.GOLD+"Back");
+        backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
         ItemStack overworld = new ItemStack(Material.GRASS_BLOCK);
@@ -153,7 +157,7 @@ public class PublicFilterMenu {
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
                 if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("NORMAL")){
-                    overworldLore.add(ChatColor.GREEN+"Active");
+                    overworldLore.add(language.transalte(66));
                 }
             }
         }
@@ -167,7 +171,7 @@ public class PublicFilterMenu {
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
                 if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("NETHER")){
-                    netherLore.add(ChatColor.GREEN+"Active");
+                    netherLore.add(language.transalte(66));
                 }
             }
         }
@@ -181,7 +185,7 @@ public class PublicFilterMenu {
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
                 if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equalsIgnoreCase("THE_END")){
-                    endLore.add(ChatColor.GREEN+"Active");
+                    endLore.add(language.transalte(66));
                 }
             }
         }

@@ -1,6 +1,7 @@
 package de.rembel.Menus;
 
 import de.rembel.Config.NormalConfig;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 public class AdminSettingsMenu {
 
     public AdminSettingsMenu(Player player){
-        Inventory inv = Bukkit.createInventory(null, 9*3, ChatColor.RED+"Admin Settings");
+        LanguageManager language = new LanguageManager(player);
+        Inventory inv = Bukkit.createInventory(null, 9*3, language.transalte(83));
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
 
         for(int i = 0;i<9*3;i++){
@@ -23,70 +25,70 @@ public class AdminSettingsMenu {
 
         ItemStack deletePositionsFromOtherPlayer = new ItemStack(Material.COMPARATOR);
         ItemMeta deletePositionFromOtherPlayerMeta = deletePositionsFromOtherPlayer.getItemMeta();
-        deletePositionFromOtherPlayerMeta.setDisplayName(ChatColor.GOLD+"Allow Player to delete position from other player");
+        deletePositionFromOtherPlayerMeta.setDisplayName(language.transalte(84));
         ArrayList deletePositionFromOtherPlayerLore = new ArrayList();
         if(config.getBoolean("enableEditPositionsFromOtherPlayer")){
-            deletePositionFromOtherPlayerLore.add(ChatColor.GREEN+"Active");
+            deletePositionFromOtherPlayerLore.add(language.transalte(66));
         }else{
-            deletePositionFromOtherPlayerLore.add(ChatColor.RED+"Inactive");
+            deletePositionFromOtherPlayerLore.add(language.transalte(73));
         }
-        deletePositionFromOtherPlayerLore.add(ChatColor.GRAY+"When active, players in the public list");
-        deletePositionFromOtherPlayerLore.add(ChatColor.GRAY+"can delete positions from other players.");
+        deletePositionFromOtherPlayerLore.add(language.transalte(85));
+        deletePositionFromOtherPlayerLore.add(language.transalte(86));
         deletePositionFromOtherPlayerMeta.setLore(deletePositionFromOtherPlayerLore);
         deletePositionsFromOtherPlayer.setItemMeta(deletePositionFromOtherPlayerMeta);
 
         ItemStack sendUpdateMessages = new ItemStack(Material.BELL);
         ItemMeta sendUpdateMessagesMeta = sendUpdateMessages.getItemMeta();
-        sendUpdateMessagesMeta.setDisplayName(ChatColor.GOLD+"Send update messages");
+        sendUpdateMessagesMeta.setDisplayName(language.transalte(87));
         ArrayList sendUpdateMessagesLore = new ArrayList();
         if(config.getBoolean("sendUpdateMessages")){
-            sendUpdateMessagesLore.add(ChatColor.GREEN+"Active");
+            sendUpdateMessagesLore.add(language.transalte(66));
         }else{
-            sendUpdateMessagesLore.add(ChatColor.RED+"Inactive");
+            sendUpdateMessagesLore.add(language.transalte(73));
         }
-        sendUpdateMessagesLore.add(ChatColor.GRAY+"If active you will be sent a");
-        sendUpdateMessagesLore.add(ChatColor.GRAY+"message when there is a new update.");
+        sendUpdateMessagesLore.add(language.transalte(88));
+        sendUpdateMessagesLore.add(language.transalte(89));
         sendUpdateMessagesMeta.setLore(sendUpdateMessagesLore);
         sendUpdateMessages.setItemMeta(sendUpdateMessagesMeta);
 
         ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
         ItemMeta teleportMeta = teleport.getItemMeta();
-        teleportMeta.setDisplayName(ChatColor.GOLD+"Teleport");
+        teleportMeta.setDisplayName(language.transalte(90));
         ArrayList teleportLore = new ArrayList();
         if(!config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(ChatColor.RED+"Inactive");
+            teleportLore.add(language.transalte(73));
         }else if(config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(ChatColor.GREEN+"Active (OP only)");
+            teleportLore.add(language.transalte(91));
         }else if(config.getBoolean("allowOpToTeleport") && config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(ChatColor.GREEN+"Active (everyone)");
+            teleportLore.add(language.transalte(92));
         }
-        teleportLore.add(ChatColor.GRAY+"When active you can teleport to a location");
+        teleportLore.add(language.transalte(93));
         teleportMeta.setLore(teleportLore);
         teleport.setItemMeta(teleportMeta);
 
         ItemStack backUpByServerRestart = new ItemStack(Material.RESPAWN_ANCHOR);
         ItemMeta backUpByServerRestartMeta = backUpByServerRestart.getItemMeta();
-        backUpByServerRestartMeta.setDisplayName(ChatColor.GOLD+"Auto BackUp");
+        backUpByServerRestartMeta.setDisplayName(language.transalte(94));
         ArrayList backUpByServerRestartLore = new ArrayList();
         if(config.getBoolean("createBackUpByServerRestart")){
-            backUpByServerRestartLore.add(ChatColor.GREEN+"Active");
+            backUpByServerRestartLore.add(language.transalte(66));
         }else{
-            backUpByServerRestartLore.add(ChatColor.RED+"Inactive");
+            backUpByServerRestartLore.add(language.transalte(73));
         }
-        backUpByServerRestartLore.add(ChatColor.GRAY+"When active, the server automatically backs up");
-        backUpByServerRestartLore.add(ChatColor.GRAY+"the plugin data from the Positionator plugin.");
+        backUpByServerRestartLore.add(language.transalte(95));
+        backUpByServerRestartLore.add(language.transalte(96));
         backUpByServerRestartMeta.setLore(backUpByServerRestartLore);
         backUpByServerRestart.setItemMeta(backUpByServerRestartMeta);
 
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
         ItemMeta backmeta = back.getItemMeta();
-        backmeta.setDisplayName(ChatColor.GOLD+"Back");
+        backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
         inv.setItem(0, deletePositionsFromOtherPlayer);

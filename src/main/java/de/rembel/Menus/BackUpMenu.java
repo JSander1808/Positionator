@@ -2,6 +2,7 @@ package de.rembel.Menus;
 
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -18,7 +19,9 @@ import java.util.Date;
 public class BackUpMenu {
 
     public BackUpMenu(Player player, int page){
-        Inventory inv = Bukkit.createInventory(null, 9*6, ChatColor.GOLD+"BackUps - Page "+page+" / "+((new File("plugins//Positionator_BackUp//").listFiles().length/(9*5))+1));
+        LanguageManager language = new LanguageManager(player);
+        Inventory inv = Bukkit.createInventory(null, 9*6, language.transalte(109)+page+" / "+((new File("plugins//Positionator_BackUp//").listFiles().length/(9*5))+1));
+        player.openInventory(inv);
 
         for(int i = 0;i<9*6;i++){
             inv.setItem(i,placeholder());
@@ -26,32 +29,38 @@ public class BackUpMenu {
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalteDefaultEnglish(10));
         close.setItemMeta(closemeta);
 
         ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta previousmeta = previouspage.getItemMeta();
-        previousmeta.setDisplayName(ChatColor.GOLD+"Previous Page");
+        previousmeta.setDisplayName(language.transalte(11));
         previouspage.setItemMeta(previousmeta);
 
         ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta nextmeta = nextpage.getItemMeta();
-        nextmeta.setDisplayName(ChatColor.GOLD+"Next Page");
+        nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 
         ItemStack createBackUp = new ItemStack(Material.RESPAWN_ANCHOR);
         ItemMeta createBackUpMeta = createBackUp.getItemMeta();
-        createBackUpMeta.setDisplayName(ChatColor.GOLD+"Create BackUp");
+        createBackUpMeta.setDisplayName(language.transalte(120));
         createBackUp.setItemMeta(createBackUpMeta);
 
         ItemStack shortInfo = new ItemStack(Material.PAPER);
         ItemMeta shortInfoMeta = shortInfo.getItemMeta();
-        shortInfoMeta.setDisplayName(ChatColor.GOLD+"Short Info");
+        shortInfoMeta.setDisplayName(language.transalte(110));
         ArrayList shortInfoLore = new ArrayList();
-        shortInfoLore.add(ChatColor.GREEN+"BackUps: "+ChatColor.BLUE+new File("plugins//Positionator_BackUp//").listFiles().length);
-        shortInfoLore.add(ChatColor.GREEN+"Size of all BackUps: "+ChatColor.BLUE+(folderSize(new File("plugins//Positionator_BackUp//")) / 1024) + " KB");
+        shortInfoLore.add(language.transalte(111)+ChatColor.BLUE+new File("plugins//Positionator_BackUp//").listFiles().length);
+        shortInfoLore.add(language.transalte(112)+ChatColor.BLUE+(folderSize(new File("plugins//Positionator_BackUp//")) / 1024) + " KB");
         shortInfoMeta.setLore(shortInfoLore);
         shortInfo.setItemMeta(shortInfoMeta);
+
+        inv.setItem(52, createBackUp);
+        inv.setItem(48, shortInfo);
+        inv.setItem(45,previouspage);
+        inv.setItem(51,nextpage);
+        inv.setItem(53,close);
 
 
         for(int i = 0;i<45;i++){
@@ -63,27 +72,19 @@ public class BackUpMenu {
                 backupMeta.setDisplayName(ChatColor.GOLD+backUpId);
                 ArrayList backupLore = new ArrayList();
                 String[] date = config.get("date").split("\\.");
-                backupLore.add(ChatColor.GREEN+"Created: "+ChatColor.BLUE+date[0]+"."+date[1]+"."+date[2]+"  "+date[3]+":"+date[4]+":"+date[5]);
-                backupLore.add(ChatColor.GREEN+"Plugin Version: "+ChatColor.BLUE+config.get("version"));
-                backupLore.add(ChatColor.GREEN+"Creator: "+ChatColor.BLUE+config.get("creator"));
-                backupLore.add(ChatColor.GREEN+"Reason: "+ChatColor.BLUE+config.get("reason"));
-                backupLore.add(ChatColor.GREEN+"Size: "+ChatColor.BLUE+config.get("size"));
+                backupLore.add(language.transalte(113)+ChatColor.BLUE+date[0]+"."+date[1]+"."+date[2]+"  "+date[3]+":"+date[4]+":"+date[5]);
+                backupLore.add(language.transalte(114)+ChatColor.BLUE+config.get("version"));
+                backupLore.add(language.transalte(115)+ChatColor.BLUE+config.get("creator"));
+                backupLore.add(language.transalte(116)+ChatColor.BLUE+config.get("reason"));
+                backupLore.add(language.transalte(117)+ChatColor.BLUE+config.get("size"));
                 backupLore.add(" ");
-                backupLore.add(ChatColor.DARK_GRAY+"Left-Click: Load BackUp");
-                backupLore.add(ChatColor.DARK_GRAY+"Right-Click: Delete BackUp");
+                backupLore.add(language.transalte(118));
+                backupLore.add(language.transalte(119));
                 backupMeta.setLore(backupLore);
                 backup.setItemMeta(backupMeta);
                 inv.setItem(i, backup);
             }
         }
-
-        inv.setItem(52, createBackUp);
-        inv.setItem(48, shortInfo);
-        inv.setItem(45,previouspage);
-        inv.setItem(51,nextpage);
-        inv.setItem(53,close);
-
-        player.openInventory(inv);
     }
 
     public static ItemStack placeholder(){

@@ -2,6 +2,7 @@ package de.rembel.General;
 
 import com.google.common.base.Stopwatch;
 import de.rembel.Config.NormalConfig;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -76,7 +77,8 @@ public class BackUpManager {
     public boolean loadBackUp(String backUpId){
         log("load BackUp: "+backUpId);
         for(Player player : Bukkit.getOnlinePlayers()){
-            player.kickPlayer(ChatColor.RED+"Reason: Positionator load BackUp \n"+ChatColor.GOLD+"You can join again in a few seconds");
+            LanguageManager language = new LanguageManager(player);
+            player.kickPlayer(language.transalte(131)+ChatColor.GOLD+language.transalte(132));
         }
         deleteFolder(new File("plugins//Positionator//"));
         unzip("plugins//Positionator_BackUp//"+backUpId+"//"+backUpId+".zip", new File("plugins//"));

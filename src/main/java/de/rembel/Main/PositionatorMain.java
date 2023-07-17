@@ -6,12 +6,14 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.Config.OldNormalConfig;
 import de.rembel.General.*;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Listener.*;
 import de.rembel.TabComplet.BackUpCompletor;
 import de.rembel.TextInput.ChatListener;
 import de.rembel.TextInput.TextInputService;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +32,11 @@ public final class PositionatorMain extends JavaPlugin {
         javaPlugin = this;
 
         new DataFixer();
+
+        LanguageManager.LanguageInit();
+        for(Player player : Bukkit.getOnlinePlayers()){
+            PlayerJoinListener.initPlayerData(player);
+        }
 
         Metrics metrics = new Metrics(this,  	18738);
 
@@ -52,6 +59,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new AdminSettingsMenuListener(), this);
         pluginManager.registerEvents(new BackUpMenuListener(), this);
         pluginManager.registerEvents(new ChatListener(), this);
+        pluginManager.registerEvents(new LanguageMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());
@@ -60,7 +68,6 @@ public final class PositionatorMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getScheduler().cancelTask(TextInputService.ServiceTaskId);
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
         if(config.getBoolean("createBackUpByServerRestart")){

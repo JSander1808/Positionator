@@ -1,6 +1,7 @@
 package de.rembel.Menus;
 
 import de.rembel.General.Command;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,20 +18,21 @@ public class Confirmation {
     public static HashMap<String, Command> Cancel = new HashMap<String, Command>();
 
     public Confirmation(Player player, Command confirmCommand, Command cancelCommand){
+        LanguageManager language = new LanguageManager(player);
         removeConfirmation(player);
         Confirm.put(player.getUniqueId().toString(), confirmCommand);
         Cancel.put(player.getUniqueId().toString(), cancelCommand);
 
-        Inventory inv = Bukkit.createInventory(null, 1*9, ChatColor.GOLD+"Confirmation");
+        Inventory inv = Bukkit.createInventory(null, 1*9, language.transalte(97));
 
         ItemStack confirm = new ItemStack(Material.GREEN_WOOL);
         ItemMeta confirmMeta = confirm.getItemMeta();
-        confirmMeta.setDisplayName(ChatColor.GREEN+"Confirm");
+        confirmMeta.setDisplayName(language.transalte(98));
         confirm.setItemMeta(confirmMeta);
 
         ItemStack cancel = new ItemStack(Material.RED_WOOL);
         ItemMeta cancelMeta = cancel.getItemMeta();
-        cancelMeta.setDisplayName(ChatColor.RED+"Cancel");
+        cancelMeta.setDisplayName(language.transalteDefaultEnglish(99));
         cancel.setItemMeta(cancelMeta);
 
         inv.setItem(3,confirm);

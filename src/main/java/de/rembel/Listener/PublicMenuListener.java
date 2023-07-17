@@ -3,6 +3,7 @@ package de.rembel.Listener;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.PublicFilterMenu;
 import de.rembel.Menus.PublicMenu;
 import de.rembel.Menus.StartMenu;
@@ -25,11 +26,12 @@ public class PublicMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
             Config config = new Config("plugins//Positionator//Data//public.conf");
             if(event.getView().getTitle().split(" ").length==7){
-                if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Public Liste - Page "+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
+                if(event.getView().getTitle().equalsIgnoreCase(language.transalte(9)+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
                     if(event.getCurrentItem() == null){
                         event.setCancelled(true);
                         return;
@@ -46,12 +48,12 @@ public class PublicMenuListener implements Listener {
                             }
                             break;
                         case SPRUCE_SIGN:
-                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Previous Page")&&page>1){
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
                                 new PublicMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
                             }else{
                                 event.setCancelled(true);
                             }
-                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Next Page")&&page<pagemax){
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(13))&&page<pagemax){
                                 new PublicMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])+1);
                             }else{
                                 event.setCancelled(true);
@@ -65,7 +67,7 @@ public class PublicMenuListener implements Listener {
                             break;
                         case CHEST:
                             if(event.getClick() == ClickType.LEFT){
-                                Inventory inv = Bukkit.createInventory(null, 1*9,ChatColor.GOLD+"Public Settings - "+event.getCurrentItem().getItemMeta().getDisplayName());
+                                Inventory inv = Bukkit.createInventory(null, 1*9,language.transalte(47)+event.getCurrentItem().getItemMeta().getDisplayName());
                                 for(int i = 0;i<1*9;i++){
                                     inv.setItem(i,placeholder());
                                 }
@@ -74,10 +76,10 @@ public class PublicMenuListener implements Listener {
                                 if(event.getCurrentItem().getType() == Material.CHEST){
                                     ItemStack setInOtherList = new ItemStack(Material.ENDER_CHEST);
                                     ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
-                                    setInOtherListMeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to private list");
+                                    setInOtherListMeta.setDisplayName(language.transalte(31)+positionName+language.transalte(48));
                                     ArrayList setInOtherListLore = new ArrayList();
-                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Left-Click: Add");
-                                    setInOtherListLore.add(ChatColor.DARK_GRAY+"Rechts-Click: Open public list.");
+                                    setInOtherListLore.add(language.transalte(33));
+                                    setInOtherListLore.add(language.transalte(34));
                                     setInOtherListMeta.setLore(setInOtherListLore);
                                     setInOtherList.setItemMeta(setInOtherListMeta);
                                     inv.setItem(3,setInOtherList);
@@ -85,39 +87,39 @@ public class PublicMenuListener implements Listener {
 
                                 ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
                                 ItemMeta backmeta = back.getItemMeta();
-                                backmeta.setDisplayName(ChatColor.GOLD+"Back");
+                                backmeta.setDisplayName(language.transalte(12));
                                 back.setItemMeta(backmeta);
 
                                 ItemStack setOnBossbar = new ItemStack(Material.BEACON);
                                 ItemMeta setOnBossbarmeta = setOnBossbar.getItemMeta();
-                                setOnBossbarmeta.setDisplayName(ChatColor.GREEN+"Add "+positionName+" to Bossbar");
+                                setOnBossbarmeta.setDisplayName(language.transalte(31)+positionName+language.transalte(35));
                                 ArrayList setOnBossbarlore = new ArrayList();
-                                setOnBossbarlore.add(ChatColor.GOLD+"The coordinates are displayed in the Bossbar ");
-                                setOnBossbarlore.add(ChatColor.GOLD+"so you can always see them");
-                                setOnBossbarlore.add(ChatColor.DARK_GRAY+"(Can be deleted again in the start menu)");
+                                setOnBossbarlore.add(language.transalte(36));
+                                setOnBossbarlore.add(language.transalte(37));
+                                setOnBossbarlore.add(language.transalte(38));
                                 setOnBossbarmeta.setLore(setOnBossbarlore);
                                 setOnBossbar.setItemMeta(setOnBossbarmeta);
 
                                 ItemStack delete = new ItemStack(Material.RED_WOOL);
                                 ItemMeta deletemeta = delete.getItemMeta();
-                                deletemeta.setDisplayName(ChatColor.RED+"Delete "+positionName);
+                                deletemeta.setDisplayName(language.transalte(39)+positionName);
                                 ArrayList deletelore = new ArrayList();
-                                deletelore.add(ChatColor.RED+"Created: "+config.get(positionName)[2]);
+                                deletelore.add(language.transalte(40)+config.get(positionName)[2]);
                                 deletemeta.setLore(deletelore);
                                 delete.setItemMeta(deletemeta);
 
                                 ItemStack rename = new ItemStack(Material.NAME_TAG);
                                 ItemMeta renameMeta = rename.getItemMeta();
-                                renameMeta.setDisplayName(ChatColor.GREEN+"Rename");
+                                renameMeta.setDisplayName(language.transalte(41));
                                 rename.setItemMeta(renameMeta);
 
                                 NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
                                 if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
                                     ItemStack teleport = new ItemStack(Material.ENDER_PEARL);
                                     ItemMeta teleportMeta = teleport.getItemMeta();
-                                    teleportMeta.setDisplayName(ChatColor.GREEN+"Teleport");
+                                    teleportMeta.setDisplayName(language.transalte(42));
                                     ArrayList teleportLore = new ArrayList();
-                                    teleportLore.add(ChatColor.GOLD+"You will be teleported to this point");
+                                    teleportLore.add(language.transalte(43));
                                     teleportMeta.setLore(teleportLore);
                                     teleport.setItemMeta(teleportMeta);
                                     inv.setItem(5, teleport);
@@ -125,7 +127,7 @@ public class PublicMenuListener implements Listener {
 
                                 ItemStack close = new ItemStack(Material.BARRIER);
                                 ItemMeta closemeta = close.getItemMeta();
-                                closemeta.setDisplayName(ChatColor.RED+"Close");
+                                closemeta.setDisplayName(language.transalte(10));
                                 close.setItemMeta(closemeta);
 
                                 inv.setItem(4,setOnBossbar);
@@ -145,13 +147,13 @@ public class PublicMenuListener implements Listener {
                                 General.BossBarPosition.remove(player.getUniqueId().toString());
 
                                 if(!config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3], BarColor.GREEN, BarStyle.SOLID);
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[3], BarColor.GREEN, BarStyle.SOLID);
                                     bar.setProgress(1.0);
                                     bar.addPlayer(player);
                                 }else{
                                     String[] position = config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1].split(" ");
                                     Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1]+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""))[1]+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
                                     bar.setProgress(1.0);
                                     bar.addPlayer(player);
                                 }

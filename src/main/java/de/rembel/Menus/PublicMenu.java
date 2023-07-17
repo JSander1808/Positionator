@@ -4,6 +4,7 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.PositionFilter;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -24,9 +25,10 @@ public class PublicMenu {
     public static Inventory inv;
 
     public PublicMenu(Player player, int page){
+        LanguageManager language = new LanguageManager(player);
         Config config = new Config("plugins//Positionator//Data//public.conf");
         NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
-        inv = Bukkit.createInventory(null,9*6, ChatColor.GOLD+"Public Liste - Page "+page+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1));
+        inv = Bukkit.createInventory(null,9*6, language.transalte(9)+page+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1));
         player.openInventory(inv);
 
         for(int i = 0;i<9*6;i++){
@@ -35,45 +37,45 @@ public class PublicMenu {
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
-        closemeta.setDisplayName(ChatColor.RED+"Close");
+        closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
         ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta previousmeta = previouspage.getItemMeta();
-        previousmeta.setDisplayName(ChatColor.GOLD+"Previous Page");
+        previousmeta.setDisplayName(language.transalte(11));
         previouspage.setItemMeta(previousmeta);
 
         ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
         ItemMeta backmeta = back.getItemMeta();
-        backmeta.setDisplayName(ChatColor.GOLD+"Back");
+        backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
         ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
         ItemMeta nextmeta = nextpage.getItemMeta();
-        nextmeta.setDisplayName(ChatColor.GOLD+"Next Page");
+        nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 
         ItemStack filter = new ItemStack(Material.PAPER);
         ItemMeta filterMeta = filter.getItemMeta();
-        filterMeta.setDisplayName(ChatColor.GOLD+"Filter");
+        filterMeta.setDisplayName(language.transalte(14));
         ArrayList filterLore = new ArrayList();
-        filterLore.add(ChatColor.GRAY+"Active filters:");
+        filterLore.add(language.transalte(15));
         if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
             filter.addUnsafeEnchantment(Enchantment.LURE, 1);
             filterMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             PositionFilter filterData = General.PublicFilter.get(player.getUniqueId().toString());
             if(filterData.hasPlayername()){
-                filterLore.add(ChatColor.GREEN+"-Player ("+filterData.getPlayername()+")");
+                filterLore.add(language.transalte(16)+"("+filterData.getPlayername()+")");
             }
             if(filterData.hasDimension()){
-                filterLore.add(ChatColor.GREEN+"-Dimension ("+filterData.getDimension()+")");
+                filterLore.add(language.transalte(17)+"("+filterData.getDimension()+")");
             }
         }else{
-            filterLore.add(ChatColor.GRAY+"No active filters!");
+            filterLore.add(language.transalte(18));
         }
         filterLore.add(" ");
-        filterLore.add(ChatColor.DARK_GRAY+"Left-Click: Edit filters");
-        filterLore.add(ChatColor.DARK_GRAY+"Right-Click: Reset all active filters");
+        filterLore.add(language.transalte(19));
+        filterLore.add(language.transalte(20));
         filterMeta.setLore(filterLore);
         filter.setItemMeta(filterMeta);
 
@@ -88,18 +90,18 @@ public class PublicMenu {
                     ItemMeta itemmeta = item.getItemMeta();
                     itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))][0]);
                     ArrayList<String> itemlore = new ArrayList<String>();
-                    itemlore.add(ChatColor.GREEN+"Creator: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
+                    itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
                     String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
                         Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
-                        itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
                     }else{
-                        itemlore.add(ChatColor.GREEN+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
                     }
-                    itemlore.add(ChatColor.GREEN+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                    itemlore.add(language.transalte(23)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
                     itemlore.add(" ");
-                    itemlore.add(ChatColor.DARK_GRAY+"Left-Click: Open Position Settings");
-                    itemlore.add(ChatColor.DARK_GRAY+"Shift + Left-Click: Set Position in Bossbar");
+                    itemlore.add(language.transalte(24));
+                    itemlore.add(language.transalte(25));
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);
@@ -108,18 +110,18 @@ public class PublicMenu {
                     ItemMeta itemmeta = item.getItemMeta();
                     itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))][0]);
                     ArrayList<String> itemlore = new ArrayList<String>();
-                    itemlore.add(ChatColor.RED+"Creator: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
+                    itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
                     String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
                         Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
-                        itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
                     }else{
-                        itemlore.add(ChatColor.RED+"Coordinates: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
                     }
-                    itemlore.add(ChatColor.RED+"Dimension: "+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                    itemlore.add(language.transalte(23)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
                     itemlore.add(" ");
-                    itemlore.add(ChatColor.DARK_GRAY+"Left-Click: Open Position Settings");
-                    itemlore.add(ChatColor.DARK_GRAY+"Shift + Left-Click: Set Position in Bossbar");
+                    itemlore.add(language.transalte(24));
+                    itemlore.add(language.transalte(25));
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);

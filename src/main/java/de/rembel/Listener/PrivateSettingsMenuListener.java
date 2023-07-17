@@ -4,6 +4,7 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
 import de.rembel.General.General;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.Confirmation;
 import de.rembel.Menus.PrivateMenu;
@@ -30,11 +31,12 @@ public class PrivateSettingsMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
             Config config = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
             if(event.getView().getTitle().split(" ").length==4){
-                if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Settings - "+event.getView().getTitle().split(" ")[3])){
+                if(event.getView().getTitle().equalsIgnoreCase(language.transalte(30)+event.getView().getTitle().split(" ")[3])){
                     if(event.getCurrentItem() == null){
                         event.setCancelled(true);
                         return;
@@ -43,11 +45,16 @@ public class PrivateSettingsMenuListener implements Listener {
                     switch(event.getCurrentItem().getType()){
                         case NAME_TAG:
                             event.setCancelled(true);
+                            player.sendMessage(language.transalte(58)+ChatColor.GOLD+"'cancel'"+language.transalte(59));
 
                             new AnvilGUI.Builder()
                                     .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
                                         if(slot != AnvilGUI.Slot.OUTPUT) {
                                             return Collections.emptyList();
+                                        }
+
+                                        if(stateSnapshot.getText().equalsIgnoreCase("cancel")){
+                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
                                         }
 
                                         if(stateSnapshot.getText() != null && stateSnapshot.getText() != ""){
@@ -60,18 +67,18 @@ public class PrivateSettingsMenuListener implements Listener {
                                             for(int i = 0;i<100;i++){
                                                 newName = newName.replace("->","");
                                             }
-                                            if(config.existdata(newName)) return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Allready exists"));
+                                            if(config.existdata(newName)) return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(50)));
                                             if(config.existdata(oldName)) config.rename(oldName, newName);
                                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
-                                            player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+ChatColor.GREEN+" successfully renamed");
+                                            player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+language.transalte(51));
                                             return Arrays.asList(AnvilGUI.ResponseAction.close());
                                         }else{
-                                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText("Invalid Name"));
+                                            return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(52)));
                                         }
                                     })
                                     .preventClose()
                                     .text(event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))                              //sets the text the GUI should start with
-                                    .title(ChatColor.GOLD+"Rename Position")                                       //set the title of the GUI (only works in 1.14+)
+                                    .title(language.transalte(53))                                       //set the title of the GUI (only works in 1.14+)
                                     .plugin(PositionatorMain.getPlugin())                                          //set the plugin instance
                                     .open(player);
 
@@ -81,7 +88,7 @@ public class PrivateSettingsMenuListener implements Listener {
                             Command confirm = ()-> {
                                 config.remove(positionName);
                                 player.closeInventory();
-                                player.sendMessage(ChatColor.RED+"Position "+positionName+" was successfully removed");
+                                player.sendMessage(language.transalte(54)+positionName+language.transalte(55));
                                 new PrivateMenu(player, 1);
                             };
                             Command cancel = ()-> {
@@ -98,13 +105,13 @@ public class PrivateSettingsMenuListener implements Listener {
                             General.BossBarPosition.remove(player.getUniqueId().toString());
 
                             if(!config.get(positionName)[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(positionName)[3],BarColor.GREEN,BarStyle.SOLID);
+                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(positionName)[3],BarColor.GREEN,BarStyle.SOLID);
                                 bar.setProgress(1.0);
                                 bar.addPlayer(player);
                             }else{
                                 String[] position = config.get(positionName)[1].split(" ");
                                 Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
-                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(positionName)[1]+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
+                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(positionName)[1]+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
                                 bar.setProgress(1.0);
                                 bar.addPlayer(player);
                             }
@@ -120,10 +127,10 @@ public class PrivateSettingsMenuListener implements Listener {
                             if(event.getClick() == ClickType.LEFT){
                                 Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
                                 if(publicconfig.existdata(positionName)){
-                                    player.sendMessage(ChatColor.RED+"There is already a position with this name in the Public List. Rename them and try again!");
+                                    player.sendMessage(language.transalte(60));
                                 }else{
                                     publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
-                                    player.sendMessage(ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added to your public list");
+                                    player.sendMessage(ChatColor.GREEN+positionName+language.transalte(61));
                                 }
                             }else if(event.getClick() == ClickType.RIGHT){
                                 new PublicMenu(player, 1);

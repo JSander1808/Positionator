@@ -2,6 +2,7 @@ package de.rembel.Listener;
 
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -15,8 +16,9 @@ public class addMenuListener implements Listener {
     public void onClick(InventoryClickEvent event){
         if(event.getWhoClicked() instanceof Player){
             Player player = (Player) event.getWhoClicked();
+            LanguageManager language = new LanguageManager(player);
             if(event.getView().getTitle().split(" ").length==2){
-                if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Add "+event.getView().getTitle().split(" ")[1])){
+                if(event.getView().getTitle().equalsIgnoreCase(language.transalte(101)+event.getView().getTitle().split(" ")[1])){
                     if(event.getCurrentItem() == null){
                         event.setCancelled(true);
                         return;
@@ -29,9 +31,9 @@ public class addMenuListener implements Listener {
                             if(!publicconfig.existdata(positionName)){
                                 publicconfig.set(positionName,publicposition,player.getName(),player.getWorld().getEnvironment().name(),0);
                                 player.closeInventory();
-                                player.sendMessage(ChatColor.GOLD+"Position "+ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added");
+                                player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+language.transalteDefaultEnglish(105));
                             }else{
-                                player.sendMessage(ChatColor.RED+"The Position "+positionName+" allready exist in the Public List. Please delete first the existed Position.");
+                                player.sendMessage(language.transalte(106)+positionName+language.transalte(107));
                             }
                             break;
                         case ENDER_CHEST:
@@ -40,10 +42,9 @@ public class addMenuListener implements Listener {
                             if(!privateconfig.existdata(positionName)){
                                 privateconfig.set(positionName,privateposition,player.getName(),player.getWorld().getEnvironment().name(),0);
                                 player.closeInventory();
-                                player.sendMessage(ChatColor.GOLD+"Position "+ChatColor.GREEN+positionName+ChatColor.GOLD+" has been successfully added");
+                                player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+ChatColor.GOLD+language.transalte(105));
                             }else{
-                                player.closeInventory();
-                                player.sendMessage(ChatColor.RED+"The Position "+positionName+" allready exist in the Private List. Please delete first the existed Position.");
+                                player.sendMessage(language.transalte(106)+positionName+language.transalte(108));
                             }
                             break;
                         default:

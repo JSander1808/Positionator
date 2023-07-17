@@ -2,6 +2,7 @@ package de.rembel.Listener;
 
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.AdminSettingsMenu;
 import de.rembel.Menus.Confirmation;
 import de.rembel.Menus.StartMenu;
@@ -16,7 +17,8 @@ public class AdminSettingsMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        if(event.getView().getTitle().equalsIgnoreCase(ChatColor.RED+"Admin Settings")){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
+        if(event.getView().getTitle().equalsIgnoreCase(language.transalte(83))){
             if(event.getCurrentItem() == null){
                 event.setCancelled(true);
                 return;
@@ -42,7 +44,7 @@ public class AdminSettingsMenuListener implements Listener {
                             new AdminSettingsMenu(player);
                         }
                     }else{
-                        player.sendMessage(ChatColor.RED+"You are not a Operator");
+                        player.sendMessage(language.transalteDefaultEnglish(100));
                     }
                     break;
                 case COMPARATOR:
@@ -54,7 +56,7 @@ public class AdminSettingsMenuListener implements Listener {
                         }
                         new AdminSettingsMenu(player);
                     }else{
-                        player.sendMessage(ChatColor.RED+"You are not a Operator");
+                        player.sendMessage(language.transalteDefaultEnglish(100));
                     }
                     break;
                 case BELL:
@@ -73,7 +75,7 @@ public class AdminSettingsMenuListener implements Listener {
                             new AdminSettingsMenu(player);
                         }
                     }else{
-                        player.sendMessage(ChatColor.RED+"You are not a Operator");
+                        player.sendMessage(language.transalteDefaultEnglish(100));
                     }
                     break;
                 case ENDER_PEARL:
@@ -90,7 +92,7 @@ public class AdminSettingsMenuListener implements Listener {
                         }
                         new AdminSettingsMenu(player);
                     }else{
-                        player.sendMessage(ChatColor.RED+"You are not a Operator");
+                        player.sendMessage(language.transalteDefaultEnglish(100));
                     }
                     break;
                 case SPRUCE_DOOR:

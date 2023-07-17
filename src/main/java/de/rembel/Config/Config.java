@@ -42,7 +42,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equalsIgnoreCase(oldKey)){
+                if(result[0].equals(oldKey)){
                     data.add(newKey+"->"+result[1]+"->"+result[2]+"->"+result[3]+"->"+result[4]);
                 }else{
                     data.add(temp);
@@ -73,7 +73,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equalsIgnoreCase(keyword)){
+                if(result[0].equals(keyword)){
                     data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type);
                     exist = true;
                 }else{
@@ -106,7 +106,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equalsIgnoreCase(keyword)){
+                if(result[0].equals(keyword)){
                     String[] finalresult = new String[result.length];
                     for(int i = 1;i< result.length;i++){
                         finalresult[i] = result[i];
@@ -164,8 +164,8 @@ public class Config {
             String temp = null;
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
-                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equalsIgnoreCase(temp.split("->")[2])){
-                    if(filter == null || !filter.hasDimension() || filter.getDimension().equalsIgnoreCase(temp.split("->")[3])){
+                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(temp.split("->")[2])){
+                    if(filter == null || !filter.hasDimension() || filter.getDimension().equals(temp.split("->")[3])){
                         data.add(temp.split("->"));
                     }
                 }
@@ -221,7 +221,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(!result[0].equalsIgnoreCase(keyword)){
+                if(!result[0].equals(keyword)){
                     data.add(temp);
                 }
             }

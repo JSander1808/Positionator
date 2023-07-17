@@ -3,6 +3,7 @@ package de.rembel.Listener;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.BackUpManager;
 import de.rembel.General.Command;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.BackUpMenu;
 import de.rembel.Menus.Confirmation;
 import de.rembel.Menus.PrivateMenu;
@@ -20,8 +21,9 @@ public class BackUpMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
         if(event.getView().getTitle().split(" ").length==6){
-            if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"BackUps - Page "+event.getView().getTitle().split(" ")[3]+" / "+((new File("plugins//Positionator_BackUp//").listFiles().length/(9*5))+1))){
+            if(event.getView().getTitle().equalsIgnoreCase(language.transalte(109)+event.getView().getTitle().split(" ")[3]+" / "+((new File("plugins//Positionator_BackUp//").listFiles().length/(9*5))+1))){
                 if(event.getCurrentItem() == null){
                     event.setCancelled(true);
                     return;
@@ -34,12 +36,12 @@ public class BackUpMenuListener implements Listener {
                         player.closeInventory();
                         break;
                     case SPRUCE_SIGN:
-                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Previous Page")&&page>1){
+                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
                             new BackUpMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[3])-1);
                         }else{
                             event.setCancelled(true);
                         }
-                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Next Page")&&page<pagemax){
+                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(13))&&page<pagemax){
                             new BackUpMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[3])+1);
                         }else{
                             event.setCancelled(true);

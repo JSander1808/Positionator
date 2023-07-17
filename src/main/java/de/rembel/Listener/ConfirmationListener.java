@@ -2,6 +2,7 @@ package de.rembel.Listener;
 
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.Confirmation;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -15,8 +16,9 @@ public class ConfirmationListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
         Player player = (Player) event.getWhoClicked();
-        if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Confirmation")){
+        if(event.getView().getTitle().equalsIgnoreCase(language.transalte(97))){
             if(event.getCurrentItem() == null){
                 event.setCancelled(true);
                 return;
@@ -42,7 +44,8 @@ public class ConfirmationListener implements Listener {
     @EventHandler
     public void onCloseInventory(InventoryCloseEvent event){
         Player player = (Player) event.getPlayer();
-        if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Confirmation")){
+        LanguageManager language = new LanguageManager(player);
+        if(event.getView().getTitle().equalsIgnoreCase(language.transalte(97))){
             Confirmation.removeConfirmation(player);
         }
     }

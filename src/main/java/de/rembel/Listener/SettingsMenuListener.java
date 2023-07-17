@@ -1,6 +1,7 @@
 package de.rembel.Listener;
 
 import de.rembel.Config.NormalConfig;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.PrivateSettingsMenu;
 import de.rembel.Menus.StartMenu;
 import org.bukkit.ChatColor;
@@ -14,7 +15,8 @@ public class SettingsMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Settings")){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
+        if(event.getView().getTitle().equalsIgnoreCase(language.transalte(71))){
             if(event.getCurrentItem() == null){
                 event.setCancelled(true);
                 return;

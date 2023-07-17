@@ -3,6 +3,7 @@ package de.rembel.Listener;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.PositionFilter;
+import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.PrivateMenu;
 import de.rembel.Menus.PrivateFilterMenu;
 import de.rembel.Menus.PrivateMenu;
@@ -28,8 +29,9 @@ public class PrivateFilterMenuListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event){
+        LanguageManager language = new LanguageManager((Player) event.getWhoClicked());
         Player player = (Player) event.getWhoClicked();
-        if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Filter Menu")){
+        if(event.getView().getTitle().equalsIgnoreCase(language.transalte(68))){
             if(event.getCurrentItem() == null){
                 event.setCancelled(true);
                 return;
@@ -78,7 +80,7 @@ public class PrivateFilterMenuListener implements Listener {
             NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
             if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
         }else if(event.getView().getTitle().split(" ").length==6){
-            if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Playername Filter "+event.getView().getTitle().split(" ")[3]+" / "+((General.getRegisteredPlayers().size()/(9*3))+1))){
+            if(event.getView().getTitle().equalsIgnoreCase(language.transalte(69)+event.getView().getTitle().split(" ")[3]+" / "+((General.getRegisteredPlayers().size()/(9*3))+1))){
                 if(event.getCurrentItem() == null){
                     event.setCancelled(true);
                     return;
@@ -93,11 +95,11 @@ public class PrivateFilterMenuListener implements Listener {
                         new PrivateFilterMenu(player);
                         break;
                     case SPRUCE_SIGN:
-                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Previous Page")){
+                        if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))){
                             if(page>=2){
                                 PrivateFilterMenu.PrivatePlayernameFilterMenu(player, (page-1));
                             }
-                        }else if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD+"Next Page")){
+                        }else if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(13))){
                             if(page+1<=maxPage){
                                 PrivateFilterMenu.PrivatePlayernameFilterMenu(player, (page+1));
                             }
@@ -120,7 +122,7 @@ public class PrivateFilterMenuListener implements Listener {
                 NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
                 if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 2);
             }
-        }else if(event.getView().getTitle().equalsIgnoreCase(ChatColor.GOLD+"Private Dimension Filter")){
+        }else if(event.getView().getTitle().equalsIgnoreCase(language.transalte(70))){
             if(event.getCurrentItem() == null){
                 event.setCancelled(true);
                 return;
