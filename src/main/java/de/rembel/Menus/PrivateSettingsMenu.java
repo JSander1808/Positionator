@@ -73,6 +73,13 @@ public class PrivateSettingsMenu {
         }else{
             menuClickSoundLore.add(language.transalte(73));
         }
+        if(Double.valueOf(config.get("clickSoundPitch")) == 0){
+            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
+        }else if(Double.valueOf(config.get("clickSoundPitch")) == 1){
+            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
+        }else if(Double.valueOf(config.get("clickSoundPitch")) == 2){
+            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
+        }
         menuClickSoundLore.add(language.transalte(82));
         menuClickSoundMeta.setLore(menuClickSoundLore);
         menuClickSound.setItemMeta(menuClickSoundMeta);

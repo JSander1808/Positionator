@@ -22,6 +22,7 @@ public class DataFixer {
         log("started...");
         if(!new File("plugins//Positionator").exists()) new File("plugins//Positionator").mkdir();
         log("checked for Main Folder");
+        hasCreatedBackup = false;
 
         if(checkVersion(1)) Fix1();
         if(checkVersion(2)) Fix2();

@@ -118,6 +118,7 @@ public class EnglishLanguageContainer {
         translation.put(80, ChatColor.GRAY+"When active you can access the filters.");
         translation.put(81, ChatColor.GOLD+"Menu Click Sound");
         translation.put(82, ChatColor.GRAY+"When active, a sound is played with every click.");
+        translation.put(133, ChatColor.GREEN+"Pitch: ");
 
         //Admin Settings Menu
         translation.put(83, ChatColor.RED+"Admin Settings");

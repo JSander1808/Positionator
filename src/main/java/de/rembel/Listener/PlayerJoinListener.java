@@ -39,6 +39,7 @@ public class PlayerJoinListener implements Listener {
         if(!playerConfig.existdata("enableFilter")) playerConfig.set("enableFilter","true");
         if(!playerConfig.existdata("enableMenuClickSound")) playerConfig.set("enableMenuClickSound","true");
         if(!playerConfig.existdata("language")) playerConfig.set("language", Languages.ENGLISH);
+        if(!playerConfig.existdata("clickSoundPitch")) playerConfig.set("clickSoundPitch","2");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
