@@ -46,7 +46,7 @@ Here you can open the public or private list and if you have a position in the B
 You can add as many positions as you like.
 Here at there is NO limit.
 
-![App Screenshot](https://i.ibb.co/TY4ZH16/2023-06-10-01-39-00.png)
+![App Screenshot]([https://i.ibb.co/TY4ZH16/2023-06-10-01-39-00.png](https://camo.githubusercontent.com/2ff0f2b63352a4a9fccf21c7325e8f6faa24dd8c944bb0b2a31fb3993932c8c9/68747470733a2f2f692e6962622e636f2f5459345a4831362f323032332d30362d31302d30312d33392d30302e706e67))
 ## Step 4
 
 There is also brief information about the saved positions.
