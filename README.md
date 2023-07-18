@@ -23,8 +23,8 @@ This plugin offers an efficient and user-friendly solution for marking, saving, 
 | /pos [Position Name]  | Create new Position  |
 | /backup  |  Open Positionator Backup Menu  |
 | /backup create  | Create a new Backup  |
-| /backup load [BackupId]  | Create new Position  |
-| /backup delete [BackupId]  | Create new Position  |
+| /backup load [BackupId]  | load Backup  |
+| /backup delete [BackupId]  | delete Backup  |
 
 # Installation
 
