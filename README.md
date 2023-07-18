@@ -23,8 +23,8 @@ This plugin offers an efficient and user-friendly solution for marking, saving, 
 | /pos [Position Name]  | Create new Position  |
 | /backup  |  Open Positionator Backup Menu  |
 | /backup create  | Create a new Backup  |
-| /backup load [BackupId]  | Create new Position  |
-| /backup delete [BackupId]  | Create new Position  |
+| /backup load [BackupId]  | load Backup  |
+| /backup delete [BackupId]  | delete Backup  |
 
 # Installation
 
@@ -46,7 +46,7 @@ Here you can open the public or private list and if you have a position in the B
 You can add as many positions as you like.
 Here at there is NO limit.
 
-![App Screenshot](https://i.ibb.co/TY4ZH16/2023-06-10-01-39-00.png)
+![App Screenshot](https://i.ibb.co/rkRT8sb/2023-06-10-01-39-00.png)
 ## Step 4
 
 There is also brief information about the saved positions.
