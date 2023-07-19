@@ -107,7 +107,7 @@ public class PrivateMenuListener implements Listener {
                                 ItemMeta deletemeta = delete.getItemMeta();
                                 deletemeta.setDisplayName(language.transalte(39)+positionName1);
                                 ArrayList deletelore = new ArrayList();
-                                deletelore.add(language.transalte(40)+config.get(positionName1)[2]);
+                                deletelore.add(language.transalte(40)+config.get(positionName1).getCreator());
                                 deletemeta.setLore(deletelore);
                                 delete.setItemMeta(deletemeta);
 
@@ -149,19 +149,17 @@ public class PrivateMenuListener implements Listener {
 
                                 General.BossBarPosition.remove(player.getUniqueId().toString());
 
-                                if(!config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[3], BarColor.GREEN, BarStyle.SOLID);
+                                if(!config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getDimension(), BarColor.GREEN, BarStyle.SOLID);
                                     bar.setProgress(1.0);
                                     bar.addPlayer(player);
                                 }else{
-                                    String[] position = config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[1].split(" ");
-                                    Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[1]+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
+                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getPositionAsString()+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getLocation())),BarColor.GREEN,BarStyle.SOLID);
                                     bar.setProgress(1.0);
                                     bar.addPlayer(player);
                                 }
 
-                                General.BossBarPosition.put(player.getUniqueId().toString(), config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[3]+"->"+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))[1]);
+                                General.BossBarPosition.put(player.getUniqueId().toString(), config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getDimension()+"->"+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", "")).getPositionAsString());
                             }
                             break;
 

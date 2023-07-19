@@ -2,6 +2,8 @@ package de.rembel.Listener;
 
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
+import de.rembel.General.Position;
+import de.rembel.General.PositionType;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -26,10 +28,10 @@ public class addMenuListener implements Listener {
                     String positionName = event.getView().getTitle().split(" ")[1];
                     switch(event.getCurrentItem().getType()){
                         case CHEST:
+                            Position publicPosition = new Position(positionName, new String[]{player.getLocation().getX()+" "+player.getLocation().getY()+" "+player.getLocation().getZ()}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.POSITION);
                             Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
-                            String publicposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
-                            if(!publicconfig.existdata(positionName)){
-                                publicconfig.set(positionName,publicposition,player.getName(),player.getWorld().getEnvironment().name(),0);
+                            if(!publicconfig.existPosition(publicPosition)){
+                                publicconfig.set(publicPosition);
                                 player.closeInventory();
                                 player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+language.transalteDefaultEnglish(105));
                             }else{
@@ -37,10 +39,10 @@ public class addMenuListener implements Listener {
                             }
                             break;
                         case ENDER_CHEST:
+                            Position privatePosition = new Position(positionName, new String[]{player.getLocation().getX()+" "+player.getLocation().getY()+" "+player.getLocation().getZ()}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.POSITION);
                             Config privateconfig = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
-                            String privateposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
-                            if(!privateconfig.existdata(positionName)){
-                                privateconfig.set(positionName,privateposition,player.getName(),player.getWorld().getEnvironment().name(),0);
+                            if(!privateconfig.existPosition(privatePosition)){
+                                privateconfig.set(privatePosition);
                                 player.closeInventory();
                                 player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+ChatColor.GOLD+language.transalte(105));
                             }else{

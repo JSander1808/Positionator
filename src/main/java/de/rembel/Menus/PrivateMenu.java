@@ -3,6 +3,7 @@ package de.rembel.Menus;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.General.Position;
 import de.rembel.General.PositionFilter;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
@@ -81,26 +82,24 @@ public class PrivateMenu {
 
         NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
         int itemSlot = 0;
-        String[][] data = config.list(General.PrivateFilter.get(player.getUniqueId().toString()));
+        Position[] data = config.list(General.PrivateFilter.get(player.getUniqueId().toString()));
 
         int multiplierer = 44;
 
         for(int i = 0;i<=44;i++){
             if((i+(multiplierer*(page-1)))< data.length){
-                if(Integer.valueOf(data[i+(multiplierer*(page-1))][4])==0){
+                if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType())==0){
                     ItemStack item = new ItemStack(Material.CHEST);
                     ItemMeta itemmeta = item.getItemMeta();
-                    itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))][0]);
+                    itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());
                     ArrayList<String> itemlore = new ArrayList<String>();
-                    itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
-                    String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
-                    if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
-                        Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
-                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                    itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
+                    if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString()+" ("+(int) player.getLocation().distance(data[i+(multiplierer*(page-1))].getLocation())+")");
                     }else{
-                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                        itemlore.add(language.transalte(22)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString());
                     }
-                    itemlore.add(language.transalte(23)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                    itemlore.add(language.transalte(23)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getDimension());
                     itemlore.add(" ");
                     itemlore.add(language.transalte(24));
                     itemlore.add(language.transalte(25));
@@ -111,17 +110,15 @@ public class PrivateMenu {
                     if(normalConfig.getBoolean("showDeathPositionInList")){
                         ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
                         ItemMeta itemmeta = item.getItemMeta();
-                        itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))][0]);
+                        itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))].getName());
                         ArrayList<String> itemlore = new ArrayList<String>();
-                        itemlore.add(language.transalte(27)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][2]);
-                        String[] cords = data[i+(multiplierer*(page-1))][1].split(" ");
-                        if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))][3])){
-                            Location targetPoint = new Location(player.getWorld(), Double.valueOf(cords[0]), Double.valueOf(cords[1]), Double.valueOf(cords[2]));
-                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]+" ("+(int) player.getLocation().distance(targetPoint)+")");
+                        itemlore.add(language.transalte(27)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
+                        if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
+                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString()+" ("+(int) player.getLocation().distance(data[i+(multiplierer*(page-1))].getLocation())+")");
                         }else{
-                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][1]);
+                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString());
                         }
-                        itemlore.add(language.transalte(29)+ChatColor.BLUE+data[i+(multiplierer*(page-1))][3]);
+                        itemlore.add(language.transalte(29)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getDimension());
                         itemlore.add(" ");
                         itemlore.add(language.transalte(24));
                         itemlore.add(language.transalte(25));

@@ -3,6 +3,8 @@ package de.rembel.Listener;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.General.Position;
+import de.rembel.General.PositionType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -25,10 +27,10 @@ public class PlayerDeathListener implements Listener {
         int temp = 1;
         Player player = event.getEntity();
         while(!finish){
-            if(!config.existdata("Death-"+temp)){
-                String publicposition = (int) player.getLocation().getX()+" "+(int) player.getLocation().getY()+" "+(int) player.getLocation().getZ();
+            Position position = new Position("Death-"+temp, new String[]{player.getLocation().getX()+" "+player.getLocation().getY()+" "+player.getLocation().getZ()}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.DEATHPOSITION);
+            if(!config.existPosition(position)){
 
-                config.set("Death-"+temp,publicposition,player.getName(),player.getWorld().getEnvironment().name(),1);
+                config.set(position);
 
                 if(normalConfig.getBoolean("setDeathPositionInBossbar")){
                     if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
@@ -38,19 +40,17 @@ public class PlayerDeathListener implements Listener {
 
                     General.BossBarPosition.remove(player.getUniqueId().toString());
 
-                    if(!config.get("Death-"+temp)[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get("Death-"+temp)[3],BarColor.GREEN,BarStyle.SOLID);
+                    if(!config.get(position.getName()).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
+                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(position.getName()).getDimension(),BarColor.GREEN,BarStyle.SOLID);
                         bar.setProgress(1.0);
                         bar.addPlayer(player);
                     }else{
-                        String[] position = config.get("Death-"+temp)[1].split(" ");
-                        Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
-                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get("Death-"+temp)[1]+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.RED,BarStyle.SOLID);
+                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(position.getName()).getPositionAsString()+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(position.getLocation())),BarColor.RED,BarStyle.SOLID);
                         bar.setProgress(1.0);
                         bar.addPlayer(player);
                     }
 
-                    General.BossBarPosition.put(player.getUniqueId().toString(), config.get("Death-"+temp)[3]+"->"+config.get("Death-"+temp)[1]);
+                    General.BossBarPosition.put(player.getUniqueId().toString(), config.get(position.getName()).getDimension()+"->"+config.get(position.getName()).getPositionAsString());
                 }
 
                 finish=true;

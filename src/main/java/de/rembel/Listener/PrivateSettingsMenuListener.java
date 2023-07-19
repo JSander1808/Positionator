@@ -4,6 +4,7 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
 import de.rembel.General.General;
+import de.rembel.General.Position;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.Confirmation;
@@ -67,8 +68,8 @@ public class PrivateSettingsMenuListener implements Listener {
                                             for(int i = 0;i<100;i++){
                                                 newName = newName.replace("->","");
                                             }
-                                            if(config.existdata(newName)) return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(50)));
-                                            if(config.existdata(oldName)) config.rename(oldName, newName);
+                                            if(config.existPosition(new Position(newName))) return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(50)));
+                                            if(config.existPosition(new Position(oldName))) config.rename(new Position(oldName), new Position(newName));
                                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
                                             player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+language.transalte(51));
                                             return Arrays.asList(AnvilGUI.ResponseAction.close());
@@ -86,7 +87,7 @@ public class PrivateSettingsMenuListener implements Listener {
                             break;
                         case RED_WOOL:
                             Command confirm = ()-> {
-                                config.remove(positionName);
+                                config.remove(new Position(positionName));
                                 player.closeInventory();
                                 player.sendMessage(language.transalte(54)+positionName+language.transalte(55));
                                 new PrivateMenu(player, 1);
@@ -97,6 +98,7 @@ public class PrivateSettingsMenuListener implements Listener {
                             new Confirmation(player, confirm, cancel);
                             break;
                         case BEACON:
+                            Position position = config.get(positionName);
                             if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
                                 Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
                                 Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
@@ -104,19 +106,17 @@ public class PrivateSettingsMenuListener implements Listener {
 
                             General.BossBarPosition.remove(player.getUniqueId().toString());
 
-                            if(!config.get(positionName)[3].equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(positionName)[3],BarColor.GREEN,BarStyle.SOLID);
+                            if(!config.get(positionName).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
+                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+position.getDimension(),BarColor.GREEN,BarStyle.SOLID);
                                 bar.setProgress(1.0);
                                 bar.addPlayer(player);
                             }else{
-                                String[] position = config.get(positionName)[1].split(" ");
-                                Location target = new Location(player.getWorld(), Integer.valueOf(position[0]), Integer.valueOf(position[1]), Integer.valueOf(position[2]));
-                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(positionName)[1]+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(target)),BarColor.GREEN,BarStyle.SOLID);
+                                BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+position.getPositionAsString()+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(position.getLocation())),BarColor.GREEN,BarStyle.SOLID);
                                 bar.setProgress(1.0);
                                 bar.addPlayer(player);
                             }
 
-                            General.BossBarPosition.put(player.getUniqueId().toString(), config.get(positionName)[3]+"->"+config.get(positionName)[1]);
+                            General.BossBarPosition.put(player.getUniqueId().toString(), config.get(positionName).getDimension()+"->"+config.get(positionName).getPositionAsString());
 
                             player.closeInventory();
                             break;
@@ -126,10 +126,11 @@ public class PrivateSettingsMenuListener implements Listener {
                         case CHEST:
                             if(event.getClick() == ClickType.LEFT){
                                 Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
-                                if(publicconfig.existdata(positionName)){
+                                if(publicconfig.existPosition(positionName)){
                                     player.sendMessage(language.transalte(60));
                                 }else{
-                                    publicconfig.set(positionName,config.get(positionName)[1],config.get(positionName)[2],config.get(positionName)[3],Integer.valueOf(config.get(positionName)[4]));
+                                    Position publicPosition = config.get(positionName);
+                                    publicconfig.set(publicPosition);
                                     player.sendMessage(ChatColor.GREEN+positionName+language.transalte(61));
                                 }
                             }else if(event.getClick() == ClickType.RIGHT){
@@ -142,14 +143,14 @@ public class PrivateSettingsMenuListener implements Listener {
                         case ENDER_PEARL:
                             NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
                             if(mainConfig.getBoolean("allowPlayerToTeleport") || (player.isOp() && mainConfig.getBoolean("allowOpToTeleport"))){
-                                String[] cords = config.get(positionName)[1].split(" ");
-                                if(config.get(positionName)[3].equalsIgnoreCase("NORMAL")){
+                                String[] cords = config.get(positionName).getPositionAsString().split(" ");
+                                if(config.get(positionName).getDimension().equalsIgnoreCase("NORMAL")){
                                     Location target = new Location(Bukkit.getWorld("world"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
                                     player.teleport(target);
-                                }else if(config.get(positionName)[3].equalsIgnoreCase("NETHER")){
+                                }else if(config.get(positionName).getDimension().equalsIgnoreCase("NETHER")){
                                     Location target = new Location(Bukkit.getWorld("world_nether"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
                                     player.teleport(target);
-                                }else if(config.get(positionName)[3].equalsIgnoreCase("world_the_end")){
+                                }else if(config.get(positionName).getDimension().equalsIgnoreCase("world_the_end")){
                                     Location target = new Location(Bukkit.getWorld("world_the_end"), Integer.valueOf(cords[0]), Integer.valueOf(cords[1]), Integer.valueOf(cords[2]));
                                     player.teleport(target);
                                 }

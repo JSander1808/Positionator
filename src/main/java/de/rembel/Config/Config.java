@@ -1,6 +1,7 @@
 package de.rembel.Config;
 
 import de.rembel.General.General;
+import de.rembel.General.Position;
 import de.rembel.General.PositionFilter;
 
 import java.io.*;
@@ -33,7 +34,7 @@ public class Config {
         }
     }
 
-    public boolean rename(String oldKey, String newKey){
+    public boolean rename(Position oldPosition, Position newPosition){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -42,8 +43,8 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equals(oldKey)){
-                    data.add(newKey+"->"+result[1]+"->"+result[2]+"->"+result[3]+"->"+result[4]);
+                if(result[0].equals(oldPosition.getName())){
+                    data.add(newPosition.getName()+"->"+result[1]+"->"+result[2]+"->"+result[3]+"->"+result[4]);
                 }else{
                     data.add(temp);
                 }
@@ -63,7 +64,37 @@ public class Config {
         return true;
     }
 
-    public boolean set(String keyword, String value,String author,String dimension,int type){
+    public boolean rename(String oldPositionName, String newPositionName){
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            ArrayList data = new ArrayList();
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                String[] result = temp.split("->");
+                if(result[0].equals(oldPositionName)){
+                    data.add(newPositionName+"->"+result[1]+"->"+result[2]+"->"+result[3]+"->"+result[4]);
+                }else{
+                    data.add(temp);
+                }
+            }
+            PrintWriter writer = new PrintWriter(file);
+            for(int i = 0;i<data.size();i++){
+                writer.write(General.encode(data.get(i).toString())+"\n");
+            }
+            writer.flush();
+            writer.close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public boolean set(Position position){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -73,15 +104,15 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equals(keyword)){
-                    data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type);
+                if(result[0].equals(position.getName())){
+                    data.add(position.getName()+"->"+position.getPositionAsString()+"->"+position.getCreator()+"->"+position.getDimension()+"->"+position.getType());
                     exist = true;
                 }else{
                     data.add(temp);
                 }
             }
             if(!exist){
-                data.add(keyword+"->"+value+"->"+author+"->"+dimension+"->"+type);
+                data.add(position.getName()+"->"+position.getPositionAsString()+"->"+position.getCreator()+"->"+position.getDimension()+"->"+position.getType());
             }
             PrintWriter writer = new PrintWriter(file);
             for(int i = 0;i<data.size();i++){
@@ -98,7 +129,7 @@ public class Config {
         return true;
     }
 
-    public String[] get(String keyword){
+    public Position get(String positionName){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -106,13 +137,32 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equals(keyword)){
-                    String[] finalresult = new String[result.length];
-                    for(int i = 1;i< result.length;i++){
-                        finalresult[i] = result[i];
-                    }
+                if(result[0].equals(positionName)){
+                    Position position = new Position(positionName, new String[]{result[1].split(" ")[0], result[1].split(" ")[1], result[1].split(" ")[2]}, result[2], result[3], Integer.valueOf(result[4]));
                     reader.close();
-                    return finalresult;
+                    return position;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Position get(Position newPosition){
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                String[] result = temp.split("->");
+                if(result[0].equals(newPosition.getName())){
+                    Position position = new Position(newPosition.getName(), new String[]{result[1].split(" ")[0], result[1].split(" ")[1], result[1].split(" ")[2]}, result[2], result[3], Integer.valueOf(result[4]));
+                    reader.close();
+                    return position;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -132,7 +182,7 @@ public class Config {
         }
     }
 
-    public boolean existdata(String keyword){
+    public boolean existPosition(Position position){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -140,7 +190,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(result[0].equals(keyword)){
+                if(result[0].equals(position.getName())){
                     if(result.length>=2){
                         reader.close();
                         return true;
@@ -156,21 +206,46 @@ public class Config {
         return false;
     }
 
-    public String[][] list(PositionFilter filter){
+    public boolean existPosition(String positionName){
         File file = new File(path);
         try {
-            ArrayList<String[]> data = new ArrayList<String[]>();
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String temp = null;
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
-                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(temp.split("->")[2])){
-                    if(filter == null || !filter.hasDimension() || filter.getDimension().equals(temp.split("->")[3])){
-                        data.add(temp.split("->"));
+                String[] result = temp.split("->");
+                if(result[0].equals(positionName)){
+                    if(result.length>=2){
+                        reader.close();
+                        return true;
                     }
                 }
             }
-            String[][] finalData = new String[data.size()][2];
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Position[] list(PositionFilter filter){
+        File file = new File(path);
+        try {
+            ArrayList<Position> data = new ArrayList<Position>();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                Position position = new Position(temp.split("->")[0], new String[]{temp.split("->")[1].split(" ")[0], temp.split("->")[1].split(" ")[1], temp.split("->")[1].split(" ")[2]}, temp.split("->")[2], temp.split("->")[3], Integer.valueOf(temp.split("->")[4]));
+                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
+                    if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
+                        data.add(position);
+                    }
+                }
+            }
+            Position[] finalData = new Position[data.size()];
             for(int i = 0;i< data.size();i++){
                 finalData[i] = data.get(i);
             }
@@ -211,7 +286,7 @@ public class Config {
         }
     }
 
-    public boolean remove(String keyword){
+    public boolean remove(Position position){
         File file = new File(path);
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -221,7 +296,7 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 String[] result = temp.split("->");
-                if(!result[0].equals(keyword)){
+                if(!result[0].equals(position.getName())){
                     data.add(temp);
                 }
             }
