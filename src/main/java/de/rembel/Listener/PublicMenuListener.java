@@ -1,5 +1,6 @@
 package de.rembel.Listener;
 
+import de.rembel.Bossbar.BossbarService;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
@@ -139,24 +140,7 @@ public class PublicMenuListener implements Listener {
                                 player.openInventory(inv);
                             }else if(event.getClick() == ClickType.SHIFT_LEFT){
                                 event.setCancelled(true);
-                                if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
-                                    Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
-                                    Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
-                                }
-
-                                General.BossBarPosition.remove(player.getUniqueId().toString());
-
-                                if(!config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(44)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getDimension(), BarColor.GREEN, BarStyle.SOLID);
-                                    bar.setProgress(1.0);
-                                    bar.addPlayer(player);
-                                }else{
-                                    BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), language.transalte(45)+ChatColor.GREEN+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getPositionAsString()+language.transalte(46)+ChatColor.GREEN+Math.round(player.getLocation().distance(config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getLocation())),BarColor.GREEN,BarStyle.SOLID);
-                                    bar.setProgress(1.0);
-                                    bar.addPlayer(player);
-                                }
-
-                                General.BossBarPosition.put(player.getUniqueId().toString(), config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getDimension()+"->"+config.get(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")).getPositionAsString());
+                                new BossbarService(player, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"",""), new Config("plugins//Positionator//Data//public.conf"));
                             }
                             break;
                         default:

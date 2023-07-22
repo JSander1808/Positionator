@@ -142,7 +142,7 @@ public class GermanLanguageContainer {
         translation.put(100, ChatColor.RED+"Du bist kein Operator");
 
         //Add Menu
-        translation.put(101, ChatColor.GOLD+"Hinzufügen von");
+        //translation.put(101, ChatColor.GOLD+"Hinzufügen von");
         translation.put(102, ChatColor.GOLD+"Zur Öffentlichen Liste hinzufügen");
         translation.put(103, ChatColor.GOLD+"Zur Privaten Liste hinzufügen");
         translation.put(104, ChatColor.GOLD+"Position ");

@@ -27,7 +27,7 @@ public class PlayerDeathListener implements Listener {
         int temp = 1;
         Player player = event.getEntity();
         while(!finish){
-            Position position = new Position("Death-"+temp, new String[]{player.getLocation().getX()+" "+player.getLocation().getY()+" "+player.getLocation().getZ()}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.DEATHPOSITION);
+            Position position = new Position("Death-"+temp, new String[]{String.valueOf(player.getLocation().getBlockX()), String.valueOf(player.getLocation().getBlockY()), String.valueOf(player.getLocation().getBlockZ())}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.DEATHPOSITION);
             if(!config.existPosition(position)){
 
                 config.set(position);

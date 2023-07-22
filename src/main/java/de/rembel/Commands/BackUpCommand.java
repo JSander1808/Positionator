@@ -1,10 +1,11 @@
 package de.rembel.Commands;
 
 import de.rembel.General.BackUpManager;
-import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.BackUpMenu;
-import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.WorldBorder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,6 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class BackUpCommand implements CommandExecutor {
     @Override

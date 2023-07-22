@@ -2,24 +2,18 @@ package de.rembel.Main;
 
 import de.rembel.Commands.BackUpCommand;
 import de.rembel.Commands.PositionCommand;
-import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
-import de.rembel.Config.OldNormalConfig;
 import de.rembel.General.*;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Listener.*;
 import de.rembel.TabComplet.BackUpCompletor;
 import de.rembel.TextInput.ChatListener;
-import de.rembel.TextInput.TextInputService;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.util.logging.Level;
 
 public final class PositionatorMain extends JavaPlugin {
 
@@ -64,6 +58,7 @@ public final class PositionatorMain extends JavaPlugin {
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());
         getCommand("backup").setTabCompleter(new BackUpCompletor());
+
     }
 
     @Override

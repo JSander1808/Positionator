@@ -142,7 +142,7 @@ public class NorwegianLanguageContainer {
         translation.put(100, ChatColor.RED+"Du er ikke en operatør");
 
         //Add Menu
-        translation.put(101, ChatColor.GOLD+"Legg til ");
+        //translation.put(101, ChatColor.GOLD+"Legg til ");
         translation.put(102, ChatColor.GOLD+"Legg til offentlig liste");
         translation.put(103, ChatColor.GOLD+"Legg til privat liste");
         translation.put(104, ChatColor.GOLD+"Posisjon ");

@@ -1,5 +1,6 @@
 package de.rembel.Listener;
 
+import de.rembel.CBossbar.CBossbar;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
@@ -40,6 +41,7 @@ public class PlayerJoinListener implements Listener {
         if(!playerConfig.existdata("enableMenuClickSound")) playerConfig.set("enableMenuClickSound","true");
         if(!playerConfig.existdata("language")) playerConfig.set("language", Languages.ENGLISH);
         if(!playerConfig.existdata("clickSoundPitch")) playerConfig.set("clickSoundPitch","2");
+        if(!playerConfig.existdata("bossbarType")) playerConfig.set("bossbarType", "classic");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
