@@ -44,7 +44,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PrivateSettingsMenuListener(),this);
         pluginManager.registerEvents(new addMenuListener(),this);
         pluginManager.registerEvents(new PlayerDeathListener(),this);
-        pluginManager.registerEvents(new PlayerMoveListener(), this);
+        //pluginManager.registerEvents(new PlayerMoveListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PublicFilterMenuListener(), this);
         pluginManager.registerEvents(new PrivateFilterMenuListener(), this);
@@ -54,6 +54,8 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new BackUpMenuListener(), this);
         pluginManager.registerEvents(new ChatListener(), this);
         pluginManager.registerEvents(new LanguageMenuListener(), this);
+        pluginManager.registerEvents(new PrivateSymbolChangeMenuListener(), this);
+        pluginManager.registerEvents(new PublicSymbolChangeMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());

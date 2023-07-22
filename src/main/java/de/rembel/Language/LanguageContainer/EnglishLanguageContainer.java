@@ -42,6 +42,7 @@ public class EnglishLanguageContainer {
         translation.put(23, ChatColor.GREEN+"Dimension: ");
         translation.put(24, ChatColor.DARK_GRAY+"Left-Click: Open Position Settings");
         translation.put(25, ChatColor.DARK_GRAY+"Shift + Left-Click: Set Position in Bossbar");
+        translation.put(137, ChatColor.DARK_GRAY+"Right-Click: Change Symbol");
 
         //Public Position List Menu
         translation.put(9, ChatColor.GOLD+"Public List - Page ");
@@ -181,6 +182,15 @@ public class EnglishLanguageContainer {
         translation.put(128, ChatColor.GOLD+" Send Feedback here");
         translation.put(129, ChatColor.GOLD+"Click me");
         translation.put(130, ChatColor.GREEN+" The main language of the plugin is English.");
+
+        //Private Symbol change Menu
+        translation.put(134, ChatColor.GOLD+"Private Symbol - ");
+
+        //Public Symbol change Menu
+        translation.put(136, ChatColor.GOLD+"Public Symbol - ");
+
+        //Symbol change Menu
+        translation.put(135, ChatColor.GREEN+"Set this Symbol");
 
         int implemented = translation.size()*100/EnglishLanguageContainer.translation.size();
         PositionatorMain.getPlugin().getLogger().log(Level.INFO, "[LanguageManager] loaded English with "+implemented+"% implimated");

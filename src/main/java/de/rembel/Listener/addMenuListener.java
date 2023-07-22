@@ -28,7 +28,7 @@ public class addMenuListener implements Listener {
                     String positionName = event.getView().getTitle().split(" ")[1];
                     switch(event.getCurrentItem().getType()){
                         case CHEST:
-                            Position publicPosition = new Position(positionName, new String[]{String.valueOf(player.getLocation().getBlockX()), String.valueOf(player.getLocation().getBlockY()), String.valueOf(player.getLocation().getBlockZ())}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.POSITION);
+                            Position publicPosition = new Position(positionName, new String[]{String.valueOf(player.getLocation().getBlockX()), String.valueOf(player.getLocation().getBlockY()), String.valueOf(player.getLocation().getBlockZ())}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.CHESTPOSITION);
                             Config publicconfig = new Config("plugins//Positionator//Data//public.conf");
                             if(!publicconfig.existPosition(publicPosition)){
                                 publicconfig.set(publicPosition);
@@ -39,7 +39,7 @@ public class addMenuListener implements Listener {
                             }
                             break;
                         case ENDER_CHEST:
-                            Position privatePosition = new Position(positionName, new String[]{String.valueOf(player.getLocation().getBlockX()), String.valueOf(player.getLocation().getBlockY()), String.valueOf(player.getLocation().getBlockZ())}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.POSITION);
+                            Position privatePosition = new Position(positionName, new String[]{String.valueOf(player.getLocation().getBlockX()), String.valueOf(player.getLocation().getBlockY()), String.valueOf(player.getLocation().getBlockZ())}, player.getName(), player.getWorld().getEnvironment().name(), PositionType.CHESTPOSITION);
                             Config privateconfig = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
                             if(!privateconfig.existPosition(privatePosition)){
                                 privateconfig.set(privatePosition);

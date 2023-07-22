@@ -33,24 +33,24 @@ public class PlayerDeathListener implements Listener {
                 config.set(position);
 
                 if(normalConfig.getBoolean("setDeathPositionInBossbar")){
-                    if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
-                        Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
-                        Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
-                    }
-
-                    General.BossBarPosition.remove(player.getUniqueId().toString());
-
-                    if(!config.get(position.getName()).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
-                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(position.getName()).getDimension(),BarColor.GREEN,BarStyle.SOLID);
-                        bar.setProgress(1.0);
-                        bar.addPlayer(player);
-                    }else{
-                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(position.getName()).getPositionAsString()+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(position.getLocation())),BarColor.RED,BarStyle.SOLID);
-                        bar.setProgress(1.0);
-                        bar.addPlayer(player);
-                    }
-
-                    General.BossBarPosition.put(player.getUniqueId().toString(), config.get(position.getName()).getDimension()+"->"+config.get(position.getName()).getPositionAsString());
+//                    if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
+//                        Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
+//                        Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
+//                    }
+//
+//                    General.BossBarPosition.remove(player.getUniqueId().toString());
+//
+//                    if(!config.get(position.getName()).getDimension().equalsIgnoreCase(player.getLocation().getWorld().getEnvironment().name())){
+//                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Dimension: "+ChatColor.GREEN+config.get(position.getName()).getDimension(),BarColor.GREEN,BarStyle.SOLID);
+//                        bar.setProgress(1.0);
+//                        bar.addPlayer(player);
+//                    }else{
+//                        BossBar bar = Bukkit.createBossBar(NamespacedKey.fromString(player.getUniqueId().toString()), ChatColor.GOLD+"Coordinates: "+ChatColor.GREEN+config.get(position.getName()).getPositionAsString()+ChatColor.GOLD+"     Distance: "+ChatColor.GREEN+Math.round(player.getLocation().distance(position.getLocation())),BarColor.RED,BarStyle.SOLID);
+//                        bar.setProgress(1.0);
+//                        bar.addPlayer(player);
+//                    }
+//
+//                    General.BossBarPosition.put(player.getUniqueId().toString(), config.get(position.getName()).getDimension()+"->"+config.get(position.getName()).getPositionAsString());
                 }
 
                 finish=true;

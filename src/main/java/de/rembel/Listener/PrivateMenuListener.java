@@ -70,12 +70,24 @@ public class PrivateMenuListener implements Listener {
                             break;
                         case CHEST:
                         case TOTEM_OF_UNDYING:
+                        case FURNACE:
+                        case ENCHANTING_TABLE:
+                        case CRAFTING_TABLE:
+                        case SMITHING_TABLE:
+                        case BLAST_FURNACE:
+                        case CAMPFIRE:
+                        case ANVIL:
+                        case COMPOSTER:
+                        case BEE_NEST:
+                        case BOOKSHELF:
+                        case END_PORTAL_FRAME:
+                            String positionName1 = event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");
                             if(event.getClick() == ClickType.LEFT){
                                 Inventory inv1 = Bukkit.createInventory(null, 1*9,language.transalte(30)+event.getCurrentItem().getItemMeta().getDisplayName());
                                 for(int i = 0;i<1*9;i++){
                                     inv1.setItem(i,placeholder());
                                 }
-                                String positionName1 = event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");
+
 
                                 if(event.getCurrentItem().getType() == Material.CHEST){
                                     ItemStack setInOtherList = new ItemStack(Material.CHEST);
@@ -143,7 +155,162 @@ public class PrivateMenuListener implements Listener {
                                 player.openInventory(inv1);
                             }else if(event.getClick() == ClickType.SHIFT_LEFT){
                                 event.setCancelled(true);
-                                new BossbarService(player, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"",""),new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
+                                //new BossbarService(player, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"",""),new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
+                            }else if(event.getClick() == ClickType.RIGHT && event.getCurrentItem().getType() != Material.TOTEM_OF_UNDYING){
+                                Inventory inventory = Bukkit.createInventory(null, 9*3, language.transalte(134)+positionName1);
+
+                                for(int i = 0;i<1*9;i++){
+                                    inventory.setItem(i,placeholder());
+                                }
+
+                                ItemStack close = new ItemStack(Material.BARRIER);
+                                ItemMeta closemeta = close.getItemMeta();
+                                closemeta.setDisplayName(language.transalte(10));
+                                close.setItemMeta(closemeta);
+
+                                ItemStack back = new ItemStack(Material.SPRUCE_DOOR);
+                                ItemMeta backmeta = back.getItemMeta();
+                                backmeta.setDisplayName(language.transalte(12));
+                                back.setItemMeta(backmeta);
+
+                                ItemStack chest = new ItemStack(Material.CHEST);
+                                ItemMeta chestMeta = chest.getItemMeta();
+                                chestMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.CHEST){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    chestMeta.setLore(lore);
+                                }
+                                chest.setItemMeta(chestMeta);
+
+                                ItemStack furnace = new ItemStack(Material.FURNACE);
+                                ItemMeta furnaceMeta = furnace.getItemMeta();
+                                furnaceMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.FURNACE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    furnaceMeta.setLore(lore);
+                                }
+                                furnace.setItemMeta(furnaceMeta);
+
+                                ItemStack enchant = new ItemStack(Material.ENCHANTING_TABLE);
+                                ItemMeta enchantMeta = enchant.getItemMeta();
+                                enchantMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.ENCHANTING_TABLE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    enchantMeta.setLore(lore);
+                                }
+                                enchant.setItemMeta(enchantMeta);
+
+                                ItemStack crafting = new ItemStack(Material.CRAFTING_TABLE);
+                                ItemMeta craftingMeta = crafting.getItemMeta();
+                                craftingMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.CRAFTING_TABLE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    craftingMeta.setLore(lore);
+                                }
+                                crafting.setItemMeta(craftingMeta);
+
+                                ItemStack smithing = new ItemStack(Material.SMITHING_TABLE);
+                                ItemMeta smithingMeta = smithing.getItemMeta();
+                                smithingMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.SMITHING_TABLE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    smithingMeta.setLore(lore);
+                                }
+                                smithing.setItemMeta(smithingMeta);
+
+                                ItemStack blastfurnace = new ItemStack(Material.BLAST_FURNACE);
+                                ItemMeta blastfurnaceMeta = blastfurnace.getItemMeta();
+                                blastfurnaceMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BLAST_FURNACE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    blastfurnaceMeta.setLore(lore);
+                                }
+                                blastfurnace.setItemMeta(blastfurnaceMeta);
+
+                                ItemStack campfire = new ItemStack(Material.CAMPFIRE);
+                                ItemMeta campfireMeta = campfire.getItemMeta();
+                                campfireMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.CAMPFIRE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    campfireMeta.setLore(lore);
+                                }
+                                campfire.setItemMeta(campfireMeta);
+
+                                ItemStack anvil = new ItemStack(Material.ANVIL);
+                                ItemMeta anvilMeta = anvil.getItemMeta();
+                                anvilMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.ANVIL){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    anvilMeta.setLore(lore);
+                                }
+                                anvil.setItemMeta(anvilMeta);
+
+                                ItemStack composter = new ItemStack(Material.COMPOSTER);
+                                ItemMeta composterMeta = composter.getItemMeta();
+                                composterMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.COMPOSTER){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    composterMeta.setLore(lore);
+                                }
+                                composter.setItemMeta(composterMeta);
+
+                                ItemStack bee = new ItemStack(Material.BEE_NEST);
+                                ItemMeta beeMeta = bee.getItemMeta();
+                                beeMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BEE_NEST){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    beeMeta.setLore(lore);
+                                }
+                                bee.setItemMeta(beeMeta);
+
+                                ItemStack bookshelf = new ItemStack(Material.BOOKSHELF);
+                                ItemMeta bookshelfMeta = bookshelf.getItemMeta();
+                                bookshelfMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BOOKSHELF){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    bookshelfMeta.setLore(lore);
+                                }
+                                bookshelf.setItemMeta(bookshelfMeta);
+
+                                ItemStack end = new ItemStack(Material.END_PORTAL_FRAME);
+                                ItemMeta endMeta = end.getItemMeta();
+                                endMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.END_PORTAL_FRAME){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    endMeta.setLore(lore);
+                                }
+                                end.setItemMeta(endMeta);
+
+                                inventory.setItem(0,chest);
+                                inventory.setItem(1,furnace);
+                                inventory.setItem(2,enchant);
+                                inventory.setItem(3,crafting);
+                                inventory.setItem(4,smithing);
+                                inventory.setItem(5,blastfurnace);
+                                inventory.setItem(6,campfire);
+                                inventory.setItem(7,anvil);
+                                inventory.setItem(8,composter);
+                                inventory.setItem(9,bee);
+                                inventory.setItem(10,bookshelf);
+                                inventory.setItem(10,end);
+
+                                inventory.setItem(25, back);
+                                inventory.setItem(26, close);
+
+                                player.openInventory(inventory);
+
                             }
                             break;
 

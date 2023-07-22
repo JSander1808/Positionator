@@ -19,6 +19,6 @@ public class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event){
-        BossbarService.updateBossbar(event.getPlayer());
+        //BossbarService.updateBossbar(event.getPlayer());
     }
 }

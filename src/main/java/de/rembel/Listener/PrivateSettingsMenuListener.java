@@ -99,7 +99,7 @@ public class PrivateSettingsMenuListener implements Listener {
                             new Confirmation(player, confirm, cancel);
                             break;
                         case BEACON:
-                            new BossbarService(player, positionName, new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
+                            //new BossbarService(player, positionName, new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
                             break;
                         case BARRIER:
                             player.closeInventory();

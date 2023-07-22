@@ -41,7 +41,7 @@ public class PlayerJoinListener implements Listener {
         if(!playerConfig.existdata("enableMenuClickSound")) playerConfig.set("enableMenuClickSound","true");
         if(!playerConfig.existdata("language")) playerConfig.set("language", Languages.ENGLISH);
         if(!playerConfig.existdata("clickSoundPitch")) playerConfig.set("clickSoundPitch","2");
-        if(!playerConfig.existdata("bossbarType")) playerConfig.set("bossbarType", "classic");
+        if(!playerConfig.existdata("compassAlwaysActive")) playerConfig.set("compassAlwaysActive", "false");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();

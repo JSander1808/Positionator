@@ -5,6 +5,7 @@ import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.Position;
 import de.rembel.General.PositionFilter;
+import de.rembel.General.PositionType;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -86,10 +87,10 @@ public class PublicMenu {
 
         for(int i = 0;i<=44;i++){
             if((i+(multiplierer*(page-1)))< data.length){
-                if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType())==0){
-                    ItemStack item = new ItemStack(Material.CHEST);
+                if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.DEATHPOSITION){
+                    ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
                     ItemMeta itemmeta = item.getItemMeta();
-                    itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());
+                    itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))].getName());
                     ArrayList<String> itemlore = new ArrayList<String>();
                     itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
@@ -105,9 +106,34 @@ public class PublicMenu {
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);
                 }else{
-                    ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
+                    ItemStack item = null;
+                    if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CHESTPOSITION){
+                        item = new ItemStack(Material.CHEST);
+                    }else  if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.FURNACEPOSITION){
+                        item = new ItemStack(Material.FURNACE);
+                        }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ENCHANTPOSITION){
+                        item = new ItemStack(Material.ENCHANTING_TABLE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CRAFTINGPOSITION){
+                        item = new ItemStack(Material.CRAFTING_TABLE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SMITHINGPOSITION){
+                        item = new ItemStack(Material.SMITHING_TABLE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BLASTFURNACEPOSITION){
+                        item = new ItemStack(Material.BLAST_FURNACE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CAMPFIREPOSITION){
+                        item = new ItemStack(Material.CAMPFIRE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ANVILPOSITION){
+                        item = new ItemStack(Material.ANVIL);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.COMPOSTERPOSITION){
+                        item = new ItemStack(Material.COMPOSTER);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BEEPOSITION){
+                        item = new ItemStack(Material.BEE_NEST);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BOOKSHELFPOSITION){
+                        item = new ItemStack(Material.BOOKSHELF);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ENDPORTALPOSITION){
+                        item = new ItemStack(Material.END_PORTAL_FRAME);
+                    }
                     ItemMeta itemmeta = item.getItemMeta();
-                    itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))].getName());
+                    itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());
                     ArrayList<String> itemlore = new ArrayList<String>();
                     itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
@@ -119,6 +145,7 @@ public class PublicMenu {
                     itemlore.add(" ");
                     itemlore.add(language.transalte(24));
                     itemlore.add(language.transalte(25));
+                    itemlore.add(language.transalte(137));
                     itemmeta.setLore(itemlore);
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);

@@ -106,7 +106,7 @@ public class PublicSettingsMenuListener implements Listener {
                             new Confirmation(player, confirm, cancel);
                             break;
                         case BEACON:
-                            new BossbarService(player, positionName, new Config("plugins//Positionator//Data//public.conf"));
+                            //new BossbarService(player, positionName, new Config("plugins//Positionator//Data//public.conf"));
                             break;
                         case BARRIER:
                             player.closeInventory();

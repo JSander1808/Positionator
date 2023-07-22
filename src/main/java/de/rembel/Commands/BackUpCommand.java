@@ -1,6 +1,9 @@
 package de.rembel.Commands;
 
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.General.BackUpManager;
+import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.BackUpMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,7 +24,9 @@ public class BackUpCommand implements CommandExecutor {
             if(args.length==0){
                 if(sender instanceof Player){
                     Player player = ((Player) sender).getPlayer();
-                    new BackUpMenu(player, 1);
+                    CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
+                    compass.createBossbar(player);
+                    compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                 }
             }else{
                 if(args[0].equalsIgnoreCase("create")) {
