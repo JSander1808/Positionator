@@ -56,6 +56,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new LanguageMenuListener(), this);
         pluginManager.registerEvents(new PrivateSymbolChangeMenuListener(), this);
         pluginManager.registerEvents(new PublicSymbolChangeMenuListener(), this);
+        pluginManager.registerEvents(new CompassManagerMenuListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());

@@ -1,6 +1,9 @@
 package de.rembel.Listener;
 
 import de.rembel.Bossbar.BossbarService;
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CPosition;
+import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.Command;
@@ -24,6 +27,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 public class PublicSettingsMenuListener implements Listener {
 
@@ -106,6 +110,25 @@ public class PublicSettingsMenuListener implements Listener {
                             new Confirmation(player, confirm, cancel);
                             break;
                         case BEACON:
+                            event.setCancelled(true);
+                            Config tempCompassConfig = new Config("plugins//Positionator//Data//public.conf");
+                            CBossbar compass = CBossbar.getByPlayer(player);
+                            Position position = tempCompassConfig.get(positionName);
+                            ChatColor color = getRandomColor();
+                            CPosition cPosition = new CPosition("⌖", color, position.getLocation());
+
+                            if(compass==null){
+                                compass = new CBossbar(PositionatorMain.getPlugin());
+                                compass.createBossbar(player);
+                                compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                            }
+                            General.loadCompassData(compass);
+                            if(!compass.existPosition(cPosition)){
+                                compass.addPosition(cPosition);
+                                player.sendMessage(language.transalte(138)+color+positionName+language.transalte(139)+color+"⌖"+language.transalte(140));
+                            }else{
+                                player.sendMessage(language.transalte(141));
+                            }
                             //new BossbarService(player, positionName, new Config("plugins//Positionator//Data//public.conf"));
                             break;
                         case BARRIER:
@@ -154,5 +177,19 @@ public class PublicSettingsMenuListener implements Listener {
                 }
             }
         }
+    }
+
+    public ChatColor getRandomColor(){
+        boolean finish = false;
+        ChatColor color = null;
+        while(!finish){
+            finish = true;
+            color = ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16)));
+            if(color==ChatColor.GRAY || color==ChatColor.DARK_GRAY) finish = false;
+            if(color==ChatColor.GREEN || color==ChatColor.DARK_GREEN) finish = false;
+            if(color==ChatColor.BLACK) finish = false;
+            if(color==ChatColor.WHITE) finish = false;
+        }
+        return color;
     }
 }

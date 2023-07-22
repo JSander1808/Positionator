@@ -69,6 +69,17 @@ public class CBossbar implements Listener {
         bossBar = Bukkit.createBossBar(NamespacedKey.fromString(this.player.getUniqueId().toString()), initText, barColor, barStyle);
         bossBar.addPlayer(player);
         bossbarContainer.put(this.uuid, this);
+        if(enableDirectionWiser){
+            if(!existPosition(north)) addPosition(north);
+            if(!existPosition(east)) addPosition(east);
+            if(!existPosition(south)) addPosition(south);
+            if(!existPosition(west)) addPosition(west);
+        }else{
+            if(existPosition(north)) removePosition(north.getUuid());
+            if(existPosition(east)) removePosition(east.getUuid());
+            if(existPosition(south)) removePosition(south.getUuid());
+            if(existPosition(west)) removePosition(west.getUuid());
+        }
         return uuid;
     }
 
@@ -88,10 +99,10 @@ public class CBossbar implements Listener {
             if(!existPosition(south)) addPosition(south);
             if(!existPosition(west)) addPosition(west);
         }else{
-            if(existPosition(north)) removePosition(north.getUuid());
-            if(existPosition(east)) removePosition(east.getUuid());
-            if(existPosition(south)) removePosition(south.getUuid());
-            if(existPosition(west)) removePosition(west.getUuid());
+            removePosition(north.getUuid());
+            removePosition(east.getUuid());
+            removePosition(south.getUuid());
+            removePosition(west.getUuid());
         }
         bossBar = Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
         bossBar.setStyle(barStyle);
@@ -217,8 +228,9 @@ public class CBossbar implements Listener {
             }
 
             boolean isUsed = false;
-            for(CPosition position : positionContainer){
-                if(position.getYaw()!=0 && !isUsed || (position.getLocation() == null && position.getEntity() == null)){
+            for(int j = positionContainer.size();j>0;j--){
+                CPosition position = positionContainer.get(j-1);
+                if(position.getYaw()!=0 && !isUsed || (position.getLocation() == null && position.getEntity() == null && !isUsed)){
                     if(position.getYaw()==currentYaw){
                         title.append(position.getColor()+position.getSymbol());
                         if(position.getSymbol().length()==2) i++;
@@ -230,7 +242,7 @@ public class CBossbar implements Listener {
                         Vector target = position.getLocation().toVector();
                         origin.setDirection(target.subtract(origin.toVector()));
                         int newYaw = (int) origin.getYaw();
-                        if(newYaw>=180) newYaw -= 360;
+                        if(newYaw>180) newYaw -= 360;
                         if(newYaw==currentYaw){
                             title.append(position.getColor()+position.getSymbol());
                             if(position.getSymbol().length()==2) i++;
@@ -350,10 +362,10 @@ public class CBossbar implements Listener {
     }
     
     public boolean existPosition(CPosition checkPosition){
+        if(checkPosition==null) return false;
         for(CPosition position : positionContainer){
-            if(position.getUuid()==checkPosition.getUuid()){
-                return true;
-            }
+            if(position.getUuid().toString().equals(checkPosition.getUuid().toString())) return true;
+            if(checkLocations(position.getLocation(), checkPosition.getLocation())) return true;
         }
         return false;
     }
@@ -394,6 +406,15 @@ public class CBossbar implements Listener {
 
     public boolean removeAllPoints(){
         positionContainer.clear();
+        return true;
+    }
+
+    private boolean checkLocations(Location location1, Location location2){
+        if(location1 == null || location2 == null) return false;
+        if(location1.getBlockX()!=location2.getBlockX()) return false;
+        if(location1.getBlockY()!=location2.getBlockY()) return false;
+        if(location1.getBlockZ()!=location2.getBlockZ()) return false;
+        if(!location1.getWorld().getEnvironment().name().equals(location2.getWorld().getEnvironment().name())) return false;
         return true;
     }
 
@@ -483,6 +504,11 @@ public class CBossbar implements Listener {
     public int getSmoothProfile() {
         return smoothProfile;
     }
+
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
     public boolean getWaitForComplettRender(){
         return waitForComplettRender;
     }
@@ -531,5 +557,9 @@ public class CBossbar implements Listener {
     }
     public void setEnableDirectionWiser(boolean enableDirectionWiser){
         this.enableDirectionWiser=enableDirectionWiser;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
     }
 }

@@ -1,7 +1,10 @@
 package de.rembel.General;
 
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.Config.NormalConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -34,5 +37,20 @@ public class General {
 
     public static String decode(String data){
         return new String(Base64.getDecoder().decode(data.getBytes()));
+    }
+
+    public static boolean loadCompassData(CBossbar compass){
+        NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+compass.getPlayer().getUniqueId().toString()+"//config.yml");
+        compass.setEnableDirectionWiser(config.getBoolean("compassDirectionWiser"));
+        if(config.get("compassBossbarColor").equals("white")) compass.setBarColor(BarColor.WHITE);
+        if(config.get("compassBossbarColor").equals("red")) compass.setBarColor(BarColor.RED);
+        if(config.get("compassBossbarColor").equals("green")) compass.setBarColor(BarColor.GREEN);
+        if(config.get("compassBossbarColor").equals("blue")) compass.setBarColor(BarColor.BLUE);
+        if(config.get("compassBossbarColor").equals("purple")) compass.setBarColor(BarColor.PURPLE);
+        if(config.get("compassBossbarColor").equals("yellow")) compass.setBarColor(BarColor.YELLOW);
+        if(config.get("compassBossbarColor").equals("pink")) compass.setBarColor(BarColor.PINK);
+        if(config.get("compassPlaceholder") != null || config.get("compassPlaceholder") != "" || config.get("compassPlaceholder") != " ") compass.setPlaceholder(config.get("compassPlaceholder")); else compass.setPlaceholder("|");
+        compass.renderBossbar();
+        return true;
     }
 }

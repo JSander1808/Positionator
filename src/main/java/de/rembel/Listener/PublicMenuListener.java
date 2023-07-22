@@ -1,10 +1,15 @@
 package de.rembel.Listener;
 
 import de.rembel.Bossbar.BossbarService;
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CPosition;
+import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.General.Position;
 import de.rembel.Language.LanguageManager;
+import de.rembel.Main.PositionatorMain;
 import de.rembel.Menus.PublicFilterMenu;
 import de.rembel.Menus.PublicMenu;
 import de.rembel.Menus.StartMenu;
@@ -22,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PublicMenuListener implements Listener {
 
@@ -32,7 +38,7 @@ public class PublicMenuListener implements Listener {
             Player player = (Player) event.getWhoClicked();
             Config config = new Config("plugins//Positionator//Data//public.conf");
             if(event.getView().getTitle().split(" ").length==7){
-                if(event.getView().getTitle().equalsIgnoreCase(language.transalte(9)+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString())).length/(9*5))+1))){
+                if(event.getView().getTitle().equalsIgnoreCase(language.transalte(9)+event.getView().getTitle().split(" ")[4]+" / "+((config.list(General.PublicFilter.get(player.getUniqueId().toString()), player).length/(9*5))+1))){
                     if(event.getCurrentItem() == null){
                         event.setCancelled(true);
                         return;
@@ -152,6 +158,25 @@ public class PublicMenuListener implements Listener {
                                 player.openInventory(inv);
                             }else if(event.getClick() == ClickType.SHIFT_LEFT){
                                 event.setCancelled(true);
+                                Config tempCompassConfig = new Config("plugins//Positionator//Data//public.conf");
+                                CBossbar compass = CBossbar.getByPlayer(player);
+                                Position position = tempCompassConfig.get(positionName);
+                                ChatColor color = getRandomColor();
+                                CPosition cPosition = new CPosition("⌖", color, position.getLocation());
+
+                                if(compass==null){
+                                    compass = new CBossbar(PositionatorMain.getPlugin());
+                                    compass.createBossbar(player);
+                                    compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                                }
+                                General.loadCompassData(compass);
+                                if(!compass.existPosition(cPosition)){
+                                    compass.addPosition(cPosition);
+                                    player.sendMessage(language.transalte(138)+color+positionName+language.transalte(139)+color+"⌖"+language.transalte(140));
+                                }else{
+                                    player.sendMessage(language.transalte(141));
+                                }
+
                                 //new BossbarService(player, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"",""), new Config("plugins//Positionator//Data//public.conf"));
                             }else if(event.getClick() == ClickType.RIGHT){
                                 Inventory inventory = Bukkit.createInventory(null, 9*3, language.transalte(136)+positionName);
@@ -327,5 +352,19 @@ public class PublicMenuListener implements Listener {
         nulmeta.setDisplayName(" ");
         nul.setItemMeta(nulmeta);
         return nul;
+    }
+
+    public ChatColor getRandomColor(){
+        boolean finish = false;
+        ChatColor color = null;
+        while(!finish){
+            finish = true;
+            color = ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16)));
+            if(color==ChatColor.GRAY || color==ChatColor.DARK_GRAY) finish = false;
+            if(color==ChatColor.GREEN || color==ChatColor.DARK_GREEN) finish = false;
+            if(color==ChatColor.BLACK) finish = false;
+            if(color==ChatColor.WHITE) finish = false;
+        }
+        return color;
     }
 }

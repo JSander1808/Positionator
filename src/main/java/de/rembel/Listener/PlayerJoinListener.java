@@ -1,6 +1,7 @@
 package de.rembel.Listener;
 
 import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
@@ -42,6 +43,9 @@ public class PlayerJoinListener implements Listener {
         if(!playerConfig.existdata("language")) playerConfig.set("language", Languages.ENGLISH);
         if(!playerConfig.existdata("clickSoundPitch")) playerConfig.set("clickSoundPitch","2");
         if(!playerConfig.existdata("compassAlwaysActive")) playerConfig.set("compassAlwaysActive", "false");
+        if(!playerConfig.existdata("compassBossbarColor")) playerConfig.set("compassBossbarColor", "white");
+        if(!playerConfig.existdata("compassPlaceholder")) playerConfig.set("compassPlaceholder", "|");
+        if(!playerConfig.existdata("compassDirectionWiser")) playerConfig.set("compassDirectionWiser", "true");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
@@ -71,6 +75,14 @@ public class PlayerJoinListener implements Listener {
                     }
                 });
             }
+        }
+
+        if(playerConfig.getBoolean("compassAlwaysActive") && CBossbar.getByPlayer(player) == null){
+            CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
+            compass.createBossbar(player);
+            compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+            General.loadCompassData(compass);
+            System.out.println("compass debug");
         }
         return true;
     }

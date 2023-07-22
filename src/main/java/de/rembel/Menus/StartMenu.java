@@ -44,7 +44,7 @@ public class StartMenu {
         privateListMeta.setLore(privateListlore);
         privateList.setItemMeta(privateListMeta);
 
-        ItemStack clearBossBar = new ItemStack(Material.ARROW);
+        ItemStack clearBossBar = new ItemStack(Material.COMPASS);
         ItemMeta clearBossBarMeta = clearBossBar.getItemMeta();
         clearBossBarMeta.setDisplayName(language.transalte(5));
         clearBossBar.setItemMeta(clearBossBarMeta);
@@ -109,12 +109,8 @@ public class StartMenu {
                     case ENDER_CHEST:
                         new PrivateMenu(player,1);
                         break;
-                    case ARROW:
-                        BossBar bar = Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
-                        General.BossBarPosition.remove(player.getUniqueId());
-                        try{
-                            bar.removeAll();
-                        }catch(Exception e){}
+                    case COMPASS:
+                        new CompassManagerMenu(player);
                         break;
                     case CRAFTING_TABLE:
                         new PrivateSettingsMenu(player);

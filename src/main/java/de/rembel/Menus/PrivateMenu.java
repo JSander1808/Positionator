@@ -29,7 +29,7 @@ public class PrivateMenu {
     public PrivateMenu(Player player, int page){
         LanguageManager language = new LanguageManager(player);
         Config config = new Config("plugins//Positionator//Data//User//"+ player.getUniqueId().toString()+"//data.conf");
-        inv = Bukkit.createInventory(null,9*6, language.transalte(26)+page+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString())).length/(9*5))+1));
+        inv = Bukkit.createInventory(null,9*6, language.transalte(26)+page+" / "+((config.list(General.PrivateFilter.get(player.getUniqueId().toString()), player).length/(9*5))+1));
         player.openInventory(inv);
 
         for(int i = 0;i<9*6;i++){
@@ -82,31 +82,30 @@ public class PrivateMenu {
         filter.setItemMeta(filterMeta);
 
         NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
-        int itemSlot = 0;
-        Position[] data = config.list(General.PrivateFilter.get(player.getUniqueId().toString()));
+        Position[] data = config.list(General.PrivateFilter.get(player.getUniqueId().toString()), player);
 
         int multiplierer = 44;
 
         for(int i = 0;i<=44;i++){
-            if((i+(multiplierer*(page-1)))< data.length){
+            if((i+(multiplierer*(page-1))) < data.length){
                 if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.DEATHPOSITION){
-                    ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
-                    ItemMeta itemmeta = item.getItemMeta();
-                    itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))].getName());
-                    ArrayList<String> itemlore = new ArrayList<String>();
-                    itemlore.add(language.transalte(27)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
-                    if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
-                        itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString()+" ("+(int) player.getLocation().distance(data[i+(multiplierer*(page-1))].getLocation())+")");
-                    }else{
-                        itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString());
-                    }
-                    itemlore.add(language.transalte(29)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getDimension());
-                    itemlore.add(" ");
-                    itemlore.add(language.transalte(24));
-                    itemlore.add(language.transalte(25));
-                    itemmeta.setLore(itemlore);
-                    item.setItemMeta(itemmeta);
-                    inv.setItem(i,item);
+                        ItemStack item = new ItemStack(Material.TOTEM_OF_UNDYING);
+                        ItemMeta itemmeta = item.getItemMeta();
+                        itemmeta.setDisplayName(ChatColor.RED+data[i+(multiplierer*(page-1))].getName());
+                        ArrayList<String> itemlore = new ArrayList<String>();
+                        itemlore.add(language.transalte(27)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
+                        if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
+                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString()+" ("+(int) player.getLocation().distance(data[i+(multiplierer*(page-1))].getLocation())+")");
+                        }else{
+                            itemlore.add(language.transalte(28)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getPositionAsString());
+                        }
+                        itemlore.add(language.transalte(29)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getDimension());
+                        itemlore.add(" ");
+                        itemlore.add(language.transalte(24));
+                        itemlore.add(language.transalte(25));
+                        itemmeta.setLore(itemlore);
+                        item.setItemMeta(itemmeta);
+                        inv.setItem(i,item);
                 }else{
                     ItemStack item = null;
                     if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CHESTPOSITION){
@@ -152,7 +151,6 @@ public class PrivateMenu {
                     item.setItemMeta(itemmeta);
                     inv.setItem(i,item);
                 }
-                itemSlot++;
             }
         }
         inv.setItem(45,previouspage);

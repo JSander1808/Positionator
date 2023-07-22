@@ -3,6 +3,8 @@ package de.rembel.Config;
 import de.rembel.General.General;
 import de.rembel.General.Position;
 import de.rembel.General.PositionFilter;
+import de.rembel.General.PositionType;
+import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -242,6 +244,45 @@ public class Config {
                 if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
                     if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
                         data.add(position);
+                    }
+                }
+            }
+            Position[] finalData = new Position[data.size()];
+            for(int i = 0;i< data.size();i++){
+                finalData[i] = data.get(i);
+            }
+            reader.close();
+            return finalData;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public Position[] list(PositionFilter filter, Player player){
+        File file = new File(path);
+        try {
+            ArrayList<Position> data = new ArrayList<Position>();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                Position position = new Position(temp.split("->")[0], new String[]{temp.split("->")[1].split(" ")[0], temp.split("->")[1].split(" ")[1], temp.split("->")[1].split(" ")[2]}, temp.split("->")[2], temp.split("->")[3], Integer.valueOf(temp.split("->")[4]));
+                if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
+                    if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
+                        NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+//                        if(config.getBoolean("showDeathPositionInList") && position.getType() != PositionType.DEATHPOSITION){
+//                            data.add(position);
+//                        }
+                        if(position.getType()==PositionType.DEATHPOSITION){
+                            if(config.getBoolean("showDeathPositionInList")){
+                                data.add(position);
+                            }
+                        }else{
+                            data.add(position);
+                        }
                     }
                 }
             }

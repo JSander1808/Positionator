@@ -24,9 +24,7 @@ public class BackUpCommand implements CommandExecutor {
             if(args.length==0){
                 if(sender instanceof Player){
                     Player player = ((Player) sender).getPlayer();
-                    CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
-                    compass.createBossbar(player);
-                    compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                    new BackUpMenu(player, 1);
                 }
             }else{
                 if(args[0].equalsIgnoreCase("create")) {

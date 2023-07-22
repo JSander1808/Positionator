@@ -18,13 +18,14 @@ public class EnglishLanguageContainer {
         translation.put(13, ChatColor.GOLD+"Next Page");
         translation.put(66, ChatColor.GREEN+"Active");
         translation.put(73, ChatColor.RED+"Inactive");
+        translation.put(146, ChatColor.GREEN+"Status");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Public Position List");
         translation.put(2, ChatColor.GREEN+"Anyone can see this list");
         translation.put(3, ChatColor.GOLD+"Private Position List");
         translation.put(4, ChatColor.GREEN+"Only you can see this list");
-        translation.put(5, ChatColor.RED+"Remove Position from Bossbar");
+        translation.put(5, ChatColor.GOLD+"Compass Manager");
         translation.put(6, ChatColor.GOLD+"Settings");
         translation.put(7, ChatColor.RED+"Admin Settings");
         translation.put(8, ChatColor.GOLD+"Positionator");
@@ -75,6 +76,10 @@ public class EnglishLanguageContainer {
         translation.put(55, " was successfully removed");
         translation.put(58, ChatColor.GREEN+"Type ");
         translation.put(59, ChatColor.GREEN+" to cancel this action");
+        translation.put(138, ChatColor.GREEN+"The position ");
+        translation.put(139, ChatColor.GREEN+" has been marked with ");
+        translation.put(140, ChatColor.GREEN+" in your compass.");
+        translation.put(141, ChatColor.RED+"This position is already on your compass");
 
         //Private Settings Menu
         translation.put(30, ChatColor.GOLD+"Private Settings - ");
@@ -191,6 +196,21 @@ public class EnglishLanguageContainer {
 
         //Symbol change Menu
         translation.put(135, ChatColor.GREEN+"Set this Symbol");
+
+        //Compass Manager
+        translation.put(142, ChatColor.GOLD+"Compass Manager");
+        translation.put(143, ChatColor.GOLD+"Active Position Manager");
+        translation.put(144, ChatColor.GREEN+"Here you can adjust or delete \nthe positions in the compass");
+        translation.put(150, ChatColor.GOLD+"Compass Customizer");
+        translation.put(151, ChatColor.GREEN+"Here you can customize the \ndesign of the compass");
+
+        //Compass Customizer Menu
+        translation.put(152,ChatColor.GOLD+"Set Compass Placeholder");
+        translation.put(153,ChatColor.GREEN+"Current placeholder: ");
+        translation.put(154,ChatColor.GOLD+"Set Compass Color");
+        translation.put(155,ChatColor.GREEN+"Current Color: ");
+        translation.put(156, ChatColor.GOLD+"Always show compass");
+        translation.put(157, ChatColor.DARK_GRAY+"Click to change");
 
         int implemented = translation.size()*100/EnglishLanguageContainer.translation.size();
         PositionatorMain.getPlugin().getLogger().log(Level.INFO, "[LanguageManager] loaded English with "+implemented+"% implimated");

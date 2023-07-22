@@ -1,10 +1,15 @@
 package de.rembel.Listener;
 
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CPosition;
+import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.Position;
 import de.rembel.General.PositionType;
+import de.rembel.Language.LanguageManager;
+import de.rembel.Main.PositionatorMain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +26,7 @@ public class PlayerDeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
+        LanguageManager language = new LanguageManager(event.getEntity());
         NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+event.getEntity().getUniqueId().toString()+"//config.yml");
         Config config = new Config("plugins//Positionator//Data//User//"+ event.getEntity().getUniqueId().toString()+"//data.conf");
         boolean finish = false;
@@ -33,6 +39,25 @@ public class PlayerDeathListener implements Listener {
                 config.set(position);
 
                 if(normalConfig.getBoolean("setDeathPositionInBossbar")){
+                    Config tempCompassConfig = new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf");
+                    CBossbar compass = CBossbar.getByPlayer(player);
+                    ChatColor color = ChatColor.RED;
+                    String symbol = "⌖";
+                    if(position.getType()== PositionType.DEATHPOSITION) symbol = "\uD83D\uDC80";
+                    CPosition cPosition = new CPosition(symbol, color, position.getLocation());
+
+                    if(compass==null){
+                        compass = new CBossbar(PositionatorMain.getPlugin());
+                        compass.createBossbar(player);
+                        compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                    }
+                    General.loadCompassData(compass);
+                    if(!compass.existPosition(cPosition)){
+                        compass.addPosition(cPosition);
+                        player.sendMessage(language.transalte(138)+color+position.getName()+language.transalte(139)+color+symbol+language.transalte(140));
+                    }else{
+                        player.sendMessage(language.transalte(141));
+                    }
 //                    if(Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()))!=null) {
 //                        Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString())).removeAll();
 //                        Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
