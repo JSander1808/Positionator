@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Position-Plugin.iml" filepath="$PROJECT_DIR$/Position-Plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rembel.iml" filepath="$PROJECT_DIR$/rembel.iml" />
     </modules>
   </component>
 </project>
