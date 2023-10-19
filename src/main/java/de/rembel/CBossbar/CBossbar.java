@@ -1,8 +1,9 @@
 package de.rembel.CBossbar;
 
-import de.rembel.General.Position;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import de.rembel.Config.NormalConfig;
+import de.rembel.General.General;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -11,6 +12,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Panda;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -23,8 +25,6 @@ import org.bukkit.util.Vector;
 import java.util.*;
 
 public class CBossbar implements Listener {
-
-    public static HashMap<UUID, CBossbar> bossbarContainer = new HashMap<UUID, CBossbar>();
 
     private Plugin plugin = null;
     private BossBar bossBar;
@@ -46,14 +46,63 @@ public class CBossbar implements Listener {
     private boolean renderInQueue;
     private boolean waitForComplettRender = true;
     private boolean enableDirectionWiser = true;
+    public final String SPLITTER = "/me02ng478hgn/n2m904ngh/";
+    public final String ARRAYSPLITTER = "/meng99n3htn/03gnh48thngneje/";
     private ArrayList<CPosition> positionContainer = new ArrayList<CPosition>();
     //private boolean enableWaitFormComplettRender = true;
 
 
-    private final CPosition north = new CPosition("N", ChatColor.RESET, 180);
-    private final CPosition east = new CPosition("O", ChatColor.RESET, -90);
-    private final CPosition south = new CPosition("S", ChatColor.RESET, 0);
-    private final CPosition west = new CPosition("W", ChatColor.RESET, 90);
+    private final CPosition north = new CPosition("N", ChatColor.WHITE, 180, "North");
+    private final CPosition east = new CPosition("O", ChatColor.WHITE, -90, "East");
+    private final CPosition south = new CPosition("S", ChatColor.WHITE, 0, "South");
+    private final CPosition west = new CPosition("W", ChatColor.WHITE, 90, "West");
+
+    public boolean fromString(String value){
+        String[] data = value.split(SPLITTER);
+        barStyle = BarStyle.valueOf(data[0]);
+        barColor = BarColor.valueOf(data[1]);
+        title = data[2];
+        progress = Double.valueOf(data[3]);
+        uuid = UUID.fromString(data[4]);
+        player = Bukkit.getPlayer(UUID.fromString(data[5]));
+        initText = data[6];
+        visible = Boolean.valueOf(data[7]);
+        placeholder = data[8];
+        spaceBetween = Integer.valueOf(data[9]);
+        yaw = Integer.valueOf(data[10]);
+        if(data.length==12){
+            for(int i = 0;i<data[11].split(ARRAYSPLITTER).length;i++){
+                CPosition position = new CPosition();
+                if(position.fromString(data[11].split(ARRAYSPLITTER)[i])) positionContainer.add(position);
+            }
+        }
+
+        deleteExistBossbar();
+        bossBar = Bukkit.createBossBar(NamespacedKey.fromString(this.player.getUniqueId().toString()), initText, barColor, barStyle);
+        bossBar.addPlayer(player);
+        General.bossbarContainer.put(this.uuid, this);
+        //smoothProfile = CSmoothProfile.MIDDLE;
+        return true;
+    }
+
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append(barStyle.toString()).append(SPLITTER);
+        builder.append(barColor.toString()).append(SPLITTER);
+        builder.append(title).append(SPLITTER);
+        builder.append(progress).append(SPLITTER);
+        builder.append(uuid.toString()).append(SPLITTER);
+        builder.append(player.getUniqueId().toString()).append(SPLITTER);
+        builder.append(initText).append(SPLITTER);
+        builder.append(visible).append(SPLITTER);
+        builder.append(placeholder).append(SPLITTER);
+        builder.append(spaceBetween).append(SPLITTER);
+        builder.append(yaw).append(SPLITTER);
+        for(CPosition position : positionContainer){
+            if(position.toString() != null) builder.append(position.toString()).append(ARRAYSPLITTER);
+        }
+        return builder.toString();
+    }
 
     public CBossbar(Plugin plugin){
         this.plugin=plugin;
@@ -68,7 +117,7 @@ public class CBossbar implements Listener {
         deleteExistBossbar();
         bossBar = Bukkit.createBossBar(NamespacedKey.fromString(this.player.getUniqueId().toString()), initText, barColor, barStyle);
         bossBar.addPlayer(player);
-        bossbarContainer.put(this.uuid, this);
+        General.bossbarContainer.put(this.uuid, this);
         if(enableDirectionWiser){
             if(!existPosition(north)) addPosition(north);
             if(!existPosition(east)) addPosition(east);
@@ -84,10 +133,10 @@ public class CBossbar implements Listener {
     }
 
     public boolean remove(){
-        bossBar.removeAll();
+        if(bossBar != null) bossBar.removeAll();
         Bukkit.removeBossBar(NamespacedKey.fromString(this.player.getUniqueId().toString()));
         HandlerList.unregisterAll(this);
-        bossbarContainer.remove(uuid);
+        if(General.bossbarContainer!=null) General.bossbarContainer.remove(uuid);
         if(Bukkit.getScheduler().isCurrentlyRunning(entityThread)) Bukkit.getScheduler().cancelTask(entityThread);
         return true;
     }
@@ -105,6 +154,10 @@ public class CBossbar implements Listener {
             removePosition(west.getUuid());
         }
         bossBar = Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
+        if(bossBar == null){
+            remove();
+            return false;
+        }
         bossBar.setStyle(barStyle);
         bossBar.setColor(barColor);
         bossBar.setProgress(progress);
@@ -244,7 +297,9 @@ public class CBossbar implements Listener {
                         int newYaw = (int) origin.getYaw();
                         if(newYaw>180) newYaw -= 360;
                         if(newYaw==currentYaw){
-                            title.append(position.getColor()+position.getSymbol());
+                            if(player.getLocation().getBlockY()<position.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol()+"↑");
+                            if(player.getLocation().getBlockY()>position.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol()+"↓");
+                            if(player.getLocation().getBlockY()==position.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol());
                             if(position.getSymbol().length()==2) i++;
                             isUsed = true;
                         }
@@ -259,7 +314,9 @@ public class CBossbar implements Listener {
                             int newYaw = (int) origin.getYaw();
                             if(newYaw>=180) newYaw -= 360;
                             if(newYaw==currentYaw){
-                                title.append(position.getColor()+position.getSymbol());
+                                if(player.getLocation().getBlockY()<entity.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol()+"↑");
+                                if(player.getLocation().getBlockY()>entity.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol()+"↓");
+                                if(player.getLocation().getBlockY()==entity.getLocation().getBlockY()) title.append(position.getColor()+position.getSymbol());
                                 if(position.getSymbol().length()==2) i++;
                                 isUsed = true;
                             }
@@ -294,17 +351,17 @@ public class CBossbar implements Listener {
 
     public static CBossbar get(UUID bossbarUuid){
         if(!checkExistBossbarContainer()) return null;
-        if(!bossbarContainer.containsKey(bossbarUuid)) return null;
-        return bossbarContainer.get(bossbarUuid);
+        if(!General.bossbarContainer.containsKey(bossbarUuid)) return null;
+        return General.bossbarContainer.get(bossbarUuid);
     }
 
     public static CBossbar getByPlayer(Player player){
         if(player==null && !checkExistBossbarContainer()) return null;
-        for(int i = 0;i<bossbarContainer.size();i++){
-            Map.Entry<UUID, CBossbar> entry = bossbarContainer.entrySet().iterator().next();
-            CBossbar value = entry.getValue();
+        for(int i = 0;i<General.bossbarContainer.size();i++){
+            Object firstKey = General.bossbarContainer.keySet().toArray()[i];
+            CBossbar value = General.bossbarContainer.get(firstKey);
             if(value.getPlayer().getUniqueId().toString().equals(player.getUniqueId().toString())){
-                return entry.getValue();
+                return value;
             }
         }
         return null;
@@ -316,7 +373,7 @@ public class CBossbar implements Listener {
     }
 
     private static boolean checkExistBossbarContainer(){
-        if(bossbarContainer==null) return false;
+        if(General.bossbarContainer==null) return false;
         return true;
     }
 
@@ -338,6 +395,8 @@ public class CBossbar implements Listener {
                 Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {renderBossbar(); }, 0, 100);
             }
         }
+        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
+        if(CBossbar.getByPlayer(player)!=null) playerConfig.set("compassSave", CBossbar.getByPlayer(this.player).toString()); else playerConfig.set("compassSave","");
         return true;
     }
 
@@ -349,6 +408,8 @@ public class CBossbar implements Listener {
                 return true;
             }
         }
+        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
+        if(CBossbar.getByPlayer(player)!=null) playerConfig.set("compassSave", CBossbar.getByPlayer(this.player).toString()); else playerConfig.set("compassSave","");
         checkExistEntitysInList();
         return false;
     }
@@ -356,9 +417,32 @@ public class CBossbar implements Listener {
     public List<CPosition> getPositions(){
         List<CPosition> positions = new ArrayList<CPosition>();
         for(CPosition position : positionContainer){
-            positions.add(position);
+            if(!position.getUuid().toString().equals(north.getUuid().toString()) && !position.getUuid().toString().equals(south.getUuid().toString()) && !position.getUuid().toString().equals(west.getUuid().toString()) && !position.getUuid().toString().equals(east.getUuid().toString())){
+                positions.add(position);
+            }
         }
         return positions;
+    }
+    
+    public CPosition getPositionByDescription(String description){
+        for(CPosition position : positionContainer){
+            if(position.getDescription().equals(description)){
+                return position;
+            }
+        }
+        return null;
+    }
+
+    public boolean updatePosition(CPosition position){
+        for(int i = 0;i<positionContainer.size();i++){
+            if(positionContainer.get(i).getUuid().toString().equals(position.getUuid().toString())){
+                positionContainer.set(i, position);
+                return true;
+            }
+        }
+        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
+        if(CBossbar.getByPlayer(player)!=null) playerConfig.set("compassSave", CBossbar.getByPlayer(this.player).toString()); else playerConfig.set("compassSave","");
+        return false;
     }
     
     public boolean existPosition(CPosition checkPosition){
@@ -418,6 +502,10 @@ public class CBossbar implements Listener {
         return true;
     }
 
+    public void saveAsString(){
+
+    }
+
 
 
 
@@ -430,8 +518,7 @@ public class CBossbar implements Listener {
 
     @EventHandler
     private void onMove(PlayerMoveEvent event){
-        Player player = event.getPlayer();
-        if(checkIsPlayerOnline(player)){
+        if(checkIsPlayerOnline(this.player)){
             renderBossbar();
         }
     }
@@ -561,5 +648,26 @@ public class CBossbar implements Listener {
 
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
+    }
+
+
+    private void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
+    }
+
+    private void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    private void setYaw(int yaw) {
+        this.yaw = yaw;
+    }
+
+    private void setPositionContainer(ArrayList<CPosition> positionContainer) {
+        this.positionContainer = positionContainer;
     }
 }

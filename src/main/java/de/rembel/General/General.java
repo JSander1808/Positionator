@@ -18,6 +18,7 @@ public class General {
     public static HashMap<String, String> BossBarPosition = new HashMap<String, String>();
     public static HashMap<String, PositionFilter> PublicFilter = new HashMap<String, PositionFilter>();
     public static HashMap<String, PositionFilter> PrivateFilter = new HashMap<String, PositionFilter>();
+    public static HashMap<UUID, CBossbar> bossbarContainer = new HashMap<UUID, CBossbar>();
 
     public static ArrayList<String> getRegisteredPlayers(){
         ArrayList<String> playerList = new ArrayList<String>();
@@ -40,6 +41,8 @@ public class General {
     }
 
     public static boolean loadCompassData(CBossbar compass){
+        if(compass==null || CBossbar.get(compass.getUuid())==null) return false;
+        System.out.println("loaded");
         NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+compass.getPlayer().getUniqueId().toString()+"//config.yml");
         compass.setEnableDirectionWiser(config.getBoolean("compassDirectionWiser"));
         if(config.get("compassBossbarColor").equals("white")) compass.setBarColor(BarColor.WHITE);

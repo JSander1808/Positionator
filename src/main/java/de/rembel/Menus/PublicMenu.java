@@ -111,14 +111,14 @@ public class PublicMenu {
                         item = new ItemStack(Material.CHEST);
                     }else  if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.FURNACEPOSITION){
                         item = new ItemStack(Material.FURNACE);
-                        }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ENCHANTPOSITION){
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ENCHANTPOSITION){
                         item = new ItemStack(Material.ENCHANTING_TABLE);
                     }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CRAFTINGPOSITION){
                         item = new ItemStack(Material.CRAFTING_TABLE);
-                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SMITHINGPOSITION){
-                        item = new ItemStack(Material.SMITHING_TABLE);
-                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BLASTFURNACEPOSITION){
-                        item = new ItemStack(Material.BLAST_FURNACE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SEALANTERNPOSITION){
+                        item = new ItemStack(Material.SEA_LANTERN);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CRYINGOBSIDIANPOSITION){
+                        item = new ItemStack(Material.CRYING_OBSIDIAN);
                     }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.CAMPFIREPOSITION){
                         item = new ItemStack(Material.CAMPFIRE);
                     }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ANVILPOSITION){
@@ -131,6 +131,32 @@ public class PublicMenu {
                         item = new ItemStack(Material.BOOKSHELF);
                     }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.ENDPORTALPOSITION){
                         item = new ItemStack(Material.END_PORTAL_FRAME);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.EMERALDPOSITION){
+                        item = new ItemStack(Material.EMERALD_BLOCK);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.IRONPOSITION){
+                        item = new ItemStack(Material.IRON_BLOCK);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BEACONPOSITION){
+                        item = new ItemStack(Material.BEACON);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SPAWNERPOSITION){
+                        item = new ItemStack(Material.SPAWNER);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BLAZEPOWDERPOSITION){
+                        item = new ItemStack(Material.BLAZE_POWDER);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.GOLDPOSITION){
+                        item = new ItemStack(Material.GOLD_BLOCK);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SKULKSKRIEKERPOSITION){
+                        item = new ItemStack(Material.SCULK_SHRIEKER);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.REDSTONEPOSITION){
+                        item = new ItemStack(Material.REDSTONE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BOATPOSITION){
+                        item = new ItemStack(Material.OAK_BOAT);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.MINECARTPOSITION){
+                        item = new ItemStack(Material.MINECART);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.AZALEAPOSITION){
+                        item = new ItemStack(Material.FLOWERING_AZALEA);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.SPONGEPOSITION){
+                        item = new ItemStack(Material.SPONGE);
+                    }else if(Integer.valueOf(data[i+(multiplierer*(page-1))].getType()) == PositionType.BELLPOSITION){
+                        item = new ItemStack(Material.BELL);
                     }
                     ItemMeta itemmeta = item.getItemMeta();
                     itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());

@@ -1,23 +1,27 @@
 package de.rembel.Listener;
 
 import de.rembel.CBossbar.CBossbar;
+import de.rembel.CBossbar.CPosition;
 import de.rembel.CBossbar.CSmoothProfile;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.Position;
+import de.rembel.General.PositionFilter;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Main.PositionatorMain;
-import de.rembel.Menus.CompassCustomizerMenu;
-import de.rembel.Menus.CompassManagerMenu;
-import de.rembel.Menus.StartMenu;
+import de.rembel.Menus.*;
 import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -31,8 +35,14 @@ public class CompassManagerMenuListener implements Listener {
         if(event.getView().getTitle().equalsIgnoreCase(language.transalte(142))){
             if(event.getCurrentItem()!=null){
                 switch(event.getCurrentItem().getType()){
+                    case CHEST:
+                        new CompassPositionManagerMenu(player, 1);
+                        break;
                     case COMPASS:
                         new CompassCustomizerMenu(player);
+                        break;
+                    case PLAYER_HEAD:
+                        new CompassSelectPlayerMenu(player, 1);
                         break;
                     case BARRIER:
                         player.closeInventory();
@@ -102,15 +112,15 @@ public class CompassManagerMenuListener implements Listener {
                         if(config.getBoolean("compassAlwaysActive")) {
                             config.set("compassAlwaysActive","false");
                             CBossbar compass = CBossbar.getByPlayer(player);
-                            if(compass!=null) if((compass.getPositions().size()==4 && config.getBoolean("compassDirectionWiser")) || (compass.getPositions().size()==0 && !config.getBoolean("compassDirectionWiser"))) compass.remove();
+                            if(compass!=null) if(compass.getPositions().size()==0) compass.remove();
                         }else{
                             config.set("compassAlwaysActive","true");
                             CBossbar compass = CBossbar.getByPlayer(player);
                             if(compass==null){
                                 compass = new CBossbar(PositionatorMain.getPlugin());
                                 compass.createBossbar(player);
-                                compass.setSmoothProfile(CSmoothProfile.MIDDLE);
-                                General.loadCompassData(CBossbar.getByPlayer(player));
+                                //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                                General.loadCompassData(compass);
                             }
                         }
                         new CompassCustomizerMenu(player);
@@ -124,10 +134,160 @@ public class CompassManagerMenuListener implements Listener {
                     default:
                         break;
                 }
+                event.setCancelled(true);
+                NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, Float.valueOf(normalConfig.get("clickSoundPitch")));
             }
-            event.setCancelled(true);
-            NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
-            if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, Float.valueOf(normalConfig.get("clickSoundPitch")));
+        }else if(event.getView().getTitle().split(" ").length==7 && event.getView().getTitle().equalsIgnoreCase(language.transalte(158)+event.getView().getTitle().split(" ")[4]+" / "+event.getView().getTitle().split(" ")[6])){
+                if(event.getCurrentItem()!=null){
+                    int page = Integer.valueOf(event.getView().getTitle().split(" ")[4]);
+                    int pagemax = Integer.valueOf(event.getView().getTitle().split(" ")[6]);
+                    switch(event.getCurrentItem().getType()){
+                        case SPRUCE_SIGN:
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
+                                new CompassPositionManagerMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
+                            }else{
+                                event.setCancelled(true);
+                            }
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(13))&&page<pagemax){
+                                new CompassPositionManagerMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])+1);
+                            }else{
+                                event.setCancelled(true);
+                            }
+                            break;
+                        case SPRUCE_DOOR:
+                            new CompassManagerMenu(player);
+                            break;
+                        case CHEST:
+                            CBossbar compass = CBossbar.getByPlayer(player);
+                            CPosition position = compass.getPositionByDescription(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
+                            System.out.println(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
+                            if(event.getClick() == ClickType.LEFT){
+                                if(position.getSymbol().equals("⌖")){
+                                    position.setSymbol("\uD83D\uDC80");
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getSymbol().equals("\uD83D\uDC80")){
+                                    position.setSymbol("\uD83C\uDFE0");
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getSymbol().equals("\uD83C\uDFE0")){
+                                    position.setSymbol("⚠");
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getSymbol().equals("⚠")){
+                                    position.setSymbol("\uD83D\uDCC5");
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getSymbol().equals("\uD83D\uDCC5")){
+                                    position.setSymbol("⌖");
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }
+                            }else if(event.getClick() == ClickType.RIGHT){
+                                if(position.getColor().equals(ChatColor.RED)){
+                                    position.setColor(ChatColor.BLUE);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.BLUE)){
+                                    position.setColor(ChatColor.YELLOW);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.YELLOW)){
+                                    position.setColor(ChatColor.DARK_PURPLE);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.DARK_PURPLE)){
+                                    position.setColor(ChatColor.LIGHT_PURPLE);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.LIGHT_PURPLE)){
+                                    position.setColor(ChatColor.RED);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.RED)){
+                                    position.setColor(ChatColor.AQUA);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.AQUA)){
+                                    position.setColor(ChatColor.GOLD);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }else if(position.getColor().equals(ChatColor.GOLD)){
+                                    position.setColor(ChatColor.RED);
+                                    compass.updatePosition(position);
+                                    new CompassPositionManagerMenu(player, page);
+                                }
+                            }else if(event.getClick() == ClickType.SHIFT_LEFT){
+                                compass.removePosition(position.getUuid());
+                                General.loadCompassData(compass);
+                                if(compass!=null) if(compass.getPositions().size()==0) if(!config.getBoolean("compassAlwaysActive")) compass.remove();
+                                new CompassPositionManagerMenu(player, page);
+                            }
+                            General.loadCompassData(compass);
+                            break;
+                        case BARRIER:
+                            player.closeInventory();
+                            break;
+                        default:
+                            break;
+                    }
+                    event.setCancelled(true);
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                    if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, Float.valueOf(normalConfig.get("clickSoundPitch")));
+                }
+        }else if(event.getView().getTitle().split(" ").length==6 && event.getView().getTitle().equalsIgnoreCase(language.transalte(164)+event.getView().getTitle().split(" ")[3]+" / "+event.getView().getTitle().split(" ")[5])){
+                if(event.getCurrentItem()!=null){
+                    int page = Integer.valueOf(event.getView().getTitle().split(" ")[3]);
+                    int maxPage = Integer.valueOf(event.getView().getTitle().split(" ")[5]);
+                    switch(event.getCurrentItem().getType()){
+                        case BARRIER:
+                            player.closeInventory();
+                            break;
+                        case SPRUCE_DOOR:
+                            new CompassManagerMenu(player);
+                            break;
+                        case SPRUCE_SIGN:
+                            if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))){
+                                if(page>=2){
+                                    new CompassSelectPlayerMenu(player, (page-1));
+                                }
+                            }else if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(13))){
+                                if(page+1<=maxPage){
+                                    new CompassSelectPlayerMenu(player, (page+1));
+                                }
+                            }
+                            break;
+                        case PLAYER_HEAD:
+                            CBossbar compass = CBossbar.getByPlayer(player);
+                            if(compass != null){
+                                Entity entity = Bukkit.getPlayer(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()));
+                                compass.addPosition(new CPosition("\uD83C\uDFAE", getRandomColor(), entity, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")));
+                                System.out.println(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
+                            }
+                            new CompassSelectPlayerMenu(player, page);
+                            break;
+                        default:
+                            break;
+                    }
+                    event.setCancelled(true);
+                    NormalConfig normalConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                    if(normalConfig.getBoolean("enableMenuClickSound")) player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, Float.valueOf(normalConfig.get("clickSoundPitch")));
+                }
         }
+    }
+
+    public ChatColor getRandomColor(){
+        ChatColor color = null;
+        int random = 1 + (int)(Math.random() * ((8 - 1) + 1));
+        if(random==1) color = ChatColor.RED;
+        if(random==2) color = ChatColor.BLUE;
+        if(random==3) color = ChatColor.YELLOW;
+        if(random==4) color = ChatColor.DARK_PURPLE;
+        if(random==5) color = ChatColor.LIGHT_PURPLE;
+        if(random==6) color = ChatColor.RED;
+        if(random==7) color = ChatColor.AQUA;
+        if(random==8) color = ChatColor.GOLD;
+        return color;
     }
 }

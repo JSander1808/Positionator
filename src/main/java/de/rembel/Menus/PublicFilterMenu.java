@@ -73,7 +73,7 @@ public class PublicFilterMenu {
 
     public static void PublicPlayernameFilterMenu(Player player, int page){
         LanguageManager language = new LanguageManager(player);
-        Inventory inventory = Bukkit.createInventory(null, 3*9, language.transalte(65)+page+" / "+((General.getRegisteredPlayers().size()/(9*3))+1));
+        Inventory inventory = Bukkit.createInventory(null, 3*9, language.transalte(65)+page+" / "+((General.getRegisteredPlayers().size()/(9*2))+1));
 
         for(int i = 0;i<9*3;i++){
             inventory.setItem(i,placeholder());

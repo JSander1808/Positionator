@@ -80,13 +80,26 @@ public class PrivateMenuListener implements Listener {
                         case FURNACE:
                         case ENCHANTING_TABLE:
                         case CRAFTING_TABLE:
-                        case SMITHING_TABLE:
-                        case BLAST_FURNACE:
+                        case SEA_LANTERN:
+                        case CRYING_OBSIDIAN:
                         case CAMPFIRE:
                         case ANVIL:
                         case COMPOSTER:
                         case BEE_NEST:
                         case BOOKSHELF:
+                        case EMERALD_BLOCK:
+                        case IRON_BLOCK:
+                        case SPAWNER:
+                        case BELL:
+                        case BEACON:
+                        case BLAZE_POWDER:
+                        case GOLD_BLOCK:
+                        case SCULK_SHRIEKER:
+                        case REDSTONE:
+                        case OAK_BOAT:
+                        case MINECART:
+                        case FLOWERING_AZALEA:
+                        case SPONGE:
                         case END_PORTAL_FRAME:
                             String positionName1 = event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"","");
                             if(event.getClick() == ClickType.LEFT){
@@ -96,7 +109,7 @@ public class PrivateMenuListener implements Listener {
                                 }
 
 
-                                if(event.getCurrentItem().getType() == Material.CHEST){
+                                if(event.getCurrentItem().getType() != Material.TOTEM_OF_UNDYING){
                                     ItemStack setInOtherList = new ItemStack(Material.CHEST);
                                     ItemMeta setInOtherListMeta = setInOtherList.getItemMeta();
                                     setInOtherListMeta.setDisplayName(language.transalte(31)+positionName1+language.transalte(32));
@@ -154,7 +167,7 @@ public class PrivateMenuListener implements Listener {
                                 }
 
                                 inv1.setItem(4,setOnBossbar);
-                                if(event.getCurrentItem().getType() == Material.CHEST) {inv1.setItem(2, rename);}else{inv1.setItem(3, rename);}
+                                if(event.getCurrentItem().getType() != Material.TOTEM_OF_UNDYING) {inv1.setItem(2, rename);}else{inv1.setItem(3, rename);}
                                 inv1.setItem(0,delete);
                                 inv1.setItem(8,close);
                                 inv1.setItem(7, back);
@@ -168,20 +181,20 @@ public class PrivateMenuListener implements Listener {
                                 ChatColor color = getRandomColor();
                                 String symbol = "⌖";
                                 if(position.getType()== PositionType.DEATHPOSITION) symbol = "\uD83D\uDC80";
-                                CPosition cPosition = new CPosition(symbol, color, position.getLocation());
+                                CPosition cPosition = new CPosition(symbol, color, position.getLocation(), position.getName());
 
                                 if(compass==null){
                                     compass = new CBossbar(PositionatorMain.getPlugin());
                                     compass.createBossbar(player);
                                     compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                                 }
-                                General.loadCompassData(compass);
                                 if(!compass.existPosition(cPosition)){
                                     compass.addPosition(cPosition);
                                     player.sendMessage(language.transalte(138)+color+positionName1+language.transalte(139)+color+symbol+language.transalte(140));
                                 }else{
                                     player.sendMessage(language.transalte(141));
                                 }
+                                General.loadCompassData(compass);
                                 //new BossbarService(player, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"","").replace(ChatColor.RED+"",""),new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
                             }else if(event.getClick() == ClickType.RIGHT && event.getCurrentItem().getType() != Material.TOTEM_OF_UNDYING){
                                 Inventory inventory = Bukkit.createInventory(null, 9*3, language.transalte(134)+positionName1);
@@ -240,20 +253,20 @@ public class PrivateMenuListener implements Listener {
                                 }
                                 crafting.setItemMeta(craftingMeta);
 
-                                ItemStack smithing = new ItemStack(Material.SMITHING_TABLE);
+                                ItemStack smithing = new ItemStack(Material.SEA_LANTERN);
                                 ItemMeta smithingMeta = smithing.getItemMeta();
                                 smithingMeta.setDisplayName(language.transalte(135));
-                                if(event.getCurrentItem().getType()==Material.SMITHING_TABLE){
+                                if(event.getCurrentItem().getType()==Material.SEA_LANTERN){
                                     ArrayList lore = new ArrayList();
                                     lore.add(language.transalte(66));
                                     smithingMeta.setLore(lore);
                                 }
                                 smithing.setItemMeta(smithingMeta);
 
-                                ItemStack blastfurnace = new ItemStack(Material.BLAST_FURNACE);
+                                ItemStack blastfurnace = new ItemStack(Material.CRYING_OBSIDIAN);
                                 ItemMeta blastfurnaceMeta = blastfurnace.getItemMeta();
                                 blastfurnaceMeta.setDisplayName(language.transalte(135));
-                                if(event.getCurrentItem().getType()==Material.BLAST_FURNACE){
+                                if(event.getCurrentItem().getType()==Material.CRYING_OBSIDIAN){
                                     ArrayList lore = new ArrayList();
                                     lore.add(language.transalte(66));
                                     blastfurnaceMeta.setLore(lore);
@@ -320,6 +333,138 @@ public class PrivateMenuListener implements Listener {
                                 }
                                 end.setItemMeta(endMeta);
 
+                                ItemStack emerald = new ItemStack(Material.EMERALD_BLOCK);
+                                ItemMeta emeraldMeta = emerald.getItemMeta();
+                                emeraldMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.EMERALD_BLOCK){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    emeraldMeta.setLore(lore);
+                                }
+                                emerald.setItemMeta(emeraldMeta);
+
+                                ItemStack iron = new ItemStack(Material.IRON_BLOCK);
+                                ItemMeta ironMeta = iron.getItemMeta();
+                                ironMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.IRON_BLOCK){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    ironMeta.setLore(lore);
+                                }
+                                iron.setItemMeta(ironMeta);
+
+                                ItemStack beacon = new ItemStack(Material.BEACON);
+                                ItemMeta beaconMeta = beacon.getItemMeta();
+                                beaconMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BEACON){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    beaconMeta.setLore(lore);
+                                }
+                                beacon.setItemMeta(beaconMeta);
+
+                                ItemStack spawner = new ItemStack(Material.SPAWNER);
+                                ItemMeta spawnerMeta = spawner.getItemMeta();
+                                spawnerMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.SPAWNER){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    spawnerMeta.setLore(lore);
+                                }
+                                spawner.setItemMeta(spawnerMeta);
+
+                                ItemStack bell = new ItemStack(Material.BELL);
+                                ItemMeta bellMeta = bell.getItemMeta();
+                                bellMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BELL){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    bellMeta.setLore(lore);
+                                }
+                                bell.setItemMeta(bellMeta);
+
+                                ItemStack blaze = new ItemStack(Material.BLAZE_POWDER);
+                                ItemMeta blazeMeta = blaze.getItemMeta();
+                                blazeMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.BLAZE_POWDER){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    blazeMeta.setLore(lore);
+                                }
+                                blaze.setItemMeta(blazeMeta);
+
+                                ItemStack gold = new ItemStack(Material.GOLD_BLOCK);
+                                ItemMeta goldMeta = gold.getItemMeta();
+                                goldMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.GOLD_BLOCK){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    goldMeta.setLore(lore);
+                                }
+                                gold.setItemMeta(goldMeta);
+
+                                ItemStack skulk = new ItemStack(Material.SCULK_SHRIEKER);
+                                ItemMeta skulkMeta = skulk.getItemMeta();
+                                skulkMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.SCULK_SHRIEKER){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    skulkMeta.setLore(lore);
+                                }
+                                skulk.setItemMeta(skulkMeta);
+
+                                ItemStack redstone = new ItemStack(Material.REDSTONE);
+                                ItemMeta redstoneMeta = redstone.getItemMeta();
+                                redstoneMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.REDSTONE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    redstoneMeta.setLore(lore);
+                                }
+                                redstone.setItemMeta(redstoneMeta);
+
+                                ItemStack boat = new ItemStack(Material.OAK_BOAT);
+                                ItemMeta boatMeta = boat.getItemMeta();
+                                boatMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.OAK_BOAT){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    boatMeta.setLore(lore);
+                                }
+                                boat.setItemMeta(boatMeta);
+
+                                ItemStack minecart = new ItemStack(Material.MINECART);
+                                ItemMeta minecartMeta = minecart.getItemMeta();
+                                minecartMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.MINECART){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    minecartMeta.setLore(lore);
+                                }
+                                minecart.setItemMeta(minecartMeta);
+
+                                ItemStack azalea = new ItemStack(Material.FLOWERING_AZALEA);
+                                ItemMeta azaleaMeta = azalea.getItemMeta();
+                                azaleaMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.FLOWERING_AZALEA){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    azaleaMeta.setLore(lore);
+                                }
+                                azalea.setItemMeta(azaleaMeta);
+
+                                ItemStack sponge = new ItemStack(Material.SPONGE);
+                                ItemMeta spongeMeta = sponge.getItemMeta();
+                                spongeMeta.setDisplayName(language.transalte(135));
+                                spongeMeta.setDisplayName(language.transalte(135));
+                                if(event.getCurrentItem().getType()==Material.SPONGE){
+                                    ArrayList lore = new ArrayList();
+                                    lore.add(language.transalte(66));
+                                    spongeMeta.setLore(lore);
+                                }
+
+
+
                                 inventory.setItem(0,chest);
                                 inventory.setItem(1,furnace);
                                 inventory.setItem(2,enchant);
@@ -331,7 +476,20 @@ public class PrivateMenuListener implements Listener {
                                 inventory.setItem(8,composter);
                                 inventory.setItem(9,bee);
                                 inventory.setItem(10,bookshelf);
-                                inventory.setItem(10,end);
+                                inventory.setItem(11,end);
+                                inventory.setItem(12,emerald);
+                                inventory.setItem(13,iron);
+                                inventory.setItem(14,beacon);
+                                inventory.setItem(15,spawner);
+                                inventory.setItem(16,bell);
+                                inventory.setItem(17,blaze);
+                                inventory.setItem(18,gold);
+                                inventory.setItem(19,skulk);
+                                inventory.setItem(20,redstone);
+                                inventory.setItem(21,boat);
+                                inventory.setItem(22,minecart);
+                                inventory.setItem(23,azalea);
+                                inventory.setItem(24,sponge);
 
                                 inventory.setItem(25, back);
                                 inventory.setItem(26, close);
@@ -361,16 +519,16 @@ public class PrivateMenuListener implements Listener {
     }
 
     public ChatColor getRandomColor(){
-        boolean finish = false;
         ChatColor color = null;
-        while(!finish){
-            finish = true;
-            color = ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16)));
-            if(color==ChatColor.GRAY || color==ChatColor.DARK_GRAY) finish = false;
-            if(color==ChatColor.GREEN || color==ChatColor.DARK_GREEN) finish = false;
-            if(color==ChatColor.BLACK) finish = false;
-            if(color==ChatColor.WHITE) finish = false;
-        }
+        int random = 1 + (int)(Math.random() * ((8 - 1) + 1));
+        if(random==1) color = ChatColor.RED;
+        if(random==2) color = ChatColor.BLUE;
+        if(random==3) color = ChatColor.YELLOW;
+        if(random==4) color = ChatColor.DARK_PURPLE;
+        if(random==5) color = ChatColor.LIGHT_PURPLE;
+        if(random==6) color = ChatColor.RED;
+        if(random==7) color = ChatColor.AQUA;
+        if(random==8) color = ChatColor.GOLD;
         return color;
     }
 }

@@ -11,7 +11,10 @@ import de.rembel.Main.PositionatorMain;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Content;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -77,12 +80,22 @@ public class PlayerJoinListener implements Listener {
             }
         }
 
+        if(playerConfig.get("compassSave")!=null && CBossbar.getByPlayer(player) == null){
+            CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
+            compass.fromString(playerConfig.get("compassSave"));
+        }
+
         if(playerConfig.getBoolean("compassAlwaysActive") && CBossbar.getByPlayer(player) == null){
             CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
             compass.createBossbar(player);
-            compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+            //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
             General.loadCompassData(compass);
-            System.out.println("compass debug");
+        }
+
+        BossBar compass = Bukkit.getBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
+        if(compass != null && !playerConfig.getBoolean("compassAlwaysActive") && playerConfig.get("compassSave") == null){
+            compass.removeAll();
+            Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
         }
         return true;
     }

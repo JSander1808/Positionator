@@ -24,7 +24,7 @@ public class GermanLanguageContainer {
         translation.put(2, ChatColor.GREEN+"Jeder kann diese Liste sehen");
         translation.put(3, ChatColor.GOLD+"Private Positions Lists");
         translation.put(4, ChatColor.GREEN+"Nur du kannst diese Liste sehen");
-        translation.put(5, ChatColor.RED+"Entferne Position aus Bossbar");
+        translation.put(5, ChatColor.GOLD+"Compass verwalten");
         translation.put(6, ChatColor.GOLD+"Einstellungen");
         translation.put(7, ChatColor.RED+"Admin Einstellungen");
         translation.put(8, ChatColor.GOLD+"Positionator");
@@ -42,7 +42,6 @@ public class GermanLanguageContainer {
         translation.put(23, ChatColor.GREEN+"Dimension: ");
         translation.put(24, ChatColor.DARK_GRAY+"Links-Klick: Position einstellungen öffnen");
         translation.put(25, ChatColor.DARK_GRAY+"Shift + Links-Klick: Position in Bossbar setzten");
-
         //Public Position List Menu
         translation.put(9, ChatColor.GOLD+"Öffentliche Liste - Seite ");
 
@@ -166,7 +165,7 @@ public class GermanLanguageContainer {
         translation.put(120, ChatColor.GOLD+"Backup erstellen");
 
         //Backup load logic
-        translation.put(131, ChatColor.RED+"Grund: Positionator läd ein Back \n");
+        translation.put(131, ChatColor.RED+"Grund: Positionator läd ein BackUp \n");
         translation.put(132, "Du kannst in wenigen Sekunden wieder beitreten");
 
         //Language Menu

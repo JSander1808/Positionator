@@ -44,12 +44,12 @@ public class PlayerDeathListener implements Listener {
                     ChatColor color = ChatColor.RED;
                     String symbol = "⌖";
                     if(position.getType()== PositionType.DEATHPOSITION) symbol = "\uD83D\uDC80";
-                    CPosition cPosition = new CPosition(symbol, color, position.getLocation());
+                    CPosition cPosition = new CPosition(symbol, color, position.getLocation(), position.getName());
 
                     if(compass==null){
                         compass = new CBossbar(PositionatorMain.getPlugin());
                         compass.createBossbar(player);
-                        compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                        //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                     }
                     General.loadCompassData(compass);
                     if(!compass.existPosition(cPosition)){

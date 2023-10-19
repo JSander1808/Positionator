@@ -48,15 +48,15 @@ public class PrivateSymbolChangeMenuListener implements Listener {
                             config.set(position4);
                             new PrivateMenu(player, 1);
                             break;
-                        case SMITHING_TABLE:
+                        case SEA_LANTERN:
                             Position position5 = config.get(positionName);
-                            position5.setType(PositionType.SMITHINGPOSITION);
+                            position5.setType(PositionType.SEALANTERNPOSITION);
                             config.set(position5);
                             new PrivateMenu(player, 1);
                             break;
-                        case BLAST_FURNACE:
+                        case CRYING_OBSIDIAN:
                             Position position6 = config.get(positionName);
-                            position6.setType(PositionType.BLASTFURNACEPOSITION);
+                            position6.setType(PositionType.CRYINGOBSIDIANPOSITION);
                             config.set(position6);
                             new PrivateMenu(player, 1);
                             break;
@@ -94,6 +94,84 @@ public class PrivateSymbolChangeMenuListener implements Listener {
                             Position position12 = config.get(positionName);
                             position12.setType(PositionType.ENDPORTALPOSITION);
                             config.set(position12);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case EMERALD_BLOCK:
+                            Position position13 = config.get(positionName);
+                            position13.setType(PositionType.EMERALDPOSITION);
+                            config.set(position13);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case IRON_BLOCK:
+                            Position position14 = config.get(positionName);
+                            position14.setType(PositionType.IRONPOSITION);
+                            config.set(position14);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case BEACON:
+                            Position position15 = config.get(positionName);
+                            position15.setType(PositionType.BEACONPOSITION);
+                            config.set(position15);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case SPAWNER:
+                            Position position16 = config.get(positionName);
+                            position16.setType(PositionType.SPAWNERPOSITION);
+                            config.set(position16);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case BLAZE_POWDER:
+                            Position position17 = config.get(positionName);
+                            position17.setType(PositionType.BLAZEPOWDERPOSITION);
+                            config.set(position17);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case BELL:
+                            Position position18 = config.get(positionName);
+                            position18.setType(PositionType.BELLPOSITION);
+                            config.set(position18);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case GOLD_BLOCK:
+                            Position position19 = config.get(positionName);
+                            position19.setType(PositionType.GOLDPOSITION);
+                            config.set(position19);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case SCULK_SHRIEKER:
+                            Position position20 = config.get(positionName);
+                            position20.setType(PositionType.SKULKSKRIEKERPOSITION);
+                            config.set(position20);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case REDSTONE:
+                            Position position21 = config.get(positionName);
+                            position21.setType(PositionType.REDSTONEPOSITION);
+                            config.set(position21);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case OAK_BOAT:
+                            Position position22 = config.get(positionName);
+                            position22.setType(PositionType.BOATPOSITION);
+                            config.set(position22);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case MINECART:
+                            Position position23 = config.get(positionName);
+                            position23.setType(PositionType.MINECARTPOSITION);
+                            config.set(position23);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case FLOWERING_AZALEA:
+                            Position position24 = config.get(positionName);
+                            position24.setType(PositionType.AZALEAPOSITION);
+                            config.set(position24);
+                            new PrivateMenu(player, 1);
+                            break;
+                        case SPONGE:
+                            Position position25 = config.get(positionName);
+                            position25.setType(PositionType.SPONGEPOSITION);
+                            config.set(position25);
                             new PrivateMenu(player, 1);
                             break;
                         case BARRIER:

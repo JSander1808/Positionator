@@ -1,5 +1,6 @@
 package de.rembel.Main;
 
+import de.rembel.CBossbar.CBossbar;
 import de.rembel.Commands.BackUpCommand;
 import de.rembel.Commands.PositionCommand;
 import de.rembel.Config.NormalConfig;
@@ -57,6 +58,7 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PrivateSymbolChangeMenuListener(), this);
         pluginManager.registerEvents(new PublicSymbolChangeMenuListener(), this);
         pluginManager.registerEvents(new CompassManagerMenuListener(), this);
+        pluginManager.registerEvents(new PlayerQuitListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
         getCommand("backup").setExecutor(new BackUpCommand());
@@ -66,6 +68,12 @@ public final class PositionatorMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if(player != null){
+                NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                if(CBossbar.getByPlayer(player) != null) playerConfig.set("compassSave", CBossbar.getByPlayer(player).toString());
+            }
+        }
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
         if(config.getBoolean("createBackUpByServerRestart")){

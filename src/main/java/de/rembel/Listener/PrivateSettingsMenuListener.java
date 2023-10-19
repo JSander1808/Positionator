@@ -111,20 +111,20 @@ public class PrivateSettingsMenuListener implements Listener {
                             ChatColor color = getRandomColor();
                             String symbol = "⌖";
                             if(position.getType()== PositionType.DEATHPOSITION) symbol = "\uD83D\uDC80";
-                            CPosition cPosition = new CPosition(symbol, color, position.getLocation());
+                            CPosition cPosition = new CPosition(symbol, color, position.getLocation(), position.getName());
 
                             if(compass==null){
                                 compass = new CBossbar(PositionatorMain.getPlugin());
                                 compass.createBossbar(player);
-                                compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                                //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                             }
-                            General.loadCompassData(compass);
                             if(!compass.existPosition(cPosition)){
                                 compass.addPosition(cPosition);
                                 player.sendMessage(language.transalte(138)+color+positionName+language.transalte(139)+color+symbol+language.transalte(140));
                             }else{
                                 player.sendMessage(language.transalte(141));
                             }
+                            General.loadCompassData(compass);
                             //new BossbarService(player, positionName, new Config("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//data.conf"));
                             break;
                         case BARRIER:
@@ -176,16 +176,16 @@ public class PrivateSettingsMenuListener implements Listener {
     }
 
     public ChatColor getRandomColor(){
-        boolean finish = false;
         ChatColor color = null;
-        while(!finish){
-            finish = true;
-            color = ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16)));
-            if(color==ChatColor.GRAY || color==ChatColor.DARK_GRAY) finish = false;
-            if(color==ChatColor.GREEN || color==ChatColor.DARK_GREEN) finish = false;
-            if(color==ChatColor.BLACK) finish = false;
-            if(color==ChatColor.WHITE) finish = false;
-        }
+        int random = 1 + (int)(Math.random() * ((8 - 1) + 1));
+        if(random==1) color = ChatColor.RED;
+        if(random==2) color = ChatColor.BLUE;
+        if(random==3) color = ChatColor.YELLOW;
+        if(random==4) color = ChatColor.DARK_PURPLE;
+        if(random==5) color = ChatColor.LIGHT_PURPLE;
+        if(random==6) color = ChatColor.RED;
+        if(random==7) color = ChatColor.AQUA;
+        if(random==8) color = ChatColor.GOLD;
         return color;
     }
 }

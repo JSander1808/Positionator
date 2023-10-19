@@ -1,6 +1,8 @@
 package de.rembel.Listener;
 
 import de.rembel.Bossbar.BossbarService;
+import de.rembel.CBossbar.CBossbar;
+import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
@@ -19,6 +21,6 @@ public class PlayerMoveListener implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event){
-        //BossbarService.updateBossbar(event.getPlayer());
+
     }
 }

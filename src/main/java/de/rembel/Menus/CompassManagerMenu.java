@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 
@@ -49,10 +50,20 @@ public class CompassManagerMenu {
         bossbarSettingsMeta.setLore(bossbarSettingsLore);
         bossbarSettings.setItemMeta(bossbarSettingsMeta);
 
+        ItemStack playerSelector = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta playerSelectorMeta = (SkullMeta) playerSelector.getItemMeta();
+        playerSelectorMeta.setOwner(player.getName());
+        playerSelectorMeta.setDisplayName(language.transalte(165));
+        ArrayList playerSelectorLore = new ArrayList();
+        playerSelectorLore.add(language.transalte(166));
+        playerSelectorMeta.setLore(playerSelectorLore);
+        playerSelector.setItemMeta(playerSelectorMeta);
+
 
 
         inv.setItem(1, compassPositionManager);
-        inv.setItem(4, bossbarSettings);
+        inv.setItem(3, playerSelector);
+        inv.setItem(5, bossbarSettings);
         inv.setItem(7, back);
         inv.setItem(8, close);
     }
