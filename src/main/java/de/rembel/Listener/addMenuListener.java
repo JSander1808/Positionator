@@ -5,6 +5,7 @@ import de.rembel.Config.NormalConfig;
 import de.rembel.General.Position;
 import de.rembel.General.PositionType;
 import de.rembel.Language.LanguageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -34,6 +35,9 @@ public class addMenuListener implements Listener {
                                 publicconfig.set(publicPosition);
                                 player.closeInventory();
                                 player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+language.transalteDefaultEnglish(105));
+                                for(Player tempPlayer : Bukkit.getOnlinePlayers()){
+                                    tempPlayer.sendMessage(ChatColor.GOLD+""+tempPlayer+language.transalte(167)+positionName+language.transalte(168));
+                                }
                             }else{
                                 player.sendMessage(language.transalte(106)+positionName+language.transalte(107));
                             }
