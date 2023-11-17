@@ -223,9 +223,6 @@ public class EnglishLanguageContainer {
         translation.put(165, ChatColor.GOLD+"Player Selector");
         translation.put(166, ChatColor.GREEN+"Here you can add Player to the Compass");
 
-        translation.put(167, ChatColor.GREEN+"has added ");
-        translation.put(168, ChatColor.GREEN+" to Public List");
-
         int implemented = translation.size()*100/EnglishLanguageContainer.translation.size();
         PositionatorMain.getPlugin().getLogger().log(Level.INFO, "[LanguageManager] loaded English with "+implemented+"% implimated");
     }
