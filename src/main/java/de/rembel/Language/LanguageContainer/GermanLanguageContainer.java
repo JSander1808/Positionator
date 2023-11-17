@@ -144,8 +144,8 @@ public class GermanLanguageContainer {
         //translation.put(101, ChatColor.GOLD+"Hinzufügen von");
         translation.put(102, ChatColor.GOLD+"Zur Öffentlichen Liste hinzufügen");
         translation.put(103, ChatColor.GOLD+"Zur Privaten Liste hinzufügen");
-        translation.put(104, ChatColor.GOLD+"Position ");
-        translation.put(105, ChatColor.GOLD+" wurde erfolgreich hinzugefügt");
+//        translation.put(104, ChatColor.GOLD+"Position ");
+//        translation.put(105, ChatColor.GOLD+" wurde erfolgreich hinzugefügt");
         translation.put(106, ChatColor.RED+"Die Position ");
         translation.put(107, " exestiert bereits in der Öffentlichen Liste.");
         translation.put(108, " exestiert bereits in der Privaten Liste.");

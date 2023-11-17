@@ -146,8 +146,8 @@ public class FrenchLanguageContainer {
         //translation.put(101, ChatColor.GOLD+"Ajouter à partir de");
         translation.put(102, ChatColor.GOLD+"Ajouter à la liste publique");
         translation.put(103, ChatColor.GOLD+"Ajouter à la liste privée");
-        translation.put(104, ChatColor.GOLD+"Le ");
-        translation.put(105, ChatColor.GOLD+" de position a été ajouté avec succès");
+//        translation.put(104, ChatColor.GOLD+"Le ");
+//        translation.put(105, ChatColor.GOLD+" de position a été ajouté avec succès");
         translation.put(106, ChatColor.RED+"Le ");
         translation.put(107, " de position existe déjà dans la liste publique.");
         translation.put(108, " de position existe déjà dans la liste privée.");

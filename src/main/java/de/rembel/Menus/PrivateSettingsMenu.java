@@ -84,6 +84,19 @@ public class PrivateSettingsMenu {
         menuClickSoundMeta.setLore(menuClickSoundLore);
         menuClickSound.setItemMeta(menuClickSoundMeta);
 
+        ItemStack broadcaseWhenPositionAdded = new ItemStack(Material.BELL);
+        ItemMeta broadcaseWhenPositionAddedMeta = enableFilter.getItemMeta();
+        broadcaseWhenPositionAddedMeta.setDisplayName(language.transalte(167));
+        ArrayList broadcaseWhenPositionAddedLore = new ArrayList();
+        if(config.getBoolean("broadcaseWhenPositionAdded")){
+            broadcaseWhenPositionAddedLore.add(language.transalte(66));
+        }else{
+            broadcaseWhenPositionAddedLore.add(language.transalte(73));
+        }
+        broadcaseWhenPositionAddedLore.add(language.transalte(168));
+        broadcaseWhenPositionAddedMeta.setLore(broadcaseWhenPositionAddedLore);
+        broadcaseWhenPositionAdded.setItemMeta(broadcaseWhenPositionAddedMeta);
+
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
         closemeta.setDisplayName(language.transalte(10));
@@ -98,6 +111,7 @@ public class PrivateSettingsMenu {
         inv.setItem(1,showDeathPositionInBossbar);
         inv.setItem(2,enableFilter);
         inv.setItem(3, menuClickSound);
+        inv.setItem(4, broadcaseWhenPositionAdded);
         inv.setItem(25, back);
         inv.setItem(26, close);
 

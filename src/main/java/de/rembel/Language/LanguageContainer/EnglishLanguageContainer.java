@@ -125,6 +125,8 @@ public class EnglishLanguageContainer {
         translation.put(81, ChatColor.GOLD+"Menu Click Sound");
         translation.put(82, ChatColor.GRAY+"When active, a sound is played with every click.");
         translation.put(133, ChatColor.GREEN+"Pitch: ");
+        translation.put(167, ChatColor.GOLD+"Position Broadcast");
+        translation.put(168, ChatColor.GRAY+"Broadcast when someone adds a position");
 
         //Admin Settings Menu
         translation.put(83, ChatColor.RED+"Admin Settings");
@@ -152,8 +154,8 @@ public class EnglishLanguageContainer {
         translation.put(101, ChatColor.GOLD+"Add ");
         translation.put(102, ChatColor.GOLD+"Add to public list");
         translation.put(103, ChatColor.GOLD+"Add to private list");
-        translation.put(104, ChatColor.GOLD+"Position ");
-        translation.put(105, ChatColor.GOLD+" has been successfully added");
+        translation.put(104, ChatColor.GREEN+" has added position ");
+        translation.put(105, ChatColor.GREEN+" to the global list");
         translation.put(106, ChatColor.RED+"The Position ");
         translation.put(107, " allready exist in the Public List. Please delete first the existed Position.");
         translation.put(108, " allready exist in the Private List. Please delete first the existed Position.");

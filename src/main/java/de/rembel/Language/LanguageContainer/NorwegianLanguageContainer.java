@@ -145,8 +145,8 @@ public class NorwegianLanguageContainer {
         //translation.put(101, ChatColor.GOLD+"Legg til ");
         translation.put(102, ChatColor.GOLD+"Legg til offentlig liste");
         translation.put(103, ChatColor.GOLD+"Legg til privat liste");
-        translation.put(104, ChatColor.GOLD+"Posisjon ");
-        translation.put(105, ChatColor.GOLD+" har blitt lagt til");
+//        translation.put(104, ChatColor.GOLD+"Posisjon ");
+//        translation.put(105, ChatColor.GOLD+" har blitt lagt til");
         translation.put(106, ChatColor.RED+"The Position ");
         translation.put(107, " finnes allerede i den offentlige listen. Vennligst slett først den eksisterende stillingen.");
         translation.put(108, " finnes allerede i den private listen. Vennligst slett først den eksisterende stillingen.");

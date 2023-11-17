@@ -67,6 +67,14 @@ public class SettingsMenuListener implements Listener {
                     }
                     new PrivateSettingsMenu(player);
                     break;
+                case BELL:
+                    if(config.getBoolean("broadcaseWhenPositionAdded")){
+                        config.setBoolean("broadcaseWhenPositionAdded", false);
+                    }else{
+                        config.setBoolean("broadcaseWhenPositionAdded", true);
+                    }
+                    new PrivateSettingsMenu(player);
+                    break;
                 case SPRUCE_DOOR:
                     new StartMenu(player);
                     break;

@@ -5,6 +5,7 @@ import de.rembel.Config.NormalConfig;
 import de.rembel.General.Position;
 import de.rembel.General.PositionType;
 import de.rembel.Language.LanguageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -33,7 +34,12 @@ public class addMenuListener implements Listener {
                             if(!publicconfig.existPosition(publicPosition)){
                                 publicconfig.set(publicPosition);
                                 player.closeInventory();
-                                player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+language.transalteDefaultEnglish(105));
+                                for(Player onlinePlayer : Bukkit.getOnlinePlayers()){
+                                    NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+onlinePlayer.getUniqueId().toString()+"//config.yml");
+                                    if(config.getBoolean("broadcaseWhenPositionAdded")){
+                                        onlinePlayer.sendMessage(ChatColor.GOLD+player.getName()+language.transalte(104)+ChatColor.GOLD+positionName+language.transalte(105));
+                                    }
+                                }
                             }else{
                                 player.sendMessage(language.transalte(106)+positionName+language.transalte(107));
                             }

@@ -49,6 +49,7 @@ public class PlayerJoinListener implements Listener {
         if(!playerConfig.existdata("compassBossbarColor")) playerConfig.set("compassBossbarColor", "white");
         if(!playerConfig.existdata("compassPlaceholder")) playerConfig.set("compassPlaceholder", "|");
         if(!playerConfig.existdata("compassDirectionWiser")) playerConfig.set("compassDirectionWiser", "true");
+        if(!playerConfig.existdata("broadcaseWhenPositionAdded")) playerConfig.set("broadcaseWhenPositionAdded", "true");
 
         NormalConfig config = new NormalConfig("plugins//Positionator//config.yml");
         config.init();
