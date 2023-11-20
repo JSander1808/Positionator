@@ -71,9 +71,14 @@ public class CompassCustomizerMenu {
         compassMeta.setDisplayName(language.transalte(156));
         ArrayList compassLore = new ArrayList();
         if(config.getBoolean("compassAlwaysActive")) {
-            compassLore.add(language.transalte(66));
+            compassLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            compassLore.add(language.transalte(73));
+            compassLore.add(ChatColor.GRAY+"   "+language.transalte(66));
+        }
+        if(!config.getBoolean("compassAlwaysActive")) {
+            compassLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            compassLore.add(ChatColor.GRAY+"   "+language.transalte(73));
         }
         compassMeta.setLore(compassLore);
         compass.setItemMeta(compassMeta);

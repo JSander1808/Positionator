@@ -112,6 +112,7 @@ public class CompassManagerMenuListener implements Listener {
                         if(config.getBoolean("compassAlwaysActive")) {
                             config.set("compassAlwaysActive","false");
                             CBossbar compass = CBossbar.getByPlayer(player);
+                            config.set("compassSave","");
                             if(compass!=null) if(compass.getPositions().size()==0) compass.remove();
                         }else{
                             config.set("compassAlwaysActive","true");
@@ -221,6 +222,7 @@ public class CompassManagerMenuListener implements Listener {
                             }else if(event.getClick() == ClickType.SHIFT_LEFT){
                                 compass.removePosition(position.getUuid());
                                 General.loadCompassData(compass);
+                                config.set("compassSave","");
                                 if(compass!=null) if(compass.getPositions().size()==0) if(!config.getBoolean("compassAlwaysActive")) compass.remove();
                                 new CompassPositionManagerMenu(player, page);
                             }

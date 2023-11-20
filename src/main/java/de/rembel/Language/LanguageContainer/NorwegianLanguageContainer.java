@@ -16,8 +16,8 @@ public class NorwegianLanguageContainer {
         translation.put(11, ChatColor.GOLD+"Forrige side");
         translation.put(12, ChatColor.GOLD+"Tilbake");
         translation.put(13, ChatColor.GOLD+"Neste side");
-        translation.put(66, ChatColor.GREEN+"Aktiv");
-        translation.put(73, ChatColor.RED+"Inaktiv");
+//        translation.put(66, ChatColor.GREEN+"Aktiv");
+//        translation.put(73, ChatColor.RED+"Inaktiv");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Offentlig stillingsliste");

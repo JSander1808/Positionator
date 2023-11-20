@@ -27,11 +27,18 @@ public class PrivateSettingsMenu {
         ItemMeta showDeathInListMeta = showDeathInList.getItemMeta();
         showDeathInListMeta.setDisplayName(language.transalte(72));
         ArrayList showDeathInListLore = new ArrayList();
+        showDeathInListLore.add("");
         if(config.getBoolean("showDeathPositionInList")){
-            showDeathInListLore.add(language.transalte(66));
+            showDeathInListLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            showDeathInListLore.add(language.transalte(73));
+            showDeathInListLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("showDeathPositionInList")){
+            showDeathInListLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            showDeathInListLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        showDeathInListLore.add("");
         showDeathInListLore.add(language.transalte(74));
         showDeathInListLore.add(language.transalte(75));
         showDeathInListMeta.setLore(showDeathInListLore);
@@ -41,11 +48,18 @@ public class PrivateSettingsMenu {
         ItemMeta showDeathPositionInBossbarMeta = showDeathPositionInBossbar.getItemMeta();
         showDeathPositionInBossbarMeta.setDisplayName(language.transalte(76));
         ArrayList showDeathPositionInBossbarLore = new ArrayList();
+        showDeathPositionInBossbarLore.add("");
         if(config.getBoolean("setDeathPositionInBossbar")){
-            showDeathPositionInBossbarLore.add(language.transalte(66));
+            showDeathPositionInBossbarLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            showDeathPositionInBossbarLore.add(language.transalte(73));
+            showDeathPositionInBossbarLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("setDeathPositionInBossbar")){
+            showDeathPositionInBossbarLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            showDeathPositionInBossbarLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        showDeathPositionInBossbarLore.add("");
         showDeathPositionInBossbarLore.add(language.transalte(77));
         showDeathPositionInBossbarLore.add(language.transalte(78));
         showDeathPositionInBossbarMeta.setLore(showDeathPositionInBossbarLore);
@@ -55,11 +69,18 @@ public class PrivateSettingsMenu {
         ItemMeta enableFilterMeta = enableFilter.getItemMeta();
         enableFilterMeta.setDisplayName(language.transalte(79));
         ArrayList enableFilterLore = new ArrayList();
+        enableFilterLore.add("");
         if(config.getBoolean("enableFilter")){
-            enableFilterLore.add(language.transalte(66));
+            enableFilterLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            enableFilterLore.add(language.transalte(73));
+            enableFilterLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("enableFilter")){
+            enableFilterLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            enableFilterLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        enableFilterLore.add("");
         enableFilterLore.add(language.transalte(80));
         enableFilterMeta.setLore(enableFilterLore);
         enableFilter.setItemMeta(enableFilterMeta);
@@ -68,19 +89,37 @@ public class PrivateSettingsMenu {
         ItemMeta menuClickSoundMeta = menuClickSound.getItemMeta();
         menuClickSoundMeta.setDisplayName(language.transalte(81));
         ArrayList menuClickSoundLore = new ArrayList();
+        menuClickSoundLore.add("");
         if(config.getBoolean("enableMenuClickSound")){
-            menuClickSoundLore.add(language.transalte(66));
+            menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            menuClickSoundLore.add(language.transalte(73));
+            menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("enableMenuClickSound")){
+            menuClickSoundLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        menuClickSoundLore.add("");
         if(Double.valueOf(config.get("clickSoundPitch")) == 0){
-            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
-        }else if(Double.valueOf(config.get("clickSoundPitch")) == 1){
-            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
-        }else if(Double.valueOf(config.get("clickSoundPitch")) == 2){
-            menuClickSoundLore.add(language.transalte(133)+config.get("clickSoundPitch"));
+            menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(133)+"0");
+        }else{
+            menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(133)+"0");
         }
+        if(Double.valueOf(config.get("clickSoundPitch")) == 1){
+            menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(133)+"1");
+        }else{
+            menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(133)+"1");
+        }
+        if(Double.valueOf(config.get("clickSoundPitch")) == 2){
+            menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(133)+"2");
+        }else{
+            menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(133)+"2");
+        }
+        menuClickSoundLore.add("");
         menuClickSoundLore.add(language.transalte(82));
+        menuClickSoundLore.add(language.transalte(169));
+        menuClickSoundLore.add(language.transalte(170));
         menuClickSoundMeta.setLore(menuClickSoundLore);
         menuClickSound.setItemMeta(menuClickSoundMeta);
 
@@ -88,11 +127,18 @@ public class PrivateSettingsMenu {
         ItemMeta broadcaseWhenPositionAddedMeta = enableFilter.getItemMeta();
         broadcaseWhenPositionAddedMeta.setDisplayName(language.transalte(167));
         ArrayList broadcaseWhenPositionAddedLore = new ArrayList();
+        broadcaseWhenPositionAddedLore.add("");
         if(config.getBoolean("broadcaseWhenPositionAdded")){
-            broadcaseWhenPositionAddedLore.add(language.transalte(66));
+            broadcaseWhenPositionAddedLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            broadcaseWhenPositionAddedLore.add(language.transalte(73));
+            broadcaseWhenPositionAddedLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("broadcaseWhenPositionAdded")){
+            broadcaseWhenPositionAddedLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            broadcaseWhenPositionAddedLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        broadcaseWhenPositionAddedLore.add("");
         broadcaseWhenPositionAddedLore.add(language.transalte(168));
         broadcaseWhenPositionAddedMeta.setLore(broadcaseWhenPositionAddedLore);
         broadcaseWhenPositionAdded.setItemMeta(broadcaseWhenPositionAddedMeta);

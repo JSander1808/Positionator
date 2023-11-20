@@ -17,8 +17,8 @@ public class FrenchLanguageContainer {
         translation.put(11, ChatColor.GOLD+"Page précédente");
         translation.put(12, ChatColor.GOLD+"Retour");
         translation.put(13, ChatColor.GOLD+"page des nuits");
-        translation.put(66, ChatColor.GREEN+"Actif");
-        translation.put(73, ChatColor.RED+"Inactif");
+//        translation.put(66, ChatColor.GREEN+"Actif");
+//        translation.put(73, ChatColor.RED+"Inactif");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Liste de positions publiques");

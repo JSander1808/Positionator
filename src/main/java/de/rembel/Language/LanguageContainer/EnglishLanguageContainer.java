@@ -16,8 +16,8 @@ public class EnglishLanguageContainer {
         translation.put(11, ChatColor.GOLD+"Previous Page");
         translation.put(12, ChatColor.GOLD+"Back");
         translation.put(13, ChatColor.GOLD+"Next Page");
-        translation.put(66, ChatColor.GREEN+"Active");
-        translation.put(73, ChatColor.RED+"Inactive");
+        translation.put(66, "Active");
+        translation.put(73, "Inactive");
         translation.put(146, ChatColor.GREEN+"Status");
 
         //StartMenu
@@ -124,9 +124,11 @@ public class EnglishLanguageContainer {
         translation.put(80, ChatColor.GRAY+"When active you can access the filters.");
         translation.put(81, ChatColor.GOLD+"Menu Click Sound");
         translation.put(82, ChatColor.GRAY+"When active, a sound is played with every click.");
-        translation.put(133, ChatColor.GREEN+"Pitch: ");
+        translation.put(133, "Pitch: ");
         translation.put(167, ChatColor.GOLD+"Position Broadcast");
         translation.put(168, ChatColor.GRAY+"Broadcast when someone adds a position");
+        translation.put(169, ChatColor.DARK_GRAY+"Left-Click: Enable/Disable");
+        translation.put(170, ChatColor.DARK_GRAY+"Right-Click: Change Pitch");
 
         //Admin Settings Menu
         translation.put(83, ChatColor.RED+"Admin Settings");
@@ -137,8 +139,8 @@ public class EnglishLanguageContainer {
         translation.put(88, ChatColor.GRAY+"If active you will be sent a");
         translation.put(89, ChatColor.GRAY+"message when there is a new update.");
         translation.put(90, ChatColor.GOLD+"Teleport");
-        translation.put(91, ChatColor.GREEN+"Active (OP only)");
-        translation.put(92, ChatColor.GREEN+"Active (everyone)");
+        translation.put(91, "Active (OP only)");
+        translation.put(92, "Active (everyone)");
         translation.put(93, ChatColor.GRAY+"When active you can teleport to a location");
         translation.put(94, ChatColor.GOLD+"Auto BackUp");
         translation.put(95, ChatColor.GRAY+"When active, the server automatically backs up");

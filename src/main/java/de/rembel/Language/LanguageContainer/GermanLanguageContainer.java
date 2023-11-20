@@ -16,8 +16,8 @@ public class GermanLanguageContainer {
         translation.put(11, ChatColor.GOLD+"Vorheriege Seite");
         translation.put(12, ChatColor.GOLD+"Zurück");
         translation.put(13, ChatColor.GOLD+"Nächte Seite");
-        translation.put(66, ChatColor.GREEN+"Aktiv");
-        translation.put(73, ChatColor.RED+"Inaktiv");
+//        translation.put(66, ChatColor.GREEN+"Aktiv");
+//        translation.put(73, ChatColor.RED+"Inaktiv");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Öffentliche Positions Liste");

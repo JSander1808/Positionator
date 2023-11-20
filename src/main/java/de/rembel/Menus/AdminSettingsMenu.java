@@ -27,11 +27,18 @@ public class AdminSettingsMenu {
         ItemMeta deletePositionFromOtherPlayerMeta = deletePositionsFromOtherPlayer.getItemMeta();
         deletePositionFromOtherPlayerMeta.setDisplayName(language.transalte(84));
         ArrayList deletePositionFromOtherPlayerLore = new ArrayList();
+        deletePositionFromOtherPlayerLore.add("");
         if(config.getBoolean("enableEditPositionsFromOtherPlayer")){
-            deletePositionFromOtherPlayerLore.add(language.transalte(66));
+            deletePositionFromOtherPlayerLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            deletePositionFromOtherPlayerLore.add(language.transalte(73));
+            deletePositionFromOtherPlayerLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("enableEditPositionsFromOtherPlayer")){
+            deletePositionFromOtherPlayerLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            deletePositionFromOtherPlayerLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        deletePositionFromOtherPlayerLore.add("");
         deletePositionFromOtherPlayerLore.add(language.transalte(85));
         deletePositionFromOtherPlayerLore.add(language.transalte(86));
         deletePositionFromOtherPlayerMeta.setLore(deletePositionFromOtherPlayerLore);
@@ -41,11 +48,18 @@ public class AdminSettingsMenu {
         ItemMeta sendUpdateMessagesMeta = sendUpdateMessages.getItemMeta();
         sendUpdateMessagesMeta.setDisplayName(language.transalte(87));
         ArrayList sendUpdateMessagesLore = new ArrayList();
+        sendUpdateMessagesLore.add("");
         if(config.getBoolean("sendUpdateMessages")){
-            sendUpdateMessagesLore.add(language.transalte(66));
+            sendUpdateMessagesLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            sendUpdateMessagesLore.add(language.transalte(73));
+            sendUpdateMessagesLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("sendUpdateMessages")){
+            sendUpdateMessagesLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            sendUpdateMessagesLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        sendUpdateMessagesLore.add("");
         sendUpdateMessagesLore.add(language.transalte(88));
         sendUpdateMessagesLore.add(language.transalte(89));
         sendUpdateMessagesMeta.setLore(sendUpdateMessagesLore);
@@ -55,13 +69,30 @@ public class AdminSettingsMenu {
         ItemMeta teleportMeta = teleport.getItemMeta();
         teleportMeta.setDisplayName(language.transalte(90));
         ArrayList teleportLore = new ArrayList();
+//        if(!config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
+//            teleportLore.add(language.transalte(73));
+//        }else if(config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
+//            teleportLore.add(language.transalte(91));
+//        }else if(config.getBoolean("allowOpToTeleport") && config.getBoolean("allowPlayerToTeleport")){
+//            teleportLore.add(language.transalte(92));
+//        }
+        teleportLore.add("");
         if(!config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(language.transalte(73));
-        }else if(config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(language.transalte(91));
-        }else if(config.getBoolean("allowOpToTeleport") && config.getBoolean("allowPlayerToTeleport")){
-            teleportLore.add(language.transalte(92));
+            teleportLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            teleportLore.add(ChatColor.GRAY+"   "+language.transalte(73));
         }
+        if(config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
+            teleportLore.add(ChatColor.GREEN+"➜ "+language.transalte(91));
+        }else{
+            teleportLore.add(ChatColor.GRAY+"   "+language.transalte(91));
+        }
+        if(config.getBoolean("allowOpToTeleport") && config.getBoolean("allowPlayerToTeleport")){
+            teleportLore.add(ChatColor.GREEN+"➜ "+language.transalte(92));
+        }else{
+            teleportLore.add(ChatColor.GRAY+"   "+language.transalte(92));
+        }
+        teleportLore.add("");
         teleportLore.add(language.transalte(93));
         teleportMeta.setLore(teleportLore);
         teleport.setItemMeta(teleportMeta);
@@ -70,11 +101,18 @@ public class AdminSettingsMenu {
         ItemMeta backUpByServerRestartMeta = backUpByServerRestart.getItemMeta();
         backUpByServerRestartMeta.setDisplayName(language.transalte(94));
         ArrayList backUpByServerRestartLore = new ArrayList();
+        backUpByServerRestartLore.add("");
         if(config.getBoolean("createBackUpByServerRestart")){
-            backUpByServerRestartLore.add(language.transalte(66));
+            backUpByServerRestartLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
-            backUpByServerRestartLore.add(language.transalte(73));
+            backUpByServerRestartLore.add(ChatColor.GRAY+"   "+language.transalte(66));
         }
+        if(!config.getBoolean("createBackUpByServerRestart")){
+            backUpByServerRestartLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            backUpByServerRestartLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        backUpByServerRestartLore.add("");
         backUpByServerRestartLore.add(language.transalte(95));
         backUpByServerRestartLore.add(language.transalte(96));
         backUpByServerRestartMeta.setLore(backUpByServerRestartLore);
