@@ -28,6 +28,7 @@ public class AdminSettingsMenu {
         deletePositionFromOtherPlayerMeta.setDisplayName(language.transalte(84));
         ArrayList deletePositionFromOtherPlayerLore = new ArrayList();
         deletePositionFromOtherPlayerLore.add("");
+        deletePositionFromOtherPlayerLore.add("   "+language.transalte(174));
         if(config.getBoolean("enableEditPositionsFromOtherPlayer")){
             deletePositionFromOtherPlayerLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -49,6 +50,7 @@ public class AdminSettingsMenu {
         sendUpdateMessagesMeta.setDisplayName(language.transalte(87));
         ArrayList sendUpdateMessagesLore = new ArrayList();
         sendUpdateMessagesLore.add("");
+        sendUpdateMessagesLore.add("   "+language.transalte(174));
         if(config.getBoolean("sendUpdateMessages")){
             sendUpdateMessagesLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -77,6 +79,7 @@ public class AdminSettingsMenu {
 //            teleportLore.add(language.transalte(92));
 //        }
         teleportLore.add("");
+        teleportLore.add("   "+language.transalte(174));
         if(!config.getBoolean("allowOpToTeleport") && !config.getBoolean("allowPlayerToTeleport")){
             teleportLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
         }else{
@@ -102,6 +105,7 @@ public class AdminSettingsMenu {
         backUpByServerRestartMeta.setDisplayName(language.transalte(94));
         ArrayList backUpByServerRestartLore = new ArrayList();
         backUpByServerRestartLore.add("");
+        backUpByServerRestartLore.add("   "+language.transalte(174));
         if(config.getBoolean("createBackUpByServerRestart")){
             backUpByServerRestartLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{

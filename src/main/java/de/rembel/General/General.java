@@ -56,4 +56,20 @@ public class General {
         compass.renderBossbar();
         return true;
     }
+
+    public static boolean resetCompass(Player player){
+        CBossbar compass = CBossbar.getByPlayer(player);
+        NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+        config.set("compassAlwaysActive","false");
+        config.set("compassSave","");
+        if(compass!=null) compass.setBarColor(BarColor.WHITE);
+        config.set("compassBossbarColor","white");
+        if(compass!=null) compass.setPlaceholder("*");
+        config.set("compassPlaceholder","*");
+        if(compass!=null){
+            compass.removeAllPoints();
+            compass.remove();
+        }
+        return true;
+    }
 }

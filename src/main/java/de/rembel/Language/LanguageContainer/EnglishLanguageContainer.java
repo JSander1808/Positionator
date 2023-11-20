@@ -129,6 +129,12 @@ public class EnglishLanguageContainer {
         translation.put(168, ChatColor.GRAY+"Broadcast when someone adds a position");
         translation.put(169, ChatColor.DARK_GRAY+"Left-Click: Enable/Disable");
         translation.put(170, ChatColor.DARK_GRAY+"Right-Click: Change Pitch");
+        translation.put(174,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Enable/Disable");
+        translation.put(175, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Pitch");
+        translation.put(178, ChatColor.RED+"Reset Compass");
+        translation.put(179, ChatColor.GRAY+"Resets the compass completely  ");
+        translation.put(180, ChatColor.GRAY+"(resolves all positions, resets all settings");
+        translation.put(181, ChatColor.GRAY+"of the boss bar and the display)");
 
         //Admin Settings Menu
         translation.put(83, ChatColor.RED+"Admin Settings");
@@ -161,6 +167,8 @@ public class EnglishLanguageContainer {
         translation.put(106, ChatColor.RED+"The Position ");
         translation.put(107, " allready exist in the Public List. Please delete first the existed Position.");
         translation.put(108, " allready exist in the Private List. Please delete first the existed Position.");
+        translation.put(172, ChatColor.GREEN+"You added Position ");
+        translation.put(173, ChatColor.GREEN+" to the private list.");
 
         //BackUp Menu
         translation.put(109, ChatColor.GOLD+"BackUps - Page ");
@@ -203,14 +211,18 @@ public class EnglishLanguageContainer {
 
         //Compass Manager
         translation.put(142, ChatColor.GOLD+"Compass Manager");
-        translation.put(143, ChatColor.GOLD+"Active Position Manager");
-        translation.put(144, ChatColor.GREEN+"Here you can adjust or delete \nthe positions in the compass");
-        translation.put(150, ChatColor.GOLD+"Compass Customizer");
-        translation.put(151, ChatColor.GREEN+"Here you can customize the \ndesign of the compass");
+        translation.put(143, ChatColor.GOLD+"Active Positions");
+        translation.put(144, ChatColor.GRAY+"Here you can view all active positions");
+        translation.put(150, ChatColor.GOLD+"Active Player");
+        translation.put(151, ChatColor.GRAY+"Here you can see all the\n players you are currently rewarding \nin the Compass.");
+        translation.put(171, ChatColor.DARK_GRAY+"Left-Click: Add Player to Compass");
+        translation.put(176, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Color");
+        translation.put(177, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Symbol");
+
 
         //Compass Customizer Menu
         translation.put(152,ChatColor.GOLD+"Set Compass Placeholder");
-        translation.put(153,ChatColor.GREEN+"Current placeholder: ");
+        translation.put(153,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Placeholder");
         translation.put(154,ChatColor.GOLD+"Set Compass Color");
         translation.put(155,ChatColor.GREEN+"Current Color: ");
         translation.put(156, ChatColor.GOLD+"Always show compass");

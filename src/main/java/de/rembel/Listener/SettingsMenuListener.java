@@ -1,6 +1,7 @@
 package de.rembel.Listener;
 
 import de.rembel.Config.NormalConfig;
+import de.rembel.General.General;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Menus.PrivateSettingsMenu;
 import de.rembel.Menus.StartMenu;
@@ -77,6 +78,9 @@ public class SettingsMenuListener implements Listener {
                     break;
                 case SPRUCE_DOOR:
                     new StartMenu(player);
+                    break;
+                case COMPASS:
+                    General.resetCompass(player);
                     break;
                 case BARRIER:
                     player.closeInventory();

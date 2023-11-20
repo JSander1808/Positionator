@@ -35,14 +35,141 @@ public class CompassManagerMenuListener implements Listener {
         if(event.getView().getTitle().equalsIgnoreCase(language.transalte(142))){
             if(event.getCurrentItem()!=null){
                 switch(event.getCurrentItem().getType()){
+                    case PLAYER_HEAD:
                     case CHEST:
-                        new CompassPositionManagerMenu(player, 1);
+                        CBossbar compass = CBossbar.getByPlayer(player);
+                        CPosition position = compass.getPositionByDescription(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
+                        System.out.println(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
+                        if(event.getClick() == ClickType.LEFT){
+                            if(position.getSymbol().equals("⌖")){
+                                position.setSymbol("\uD83D\uDC80");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getSymbol().equals("\uD83D\uDC80")){
+                                position.setSymbol("\uD83C\uDFE0");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getSymbol().equals("\uD83C\uDFE0")){
+                                position.setSymbol("⚠");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getSymbol().equals("⚠")){
+                                position.setSymbol("\uD83D\uDCC5");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getSymbol().equals("\uD83D\uDCC5")){
+                                position.setSymbol("\uD83C\uDFAE");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getSymbol().equals("\uD83C\uDFAE")){
+                                position.setSymbol("⌖");
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }
+                        }else if(event.getClick() == ClickType.RIGHT){
+                            if(position.getColor().equals(ChatColor.RED)){
+                                position.setColor(ChatColor.BLUE);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.BLUE)){
+                                position.setColor(ChatColor.YELLOW);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.YELLOW)){
+                                position.setColor(ChatColor.DARK_PURPLE);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.DARK_PURPLE)){
+                                position.setColor(ChatColor.LIGHT_PURPLE);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.LIGHT_PURPLE)){
+                                position.setColor(ChatColor.AQUA);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.AQUA)){
+                                position.setColor(ChatColor.GOLD);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }else if(position.getColor().equals(ChatColor.GOLD)){
+                                position.setColor(ChatColor.RED);
+                                compass.updatePosition(position);
+                                new CompassManagerMenu(player);
+                            }
+                        }else if(event.getClick() == ClickType.SHIFT_LEFT){
+                            compass.removePosition(position.getUuid());
+                            General.loadCompassData(compass);
+                            config.set("compassSave","");
+                            if(compass!=null) if(compass.getPositions().size()==0) if(!config.getBoolean("compassAlwaysActive")) compass.remove();
+                            new CompassManagerMenu(player);
+                        }
+                        General.loadCompassData(compass);
                         break;
                     case COMPASS:
-                        new CompassCustomizerMenu(player);
+                        if(config.getBoolean("compassAlwaysActive")) {
+                            config.set("compassAlwaysActive","false");
+                            CBossbar tempCompass = CBossbar.getByPlayer(player);
+                            config.set("compassSave","");
+                            if(tempCompass!=null) if(tempCompass.getPositions().size()==0) tempCompass.remove();
+                        }else{
+                            config.set("compassAlwaysActive","true");
+                            CBossbar tempCompass = CBossbar.getByPlayer(player);
+                            if(tempCompass==null){
+                                tempCompass = new CBossbar(PositionatorMain.getPlugin());
+                                tempCompass.createBossbar(player);
+                                //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                                General.loadCompassData(tempCompass);
+                            }
+                        }
+                        new CompassManagerMenu(player);
                         break;
-                    case PLAYER_HEAD:
-                        new CompassSelectPlayerMenu(player, 1);
+                    case WHITE_WOOL:
+                        config.set("compassBossbarColor","red");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case RED_WOOL:
+                        config.set("compassBossbarColor","green");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case GREEN_WOOL:
+                        config.set("compassBossbarColor","blue");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case BLUE_WOOL:
+                        config.set("compassBossbarColor","purple");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case PURPLE_WOOL:
+                        config.set("compassBossbarColor","yellow");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case YELLOW_WOOL:
+                        config.set("compassBossbarColor","pink");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case PINK_WOOL:
+                        config.set("compassBossbarColor","white");
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
+                        break;
+                    case NAME_TAG:
+                        if(config.get("compassPlaceholder").equals("*")){
+                            config.set("compassPlaceholder","|");
+                        }else if(config.get("compassPlaceholder").equals("|")){
+                            config.set("compassPlaceholder","-");
+                        }else if(config.get("compassPlaceholder").equals("-")){
+                            config.set("compassPlaceholder","•");
+                        }else if(config.get("compassPlaceholder").equals("•")){
+                            config.set("compassPlaceholder","*");
+                        }
+                        if(CBossbar.getByPlayer(player)!=null) General.loadCompassData(CBossbar.getByPlayer(player));
+                        new CompassManagerMenu(player);
                         break;
                     case BARRIER:
                         player.closeInventory();
@@ -281,15 +408,14 @@ public class CompassManagerMenuListener implements Listener {
 
     public ChatColor getRandomColor(){
         ChatColor color = null;
-        int random = 1 + (int)(Math.random() * ((8 - 1) + 1));
+        int random = 1 + (int)(Math.random() * ((7 - 1) + 1));
         if(random==1) color = ChatColor.RED;
         if(random==2) color = ChatColor.BLUE;
         if(random==3) color = ChatColor.YELLOW;
         if(random==4) color = ChatColor.DARK_PURPLE;
         if(random==5) color = ChatColor.LIGHT_PURPLE;
-        if(random==6) color = ChatColor.RED;
-        if(random==7) color = ChatColor.AQUA;
-        if(random==8) color = ChatColor.GOLD;
+        if(random==6) color = ChatColor.AQUA;
+        if(random==7) color = ChatColor.GOLD;
         return color;
     }
 }

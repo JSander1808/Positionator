@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PrivateSettingsMenu {
@@ -28,6 +29,7 @@ public class PrivateSettingsMenu {
         showDeathInListMeta.setDisplayName(language.transalte(72));
         ArrayList showDeathInListLore = new ArrayList();
         showDeathInListLore.add("");
+        showDeathInListLore.add("   "+language.transalte(174));
         if(config.getBoolean("showDeathPositionInList")){
             showDeathInListLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -49,6 +51,7 @@ public class PrivateSettingsMenu {
         showDeathPositionInBossbarMeta.setDisplayName(language.transalte(76));
         ArrayList showDeathPositionInBossbarLore = new ArrayList();
         showDeathPositionInBossbarLore.add("");
+        showDeathPositionInBossbarLore.add("   "+language.transalte(174));
         if(config.getBoolean("setDeathPositionInBossbar")){
             showDeathPositionInBossbarLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -70,6 +73,7 @@ public class PrivateSettingsMenu {
         enableFilterMeta.setDisplayName(language.transalte(79));
         ArrayList enableFilterLore = new ArrayList();
         enableFilterLore.add("");
+        enableFilterLore.add("   "+language.transalte(174));
         if(config.getBoolean("enableFilter")){
             enableFilterLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -90,6 +94,7 @@ public class PrivateSettingsMenu {
         menuClickSoundMeta.setDisplayName(language.transalte(81));
         ArrayList menuClickSoundLore = new ArrayList();
         menuClickSoundLore.add("");
+        menuClickSoundLore.add("   "+language.transalte(174));
         if(config.getBoolean("enableMenuClickSound")){
             menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -101,6 +106,7 @@ public class PrivateSettingsMenu {
             menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(73));
         }
         menuClickSoundLore.add("");
+        menuClickSoundLore.add("   "+language.transalte(175));
         if(Double.valueOf(config.get("clickSoundPitch")) == 0){
             menuClickSoundLore.add(ChatColor.GREEN+"➜ "+language.transalte(133)+"0");
         }else{
@@ -116,6 +122,7 @@ public class PrivateSettingsMenu {
         }else{
             menuClickSoundLore.add(ChatColor.GRAY+"   "+language.transalte(133)+"2");
         }
+
         menuClickSoundLore.add("");
         menuClickSoundLore.add(language.transalte(82));
         menuClickSoundLore.add(language.transalte(169));
@@ -128,6 +135,7 @@ public class PrivateSettingsMenu {
         broadcaseWhenPositionAddedMeta.setDisplayName(language.transalte(167));
         ArrayList broadcaseWhenPositionAddedLore = new ArrayList();
         broadcaseWhenPositionAddedLore.add("");
+        broadcaseWhenPositionAddedLore.add("   "+language.transalte(174));
         if(config.getBoolean("broadcaseWhenPositionAdded")){
             broadcaseWhenPositionAddedLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
         }else{
@@ -142,6 +150,16 @@ public class PrivateSettingsMenu {
         broadcaseWhenPositionAddedLore.add(language.transalte(168));
         broadcaseWhenPositionAddedMeta.setLore(broadcaseWhenPositionAddedLore);
         broadcaseWhenPositionAdded.setItemMeta(broadcaseWhenPositionAddedMeta);
+
+        ItemStack resetCompass = new ItemStack(Material.COMPASS);
+        ItemMeta resetCompassMeta = resetCompass.getItemMeta();
+        resetCompassMeta.setDisplayName(ChatColor.RED+language.transalte(178));
+        ArrayList resetCompassLore = new ArrayList();
+        resetCompassLore.add(language.transalte(179));
+        resetCompassLore.add(language.transalte(180));
+        resetCompassLore.add(language.transalte(181));
+        resetCompassMeta.setLore(resetCompassLore);
+        resetCompass.setItemMeta(resetCompassMeta);
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
@@ -158,6 +176,7 @@ public class PrivateSettingsMenu {
         inv.setItem(2,enableFilter);
         inv.setItem(3, menuClickSound);
         inv.setItem(4, broadcaseWhenPositionAdded);
+        inv.setItem(24, resetCompass);
         inv.setItem(25, back);
         inv.setItem(26, close);
 

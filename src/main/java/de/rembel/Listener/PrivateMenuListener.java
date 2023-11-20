@@ -182,7 +182,6 @@ public class PrivateMenuListener implements Listener {
                                 String symbol = "⌖";
                                 if(position.getType()== PositionType.DEATHPOSITION) symbol = "\uD83D\uDC80";
                                 CPosition cPosition = new CPosition(symbol, color, position.getLocation(), position.getName());
-
                                 if(compass==null){
                                     compass = new CBossbar(PositionatorMain.getPlugin());
                                     compass.createBossbar(player);
@@ -520,15 +519,14 @@ public class PrivateMenuListener implements Listener {
 
     public ChatColor getRandomColor(){
         ChatColor color = null;
-        int random = 1 + (int)(Math.random() * ((8 - 1) + 1));
+        int random = 1 + (int)(Math.random() * ((7 - 1) + 1));
         if(random==1) color = ChatColor.RED;
         if(random==2) color = ChatColor.BLUE;
         if(random==3) color = ChatColor.YELLOW;
         if(random==4) color = ChatColor.DARK_PURPLE;
         if(random==5) color = ChatColor.LIGHT_PURPLE;
-        if(random==6) color = ChatColor.RED;
-        if(random==7) color = ChatColor.AQUA;
-        if(random==8) color = ChatColor.GOLD;
+        if(random==6) color = ChatColor.AQUA;
+        if(random==7) color = ChatColor.GOLD;
         return color;
     }
 }

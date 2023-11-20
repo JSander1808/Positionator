@@ -50,7 +50,7 @@ public class addMenuListener implements Listener {
                             if(!privateconfig.existPosition(privatePosition)){
                                 privateconfig.set(privatePosition);
                                 player.closeInventory();
-                                player.sendMessage(language.transalte(104)+ChatColor.GREEN+positionName+ChatColor.GOLD+language.transalte(105));
+                                player.sendMessage(language.transalte(172)+ChatColor.GOLD+positionName+language.transalte(173));
                             }else{
                                 player.sendMessage(language.transalte(106)+positionName+language.transalte(108));
                             }
