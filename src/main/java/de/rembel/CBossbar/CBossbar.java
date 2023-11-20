@@ -323,6 +323,8 @@ public class CBossbar implements Listener {
                         }
                     }else{
                         removePosition(position.getUuid());
+                        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
+                        if(this!=null) if(this.getPositions().size()==0) if(!playerConfig.getBoolean("compassAlwaysActive")) this.remove();
                     }
                 }
             }

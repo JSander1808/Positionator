@@ -61,7 +61,7 @@ public class EnglishLanguageContainer {
         translation.put(35, " to Bossbar");
         translation.put(36, ChatColor.GOLD+"The coordinates are displayed in the Bossbar ");
         translation.put(37, ChatColor.GOLD+"so you can always see them");
-        translation.put(38, ChatColor.DARK_GRAY+"(Can be deleted again in the start menu)");
+        translation.put(38, ChatColor.DARK_GRAY+"(Can be deleted again in the Compass Manager)");
         translation.put(39, ChatColor.RED+"Delete ");
         translation.put(40, ChatColor.RED+"Created: ");
         translation.put(41, ChatColor.GREEN+"Rename");

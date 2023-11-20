@@ -179,6 +179,7 @@ public class CompassManagerMenu {
             ItemStack entityPosition = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta entityPositionMeta = (SkullMeta) entityPosition.getItemMeta();
             entityPositionMeta.setOwner(ChatColor.stripColor(position.getDescription()));
+            entityPositionMeta.setDisplayName(position.getDescription());
             ArrayList entityPositionItemLore = new ArrayList();
             entityPositionItemLore.add("");
             entityPositionItemLore.add("   "+language.transalte(176));
