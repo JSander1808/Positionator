@@ -40,7 +40,7 @@ public class CompassManagerMenuListener implements Listener {
                         CBossbar compass = CBossbar.getByPlayer(player);
                         CPosition position = compass.getPositionByDescription(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
                         System.out.println(event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", ""));
-                        if(event.getClick() == ClickType.LEFT){
+                        if(event.getClick() == ClickType.RIGHT){
                             if(position.getSymbol().equals("⌖")){
                                 position.setSymbol("\uD83D\uDC80");
                                 compass.updatePosition(position);
@@ -66,7 +66,7 @@ public class CompassManagerMenuListener implements Listener {
                                 compass.updatePosition(position);
                                 new CompassManagerMenu(player);
                             }
-                        }else if(event.getClick() == ClickType.RIGHT){
+                        }else if(event.getClick() == ClickType.LEFT){
                             if(position.getColor().equals(ChatColor.RED)){
                                 position.setColor(ChatColor.BLUE);
                                 compass.updatePosition(position);

@@ -232,8 +232,8 @@ public class EnglishLanguageContainer {
         translation.put(158, ChatColor.GOLD+"Compass Positions - Page ");
         translation.put(159, ChatColor.GREEN+"Current Symbol: ");
         translation.put(160, ChatColor.GREEN+"Current Color: ");
-        translation.put(161, ChatColor.DARK_GRAY+"Left-Click: Change Symbol");
-        translation.put(162, ChatColor.DARK_GRAY+"Right-Click: Change Color");
+        translation.put(161, ChatColor.DARK_GRAY+"Left-Click: Change Color");
+        translation.put(162, ChatColor.DARK_GRAY+"Right-Click: Change Symbol");
         translation.put(163, ChatColor.DARK_GRAY+"Shift + Left-Click: Delete");
         translation.put(164, ChatColor.GOLD+"Select Online Player ");
         translation.put(165, ChatColor.GOLD+"Player Selector");

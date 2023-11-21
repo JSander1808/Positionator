@@ -102,6 +102,10 @@ public class PlayerJoinListener implements Listener {
             compass.removeAll();
             Bukkit.removeBossBar(NamespacedKey.fromString(player.getUniqueId().toString()));
         }
+
+        if(CBossbar.getByPlayer(player)!=null){
+            General.loadCompassData(CBossbar.getByPlayer(player));
+        }
         return true;
     }
 }
