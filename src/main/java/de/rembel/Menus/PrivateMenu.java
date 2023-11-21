@@ -72,6 +72,9 @@ public class PrivateMenu {
             if(filterData.hasDimension()){
                 filterLore.add(language.transalte(17)+"("+filterData.getDimension()+")");
             }
+            if(filterData.hasDistance()){
+                filterLore.add(language.transalte(188)+"( < "+filterData.getDistance()+" )");
+            }
         }else{
             filterLore.add(language.transalte(18));
         }

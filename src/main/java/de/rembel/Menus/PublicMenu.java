@@ -67,10 +67,13 @@ public class PublicMenu {
             filterMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             PositionFilter filterData = General.PublicFilter.get(player.getUniqueId().toString());
             if(filterData.hasPlayername()){
-                filterLore.add(language.transalte(16)+"("+filterData.getPlayername()+")");
+                filterLore.add(language.transalte(16)+"( "+filterData.getPlayername()+" )");
             }
             if(filterData.hasDimension()){
-                filterLore.add(language.transalte(17)+"("+filterData.getDimension()+")");
+                filterLore.add(language.transalte(17)+"( "+filterData.getDimension()+" )");
+            }
+            if(filterData.hasDistance()){
+                filterLore.add(language.transalte(188)+"( < "+filterData.getDistance()+" )");
             }
         }else{
             filterLore.add(language.transalte(18));

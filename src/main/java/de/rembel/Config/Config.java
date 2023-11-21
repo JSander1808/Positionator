@@ -241,9 +241,19 @@ public class Config {
             while((temp = reader.readLine())!=null){
                 temp = General.decode(temp);
                 Position position = new Position(temp.split("->")[0], new String[]{temp.split("->")[1].split(" ")[0], temp.split("->")[1].split(" ")[1], temp.split("->")[1].split(" ")[2]}, temp.split("->")[2], temp.split("->")[3], Integer.valueOf(temp.split("->")[4]));
+
+                int distance = -1;
+                if(filter != null){
+                    if(filter.getPlayer().getWorld().getEnvironment().name().equals(position.getLocation().getWorld().getEnvironment().name())){
+                        distance = (int) filter.getPlayer().getLocation().distance(position.getLocation());
+                    }
+                }
+
                 if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
                     if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
-                        data.add(position);
+                        if(filter == null || !filter.hasDistance() || distance <= filter.getDistance() && distance != -1){
+                            data.add(position);
+                        }
                     }
                 }
             }

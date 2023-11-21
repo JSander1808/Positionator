@@ -49,19 +49,66 @@ public class PublicFilterMenuListener implements Listener {
                     }
                     break;
                 case END_PORTAL_FRAME:
-                    if(event.getClick() == ClickType.LEFT){
-                        PublicFilterMenu.PublicDimensionFilterMenu(player);
-                    }else if(event.getClick() == ClickType.RIGHT){
-                        if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
-                            if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
-                                General.PublicFilter.get(player.getUniqueId().toString()).removeDimension();
-                            }
-                            if(!General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
-                                General.PublicFilter.remove(player.getUniqueId().toString());
-                            }
+//                    if(event.getClick() == ClickType.LEFT){
+//                        PublicFilterMenu.PublicDimensionFilterMenu(player);
+//                    }else if(event.getClick() == ClickType.RIGHT){
+//                        if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
+//                            if(General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
+//                                General.PublicFilter.get(player.getUniqueId().toString()).removeDimension();
+//                            }
+//                            if(!General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
+//                                General.PublicFilter.remove(player.getUniqueId().toString());
+//                            }
+//                        }
+//                        new PublicFilterMenu(player);
+//                    }
+
+                    if(!General.PublicFilter.containsKey(player.getUniqueId().toString()) || !General.PublicFilter.get(player.getUniqueId().toString()).hasDimension()){
+                        PositionFilter filter = null;
+                        if(!General.PublicFilter.containsKey(player.getUniqueId().toString())){
+                            filter = new PositionFilter();
+                            filter.setPlayer(player);
+                            General.PublicFilter.put(player.getUniqueId().toString(), filter);
+                        }else{
+                            filter = General.PublicFilter.get(player.getUniqueId().toString());
                         }
-                        new PublicFilterMenu(player);
+                        filter.setDimension("NORMAL");
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equals("NORMAL")){
+                        General.PublicFilter.get(player.getUniqueId().toString()).setDimension("NETHER");
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equals("NETHER")){
+                        General.PublicFilter.get(player.getUniqueId().toString()).setDimension("THE_END");
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDimension().equals("THE_END")){
+                        General.PublicFilter.get(player.getUniqueId().toString()).removeDimension();
+                        if(!General.PublicFilter.get(player.getUniqueId().toString()).hasDistance() && !General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
+                            General.PublicFilter.remove(player.getUniqueId().toString());
+                        }
                     }
+                    new PublicFilterMenu(player);
+                    break;
+                case ELYTRA:
+                    if(!General.PublicFilter.containsKey(player.getUniqueId().toString()) || !General.PublicFilter.get(player.getUniqueId().toString()).hasDistance()){
+                        PositionFilter filter = null;
+                        if(!General.PublicFilter.containsKey(player.getUniqueId().toString())) {
+                            filter = new PositionFilter();
+                            filter.setPlayer(player);
+                            General.PublicFilter.put(player.getUniqueId().toString(), filter);
+                        }else{
+                            filter = General.PublicFilter.get(player.getUniqueId().toString());
+                        }
+                        filter.setDistance(50);
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDistance() == 50){
+                        General.PublicFilter.get(player.getUniqueId().toString()).setDistance(100);
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDistance() == 100){
+                        General.PublicFilter.get(player.getUniqueId().toString()).setDistance(250);
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDistance() == 250){
+                        General.PublicFilter.get(player.getUniqueId().toString()).setDistance(1000);
+                    }else if(General.PublicFilter.get(player.getUniqueId().toString()).getDistance() == 1000){
+                        General.PublicFilter.get(player.getUniqueId().toString()).removeDistance();
+                        if(!General.PublicFilter.get(player.getUniqueId().toString()).hasDimension() && !General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
+                            General.PublicFilter.remove(player.getUniqueId().toString());
+                        }
+                    }
+                    new PublicFilterMenu(player);
                     break;
                 default:
                     break;
@@ -101,6 +148,7 @@ public class PublicFilterMenuListener implements Listener {
                         }else{
                             PositionFilter filter = new PositionFilter();
                             filter.setPlayername(event.getCurrentItem().getItemMeta().getDisplayName().replace(String.valueOf(ChatColor.GOLD), ""));
+                            filter.setPlayer(player);
                             General.PublicFilter.put(player.getUniqueId().toString(), filter);
                         }
                         PublicFilterMenu.PublicPlayernameFilterMenu(player, page);
@@ -125,6 +173,7 @@ public class PublicFilterMenuListener implements Listener {
                         }else{
                             PositionFilter filter = new PositionFilter();
                             filter.setDimension("NORMAL");
+                            filter.setPlayer(player);
                             General.PublicFilter.put(player.getUniqueId().toString(),filter);
                         }
                     }else if(event.getClick() == ClickType.RIGHT){

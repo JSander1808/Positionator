@@ -35,6 +35,7 @@ public class EnglishLanguageContainer {
         translation.put(15, ChatColor.GRAY+"Active filters:");
         translation.put(16, ChatColor.GREEN+"-Player ");
         translation.put(17, ChatColor.GREEN+"-Dimension ");
+        translation.put(188, ChatColor.GREEN+"-Distance ");
         translation.put(18, ChatColor.GRAY+"No active filters!");
         translation.put(19, ChatColor.DARK_GRAY+"Left-Click: Edit filters");
         translation.put(20, ChatColor.DARK_GRAY+"Right-Click: Reset all active filters");
@@ -100,7 +101,13 @@ public class EnglishLanguageContainer {
 
         //General Filter Menu
         translation.put(63, ChatColor.GOLD+"Playername");
-        translation.put(64, ChatColor.GOLD+"Dimension");
+        translation.put(186, ChatColor.GOLD+"Set Filter Dimension");
+        translation.put(64, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Dimension");
+        translation.put(187, ChatColor.GOLD+"Set Filter Disctance");
+        translation.put(182,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Distance");
+        translation.put(183, "Overworld");
+        translation.put(184, "Nether");
+        translation.put(185, "The End");
 
         //Public Filter Menu
         translation.put(62, ChatColor.GOLD+"Public Filter Menu");

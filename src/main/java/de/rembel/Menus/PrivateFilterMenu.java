@@ -50,20 +50,81 @@ public class PrivateFilterMenu {
 
         ItemStack FilterDimension = new ItemStack(Material.END_PORTAL_FRAME);
         ItemMeta FilterDimensionMeta = FilterDimension.getItemMeta();
-        FilterDimensionMeta.setDisplayName(language.transalte(64));
+        FilterDimensionMeta.setDisplayName(language.transalte(186));
         ArrayList FilterDimensionLore = new ArrayList();
-        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
-            if(General.PrivateFilter.get(player.getUniqueId().toString()).hasDimension()){
-                FilterDimensionLore.add(ChatColor.GREEN+General.PrivateFilter.get(player.getUniqueId().toString()).getDimension());
-            }
+//        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+//            if(General.PrivateFilter.get(player.getUniqueId().toString()).hasDimension()){
+//                FilterDimensionLore.add(ChatColor.GREEN+General.PrivateFilter.get(player.getUniqueId().toString()).getDimension());
+//            }
+//        }
+
+        FilterDimensionLore.add("");
+        FilterDimensionLore.add("   "+language.transalte(64));
+        if(!(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).hasDimension())){
+            FilterDimensionLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            FilterDimensionLore.add(ChatColor.GRAY+"   "+language.transalte(73));
         }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension() != null && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equals("NORMAL")){
+            FilterDimensionLore.add(ChatColor.GREEN+"➜ "+language.transalte(183));
+        }else{
+            FilterDimensionLore.add(ChatColor.GRAY+"   "+language.transalte(183));
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension() != null && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equals("NETHER")){
+            FilterDimensionLore.add(ChatColor.GREEN+"➜ "+language.transalte(184));
+        }else{
+            FilterDimensionLore.add(ChatColor.GRAY+"   "+language.transalte(184));
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension() != null && General.PrivateFilter.get(player.getUniqueId().toString()).getDimension().equals("THE_END")){
+            FilterDimensionLore.add(ChatColor.GREEN+"➜ "+language.transalte(185));
+        }else{
+            FilterDimensionLore.add(ChatColor.GRAY+"   "+language.transalte(185));
+        }
+        FilterDimensionLore.add("");
         FilterDimensionMeta.setLore(FilterDimensionLore);
         FilterDimension.setItemMeta(FilterDimensionMeta);
 
+
+        ItemStack FilterDistance = new ItemStack(Material.ELYTRA);
+        ItemMeta FilterDistanceMeta = FilterDistance.getItemMeta();
+        FilterDistanceMeta.setDisplayName(language.transalte(187));
+        ArrayList FilterDistanceLore = new ArrayList();
+        FilterDistanceLore.add("");
+        FilterDistanceLore.add("   "+language.transalte(182));
+        if(!(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).hasDistance())){
+            FilterDistanceLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            FilterDistanceLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() != -1 && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() == 50){
+            FilterDistanceLore.add(ChatColor.GREEN+"➜ "+"< 50");
+        }else{
+            FilterDistanceLore.add(ChatColor.GRAY+"   "+"< 50");
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() != -1 && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() == 100){
+            FilterDistanceLore.add(ChatColor.GREEN+"➜ "+"< 100");
+        }else{
+            FilterDistanceLore.add(ChatColor.GRAY+"   "+"< 100");
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() != -1 && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() == 250){
+            FilterDistanceLore.add(ChatColor.GREEN+"➜ "+"< 250");
+        }else{
+            FilterDistanceLore.add(ChatColor.GRAY+"   "+"< 250");
+        }
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString()) && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() != -1 && General.PrivateFilter.get(player.getUniqueId().toString()).getDistance() == 1000){
+            FilterDistanceLore.add(ChatColor.GREEN+"➜ "+"< 1000");
+        }else{
+            FilterDistanceLore.add(ChatColor.GRAY+"   "+"< 1000");
+        }
+        FilterDistanceLore.add("");
+        FilterDistanceMeta.setLore(FilterDistanceLore);
+        FilterDistance.setItemMeta(FilterDistanceMeta);
+
         inv.setItem(25, back);
         inv.setItem(26, close);
-        inv.setItem(12, FilterPlayername);
-        inv.setItem(14, FilterDimension);
+        inv.setItem(11, FilterPlayername);
+        inv.setItem(13, FilterDimension);
+        inv.setItem(15, FilterDistance);
 
         player.openInventory(inv);
 

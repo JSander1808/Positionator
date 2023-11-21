@@ -16,9 +16,9 @@ import java.util.UUID;
 public class General {
 
     public static HashMap<String, String> BossBarPosition = new HashMap<String, String>();
+    public static HashMap<UUID, CBossbar> bossbarContainer = new HashMap<UUID, CBossbar>();
     public static HashMap<String, PositionFilter> PublicFilter = new HashMap<String, PositionFilter>();
     public static HashMap<String, PositionFilter> PrivateFilter = new HashMap<String, PositionFilter>();
-    public static HashMap<UUID, CBossbar> bossbarContainer = new HashMap<UUID, CBossbar>();
 
     public static ArrayList<String> getRegisteredPlayers(){
         ArrayList<String> playerList = new ArrayList<String>();
