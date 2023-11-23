@@ -2,12 +2,14 @@ package de.rembel.Main;
 
 import de.rembel.CBossbar.CBossbar;
 import de.rembel.Commands.BackUpCommand;
+import de.rembel.Commands.PosDebugCommand;
 import de.rembel.Commands.PositionCommand;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.*;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Listener.*;
-import de.rembel.TabComplet.BackUpCompletor;
+import de.rembel.TabComplet.BackUpTabCompletor;
+import de.rembel.TabComplet.PosDebugTabCompletor;
 import de.rembel.TextInput.ChatListener;
 import de.rembel.bStats.Metrics;
 import org.bukkit.Bukkit;
@@ -61,8 +63,10 @@ public final class PositionatorMain extends JavaPlugin {
         pluginManager.registerEvents(new PlayerQuitListener(), this);
 
         getCommand("pos").setExecutor(new PositionCommand());
-        getCommand("backup").setExecutor(new BackUpCommand());
-        getCommand("backup").setTabCompleter(new BackUpCompletor());
+        getCommand("pbackup").setExecutor(new BackUpCommand());
+        getCommand("pdevelopersettings").setExecutor(new PosDebugCommand());
+        getCommand("pbackup").setTabCompleter(new BackUpTabCompletor());
+        getCommand("pdevelopersettings").setTabCompleter(new PosDebugTabCompletor());
 
     }
 

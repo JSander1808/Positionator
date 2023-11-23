@@ -185,10 +185,12 @@ public class PrivateMenuListener implements Listener {
                                 if(compass==null){
                                     compass = new CBossbar(PositionatorMain.getPlugin());
                                     compass.createBossbar(player);
-                                    compass.setSmoothProfile(CSmoothProfile.MIDDLE);
+                                    //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                                 }
                                 if(!compass.existPosition(cPosition)){
-                                    compass.addPosition(cPosition);
+                                    if(!compass.addPosition(cPosition)){
+                                        break;
+                                    }
                                     player.sendMessage(language.transalte(138)+color+positionName1+language.transalte(139)+color+symbol+language.transalte(140));
                                 }else{
                                     player.sendMessage(language.transalte(141));

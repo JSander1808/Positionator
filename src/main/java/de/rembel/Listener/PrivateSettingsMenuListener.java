@@ -119,7 +119,9 @@ public class PrivateSettingsMenuListener implements Listener {
                                 //compass.setSmoothProfile(CSmoothProfile.MIDDLE);
                             }
                             if(!compass.existPosition(cPosition)){
-                                compass.addPosition(cPosition);
+                                if(!compass.addPosition(cPosition)){
+                                    break;
+                                }
                                 player.sendMessage(language.transalte(138)+color+positionName+language.transalte(139)+color+symbol+language.transalte(140));
                             }else{
                                 player.sendMessage(language.transalte(141));

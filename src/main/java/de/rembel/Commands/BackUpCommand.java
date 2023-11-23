@@ -56,10 +56,6 @@ public class BackUpCommand implements CommandExecutor {
                             if(backUpManager.deleteBackUp(args[1])) sender.sendMessage(ChatColor.GRAY+"BackUp deleted");
                         }
                     }
-                    if(args[0].equalsIgnoreCase("entity")){
-                        Player player = (Player) sender;
-                        CBossbar.getByPlayer(player).addPosition(new CPosition("⌖", ChatColor.GOLD, Bukkit.getEntity(UUID.fromString(args[1])), Bukkit.getEntity(UUID.fromString(args[1])).getName()));
-                    }
                 }
             }
         }else{

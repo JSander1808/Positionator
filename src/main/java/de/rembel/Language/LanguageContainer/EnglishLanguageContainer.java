@@ -19,6 +19,7 @@ public class EnglishLanguageContainer {
         translation.put(66, "Active");
         translation.put(73, "Inactive");
         translation.put(146, ChatColor.GREEN+"Status");
+        translation.put(190, ChatColor.RED+"You no longer have room to add more positions to the compass. Please delete Positions and try again.");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Public Position List");
@@ -133,7 +134,7 @@ public class EnglishLanguageContainer {
         translation.put(82, ChatColor.GRAY+"When active, a sound is played with every click.");
         translation.put(133, "Pitch: ");
         translation.put(167, ChatColor.GOLD+"Position Broadcast");
-        translation.put(168, ChatColor.GRAY+"Broadcast when someone adds a position");
+        translation.put(168, ChatColor.GRAY+"Broadcast when someone adds a position to public list");
         translation.put(169, ChatColor.DARK_GRAY+"Left-Click: Enable/Disable");
         translation.put(170, ChatColor.DARK_GRAY+"Right-Click: Change Pitch");
         translation.put(174,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Enable/Disable");
@@ -245,6 +246,9 @@ public class EnglishLanguageContainer {
         translation.put(164, ChatColor.GOLD+"Select Online Player ");
         translation.put(165, ChatColor.GOLD+"Player Selector");
         translation.put(166, ChatColor.GREEN+"Here you can add Player to the Compass");
+
+        //Debug Command
+        translation.put(189, ChatColor.RED+"Incorrect argument for command: ");
 
         int implemented = translation.size()*100/EnglishLanguageContainer.translation.size();
         PositionatorMain.getPlugin().getLogger().log(Level.INFO, "[LanguageManager] loaded English with "+implemented+"% implimated");

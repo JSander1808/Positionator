@@ -63,28 +63,31 @@ public class BackUpMenu {
         inv.setItem(53,close);
 
 
-        for(int i = 0;i<45;i++){
-            if(new File("plugins//Positionator_BackUp//").listFiles().length>i+((page-1)*45)){
-                String backUpId = new File("plugins//Positionator_BackUp//").listFiles()[i+((page-1)*45)].getName();
-                NormalConfig config = new NormalConfig("plugins//Positionator_BackUp//"+backUpId+"//config.yml");
-                ItemStack backup = new ItemStack(Material.SMITHING_TABLE);
-                ItemMeta backupMeta = backup.getItemMeta();
-                backupMeta.setDisplayName(ChatColor.GOLD+backUpId);
-                ArrayList backupLore = new ArrayList();
-                String[] date = config.get("date").split("\\.");
-                backupLore.add(language.transalte(113)+ChatColor.BLUE+date[0]+"."+date[1]+"."+date[2]+"  "+date[3]+":"+date[4]+":"+date[5]);
-                backupLore.add(language.transalte(114)+ChatColor.BLUE+config.get("version"));
-                backupLore.add(language.transalte(115)+ChatColor.BLUE+config.get("creator"));
-                backupLore.add(language.transalte(116)+ChatColor.BLUE+config.get("reason"));
-                backupLore.add(language.transalte(117)+ChatColor.BLUE+config.get("size"));
-                backupLore.add(" ");
-                backupLore.add(language.transalte(118));
-                backupLore.add(language.transalte(119));
-                backupMeta.setLore(backupLore);
-                backup.setItemMeta(backupMeta);
-                inv.setItem(i, backup);
+        Thread thread = new Thread(() -> {
+            for(int i = 0;i<45;i++){
+                if(new File("plugins//Positionator_BackUp//").listFiles().length>i+((page-1)*45)){
+                    String backUpId = new File("plugins//Positionator_BackUp//").listFiles()[i+((page-1)*45)].getName();
+                    NormalConfig config = new NormalConfig("plugins//Positionator_BackUp//"+backUpId+"//config.yml");
+                    ItemStack backup = new ItemStack(Material.SMITHING_TABLE);
+                    ItemMeta backupMeta = backup.getItemMeta();
+                    backupMeta.setDisplayName(ChatColor.GOLD+backUpId);
+                    ArrayList backupLore = new ArrayList();
+                    String[] date = config.get("date").split("\\.");
+                    backupLore.add(language.transalte(113)+ChatColor.BLUE+date[0]+"."+date[1]+"."+date[2]+"  "+date[3]+":"+date[4]+":"+date[5]);
+                    backupLore.add(language.transalte(114)+ChatColor.BLUE+config.get("version"));
+                    backupLore.add(language.transalte(115)+ChatColor.BLUE+config.get("creator"));
+                    backupLore.add(language.transalte(116)+ChatColor.BLUE+config.get("reason"));
+                    backupLore.add(language.transalte(117)+ChatColor.BLUE+config.get("size"));
+                    backupLore.add(" ");
+                    backupLore.add(language.transalte(118));
+                    backupLore.add(language.transalte(119));
+                    backupMeta.setLore(backupLore);
+                    backup.setItemMeta(backupMeta);
+                    inv.setItem(i, backup);
+                }
             }
-        }
+        });
+        thread.start();
     }
 
     public static ItemStack placeholder(){

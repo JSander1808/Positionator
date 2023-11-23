@@ -51,13 +51,15 @@ public class CompassSelectPlayerMenu {
         nextpage.setItemMeta(nextmeta);
 
         ArrayList<String> Players = new ArrayList<String>();
-        if(CBossbar.getByPlayer(player)==null){
-            CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
-            compass.createBossbar(player);
-        }
+//        if(CBossbar.getByPlayer(player)==null){
+//            CBossbar compass = new CBossbar(PositionatorMain.getPlugin());
+//            compass.createBossbar(player);
+//        }
         ArrayList<String> tempPositionName = new ArrayList<String>();
-        for(CPosition position : CBossbar.getByPlayer(player).getPositions()){
-            tempPositionName.add(position.getDescription());
+        if(CBossbar.getByPlayer(player) != null){
+            for(CPosition position : CBossbar.getByPlayer(player).getPositions()){
+                tempPositionName.add(position.getDescription());
+            }
         }
         for(Player tempPlayer : Bukkit.getOnlinePlayers()){
                 if(!tempPositionName.contains(tempPlayer.getName())){

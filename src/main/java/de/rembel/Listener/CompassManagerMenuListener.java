@@ -392,6 +392,11 @@ public class CompassManagerMenuListener implements Listener {
                             break;
                         case PLAYER_HEAD:
                             CBossbar compass = CBossbar.getByPlayer(player);
+                            if(compass==null){
+                                compass = new CBossbar(PositionatorMain.getPlugin());
+                                compass.createBossbar(player);
+                            }
+                            General.loadCompassData(compass);
                             if(compass != null){
                                 Entity entity = Bukkit.getPlayer(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()));
                                 compass.addPosition(new CPosition("\uD83C\uDFAE", getRandomColor(), entity, event.getCurrentItem().getItemMeta().getDisplayName().replace(ChatColor.GOLD+"", "")));

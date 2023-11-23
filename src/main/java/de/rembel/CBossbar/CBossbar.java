@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -179,7 +180,7 @@ public class CBossbar implements Listener {
                         }
                     }
                 }
-            }else if(smoothProfile==CSmoothProfile.MIDDLE && (!(lastYaw>181) || !(lastYaw<-181))){
+            }else if(smoothProfile==CSmoothProfile.SLOW && (!(lastYaw>181) || !(lastYaw<-181))){
                 int distance = getDistanceBetweenYaw(lastYaw, yaw);
                 if(distance>=2){
                     renderInQueue = true;
@@ -389,17 +390,44 @@ public class CBossbar implements Listener {
     }
 
     public boolean addPosition(CPosition position){
-        if(position==null || positionContainer.contains(position)) return false;
+        if(getPositionsWithoutEntitys().size() <= 17 && getOnlyEntityPositions().size() <= 5){
+            if(position==null || positionContainer.contains(position)) return false;
 
-        positionContainer.add(position);
-        if(position.getEntity()!=null){
-            if(!Bukkit.getScheduler().isCurrentlyRunning(entityThread)){
-                Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {renderBossbar(); }, 0, 100);
+            positionContainer.add(position);
+            if(position.getEntity()!=null){
+                if(!Bukkit.getScheduler().isCurrentlyRunning(entityThread)){
+                    Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {renderBossbar(); }, 0, 100);
+                }
             }
+            NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
+            if(CBossbar.getByPlayer(player)!=null) playerConfig.set("compassSave", CBossbar.getByPlayer(this.player).toString()); else playerConfig.set("compassSave","");
+        }else{
+            LanguageManager language = new LanguageManager(player);
+            player.sendMessage(language.transalte(190));
+            return false;
         }
-        NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+this.player.getUniqueId().toString()+"//config.yml");
-        if(CBossbar.getByPlayer(player)!=null) playerConfig.set("compassSave", CBossbar.getByPlayer(this.player).toString()); else playerConfig.set("compassSave","");
         return true;
+    }
+
+    public ArrayList<CPosition> getPositionsWithoutEntitys(){
+        ArrayList list = new ArrayList();
+            for(int i = 0;i<getPositions().size();i++){
+                if(getPositions().get(i).getEntity()==null){
+                    list.add(getPositions().get(i));
+                }
+            }
+        return list;
+    }
+
+    public ArrayList<CPosition> getOnlyEntityPositions(){
+        ArrayList list = new ArrayList();
+            for(int i = 0;i<getPositions().size();i++){
+                if(getPositions().get(i).getEntity()!=null){
+                    list.add(getPositions().get(i));
+                }
+            }
+
+        return list;
     }
 
     public boolean removePosition(UUID positionUuid){
