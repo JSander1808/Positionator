@@ -177,6 +177,9 @@ public class CompassManagerMenuListener implements Listener {
                     case SPRUCE_DOOR:
                         new StartMenu(player);
                         break;
+                    case ARMOR_STAND:
+                        new CompassSelectPlayerMenu(player, 1);
+                        break;
                     default:
                         break;
                 }
