@@ -21,10 +21,11 @@ This plugin offers an efficient and user-friendly solution for marking, saving, 
 |-----------|---------------------------------|
 | /pos  | Open Positionator Menu  |
 | /pos [Position Name]  | Create new Position  |
-| /backup  |  Open Positionator Backup Menu  |
-| /backup create  | Create a new Backup  |
-| /backup load [BackupId]  | load Backup  |
-| /backup delete [BackupId]  | delete Backup  |
+| /pbackup  |  Open Positionator Backup Menu  |
+| /pbackup create  | Create a new Backup  |
+| /pbackup load [BackupId]  | load Backup  |
+| /pbackup delete [BackupId]  | delete Backup  |
+| /pdevelopmentsettings  | Settings for Developer  |
 
 # Installation
 
