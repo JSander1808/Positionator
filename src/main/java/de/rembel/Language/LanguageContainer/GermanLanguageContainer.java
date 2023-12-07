@@ -16,8 +16,10 @@ public class GermanLanguageContainer {
         translation.put(11, ChatColor.GOLD+"Vorheriege Seite");
         translation.put(12, ChatColor.GOLD+"Zurück");
         translation.put(13, ChatColor.GOLD+"Nächte Seite");
-//        translation.put(66, ChatColor.GREEN+"Aktiv");
-//        translation.put(73, ChatColor.RED+"Inaktiv");
+        translation.put(66, "Aktiv");
+        translation.put(73, "Inaktiv");
+        translation.put(146, ChatColor.GREEN+"Status");
+        translation.put(190, ChatColor.RED+"Du hast keinen Platz um noch mehr Positionen hinzuzufügen. Bitte löschen bestehende Position aus dem Compass um neue hinzufügen zu können.");
 
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Öffentliche Positions Liste");
@@ -34,6 +36,7 @@ public class GermanLanguageContainer {
         translation.put(15, ChatColor.GRAY+"Aktive Filter:");
         translation.put(16, ChatColor.GREEN+"-Spieler ");
         translation.put(17, ChatColor.GREEN+"-Dimension ");
+        translation.put(188, ChatColor.GREEN+"-Entfernung ");
         translation.put(18, ChatColor.GRAY+"Keine aktiven Filter!");
         translation.put(19, ChatColor.DARK_GRAY+"Links-Klick: Bearbeite Filter");
         translation.put(20, ChatColor.DARK_GRAY+"Rechts-Klick: Setzte alle Filter zurück");
@@ -42,6 +45,8 @@ public class GermanLanguageContainer {
         translation.put(23, ChatColor.GREEN+"Dimension: ");
         translation.put(24, ChatColor.DARK_GRAY+"Links-Klick: Position einstellungen öffnen");
         translation.put(25, ChatColor.DARK_GRAY+"Shift + Links-Klick: Position in Bossbar setzten");
+        translation.put(137, ChatColor.DARK_GRAY+"Rechts-Klick: Symbol wechseln");
+
         //Public Position List Menu
         translation.put(9, ChatColor.GOLD+"Öffentliche Liste - Seite ");
 
@@ -73,6 +78,10 @@ public class GermanLanguageContainer {
         translation.put(55, " würde erfolgreich gelöscht");
         translation.put(58, ChatColor.GREEN+"Gebe ");
         translation.put(59, ChatColor.GREEN+" ein um den Vorgang abzubrechen.");
+        translation.put(138, ChatColor.GREEN+"Die Position ");
+        translation.put(139, ChatColor.GREEN+" würde mit ");
+        translation.put(140, ChatColor.GREEN+" in deinem Compass markiert.");
+        translation.put(141, ChatColor.RED+"Diese Position wird bereits im Compass angezeigt");
 
         //Private Settings Menu
         translation.put(30, ChatColor.GOLD+"Private Einstellungen - ");
@@ -117,6 +126,17 @@ public class GermanLanguageContainer {
         translation.put(80, ChatColor.GRAY+"Wenn aktiv kannst du auf Filter zugreifen.");
         translation.put(81, ChatColor.GOLD+"Menu Klick Ton");
         translation.put(82, ChatColor.GRAY+"Wenn aktiv spielt der Klick ein Ton ab");
+        translation.put(133, "Tonhöhe: ");
+        translation.put(167, ChatColor.GOLD+"Globale Nachricht");
+        translation.put(168, ChatColor.GRAY+"Du bekommst eine Nachricht wenn jedem eine Position zu der Öffentlichen liste hinzufügt");
+        translation.put(169, ChatColor.DARK_GRAY+"Links-Klick: An/Aus");
+        translation.put(170, ChatColor.DARK_GRAY+"Rechts-Klick: Tonhöhe wechseln");
+        translation.put(174,ChatColor.GOLD+""+ChatColor.UNDERLINE+"An/Aus");
+        translation.put(175, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Tonhöhe");
+        translation.put(178, ChatColor.RED+"Compass zurücksetzen");
+        translation.put(179, ChatColor.GRAY+"Setzt den Compass komplett zurück  ");
+        translation.put(180, ChatColor.GRAY+"(setzten all Position in Compass zurück");
+        translation.put(181, ChatColor.GRAY+" alle einstellungen von Compass)");
 
         //Admin Settings Menu
         translation.put(83, ChatColor.RED+"Admin Einstellungen");
@@ -127,8 +147,8 @@ public class GermanLanguageContainer {
         translation.put(88, ChatColor.GRAY+"Wenn aktiv wird ihnen eine Nachricht gesenden");
         translation.put(89, ChatColor.GRAY+"sobalt es ein Plugin update gibt.");
         translation.put(90, ChatColor.GOLD+"Teleportieren");
-        translation.put(91, ChatColor.GREEN+"Aktiv (nur Op)");
-        translation.put(92, ChatColor.GREEN+"Aktiv (jeder)");
+        translation.put(91, "Aktiv (nur Op)");
+        translation.put(92, "Aktiv (jeder)");
         translation.put(93, ChatColor.GRAY+"Wenn aktiv kannst du dich zu Position teleportieren");
         translation.put(94, ChatColor.GOLD+"Auto-Backup");
         translation.put(95, ChatColor.GRAY+"Wenn aktiv macht das Plugin automatisch Backups von");
@@ -141,14 +161,16 @@ public class GermanLanguageContainer {
         translation.put(100, ChatColor.RED+"Du bist kein Operator");
 
         //Add Menu
-        //translation.put(101, ChatColor.GOLD+"Hinzufügen von");
+        translation.put(101, ChatColor.GOLD+"Hinzufügen von");
         translation.put(102, ChatColor.GOLD+"Zur Öffentlichen Liste hinzufügen");
         translation.put(103, ChatColor.GOLD+"Zur Privaten Liste hinzufügen");
-//        translation.put(104, ChatColor.GOLD+"Position ");
-//        translation.put(105, ChatColor.GOLD+" wurde erfolgreich hinzugefügt");
+        translation.put(104, ChatColor.GOLD+" hat die Position ");
+        translation.put(105, ChatColor.GOLD+" erfolgreich zur Öffentlichen Liste hinzugefügt");
         translation.put(106, ChatColor.RED+"Die Position ");
         translation.put(107, " exestiert bereits in der Öffentlichen Liste.");
         translation.put(108, " exestiert bereits in der Privaten Liste.");
+        translation.put(172, ChatColor.GREEN+"Du hast die Position ");
+        translation.put(173, ChatColor.GREEN+" zu deiner Privaten Liste hinzugefügt.");
 
         //BackUp Menu
         translation.put(109, ChatColor.GOLD+"BackUps - Seite ");
@@ -179,6 +201,48 @@ public class GermanLanguageContainer {
         translation.put(128, ChatColor.GOLD+" Sende hier Feedback");
         translation.put(129, ChatColor.GOLD+"Klick mich");
         translation.put(130, ChatColor.GREEN+" Die Hauptsprache des Plugins ist Englisch.");
+
+        //Private Symbol change Menu
+        translation.put(134, ChatColor.GOLD+"Privates Symbol - ");
+
+        //Public Symbol change Menu
+        translation.put(136, ChatColor.GOLD+("Öffentliches Symbol - "));
+
+        //Symbol change Menu
+        translation.put(135, ChatColor.GREEN+"Setze dieses Symbol");
+
+        //Compass Manager
+        translation.put(142, ChatColor.GOLD+"Compass verwalten");
+        translation.put(143, ChatColor.GOLD+"Aktive Positionen");
+        translation.put(144, ChatColor.GRAY+"Hier kannst du alle aktiven Positionen sehen");
+        translation.put(150, ChatColor.GOLD+"Aktive Spieler");
+        translation.put(151, ChatColor.GRAY+"Hier siehst du alle\n die aktuell in dem Compass \nangezeigt werden.");
+        translation.put(171, ChatColor.DARK_GRAY+"Links-Klick: Spieler hinzufügen");
+        translation.put(176, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Farbe");
+        translation.put(177, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Symbol");
+
+
+        //Compass Customizer Menu
+        translation.put(152,ChatColor.GOLD+"Setze Compass Platzhalter");
+        translation.put(153,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Platzhalter");
+        translation.put(154,ChatColor.GOLD+"Setze Compass Farbe");
+        translation.put(155,ChatColor.GREEN+"Aktuelle Farbe: ");
+        translation.put(156, ChatColor.GOLD+"Compass immer anzeigen");
+        translation.put(157, ChatColor.DARK_GRAY+"Klicke zu ändern");
+
+        //Compass Position Manager Menu
+        translation.put(158, ChatColor.GOLD+"Compass Positionen - Seite ");
+        translation.put(159, ChatColor.GREEN+"Aktuelles Symbol: ");
+        translation.put(160, ChatColor.GREEN+"Aktuelle Farbe: ");
+        translation.put(161, ChatColor.DARK_GRAY+"Links-Klick: Farbe ändern");
+        translation.put(162, ChatColor.DARK_GRAY+"Rechts-Klick: Symbol ändern");
+        translation.put(163, ChatColor.DARK_GRAY+"Shift + Links-Klick: Löschen");
+        translation.put(164, ChatColor.GOLD+"Online Spieler auswählen ");
+        translation.put(165, ChatColor.GOLD+"Spieler auswahl");
+        translation.put(166, ChatColor.GREEN+"Hier kannst du Spieler zum Compass hinzufügen");
+
+        //Debug Command
+        translation.put(189, ChatColor.RED+"Incorrect argument for command: ");
 
         int implemented = translation.size()*100/EnglishLanguageContainer.translation.size()-2;
         PositionatorMain.getPlugin().getLogger().log(Level.INFO, "[LanguageManager] loaded German with "+implemented+"% implimated ("+translation.size()+"/"+EnglishLanguageContainer.translation.size()+")");
