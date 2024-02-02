@@ -44,7 +44,7 @@ public class LanguageMenu {
         englishMeta.setDisplayName(ChatColor.GOLD+"English");
         ArrayList englishLore = new ArrayList();
         if(language.getLanguage().equals(Languages.ENGLISH)){
-            englishLore.add(language.transalte(66));
+            englishLore.add(ChatColor.GREEN+language.transalte(66));
             englishLore.add(" ");
         }
         englishLore.add(ChatColor.GOLD+"100% "+language.transalte(123));
@@ -56,7 +56,7 @@ public class LanguageMenu {
         germanMeta.setDisplayName(ChatColor.GOLD+"Deutsch");
         ArrayList germanLore = new ArrayList();
         if(language.getLanguage().equals(Languages.GERMAN)){
-            germanLore.add(language.transalte(66));
+            germanLore.add(ChatColor.GREEN+language.transalte(66));
             germanLore.add(" ");
         }
         germanLore.add(ChatColor.GOLD+""+(GermanLanguageContainer.translation.size()*100/EnglishLanguageContainer.translation.size()-2)+"% "+language.transalte(123));
@@ -68,7 +68,7 @@ public class LanguageMenu {
         frenchMeta.setDisplayName(ChatColor.GOLD+"Français");
         ArrayList frenchLore = new ArrayList();
         if(language.getLanguage().equals(Languages.FRENCH)){
-            frenchLore.add(language.transalte(66));
+            frenchLore.add(ChatColor.GREEN+language.transalte(66));
             frenchLore.add(" ");
         }
         frenchLore.add(ChatColor.GOLD+""+(FrenchLanguageContainer.translation.size()*100/EnglishLanguageContainer.translation.size()-2)+"% "+language.transalte(123));
@@ -80,7 +80,7 @@ public class LanguageMenu {
         norwegianMeta.setDisplayName(ChatColor.GOLD+"Norsk");
         ArrayList norwegianLore = new ArrayList();
         if(language.getLanguage().equals(Languages.NORWEGIAN)){
-            norwegianLore.add(language.transalte(66));
+            norwegianLore.add(ChatColor.GREEN+language.transalte(66));
             norwegianLore.add(" ");
         }
         norwegianLore.add(ChatColor.GOLD+""+(NorwegianLanguageContainer.translation.size()*100/EnglishLanguageContainer.translation.size()-2)+"% "+language.transalte(123));
@@ -93,7 +93,7 @@ public class LanguageMenu {
         ArrayList finnishLore = new ArrayList();
         finnishLore.add(language.transalte(122));
         if(language.getLanguage().equals(Languages.FINNISH)){
-            finnishLore.add(language.transalte(66));
+            finnishLore.add(ChatColor.GREEN+language.transalte(66));
             finnishLore.add(" ");
         }
         finnishLore.add(ChatColor.GOLD+"0% "+language.transalte(123));

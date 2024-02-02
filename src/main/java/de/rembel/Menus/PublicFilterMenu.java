@@ -173,7 +173,7 @@ public class PublicFilterMenu {
                 if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
                     if(General.PublicFilter.get(player.getUniqueId().toString()).hasPlayername()){
                         if(General.PublicFilter.get(player.getUniqueId().toString()).getPlayername().equalsIgnoreCase(Players.get(i+(multiplier*(page-1))))){
-                            playerSkullLore.add(language.transalte(66));
+                            playerSkullLore.add(ChatColor.GREEN+language.transalte(66));
                             playerSkull.addUnsafeEnchantment(Enchantment.LURE,1);
                         }
                     }

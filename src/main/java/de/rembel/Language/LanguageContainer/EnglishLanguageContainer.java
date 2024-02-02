@@ -104,7 +104,7 @@ public class EnglishLanguageContainer {
         translation.put(63, ChatColor.GOLD+"Playername");
         translation.put(186, ChatColor.GOLD+"Set Filter Dimension");
         translation.put(64, ChatColor.GOLD+""+ChatColor.UNDERLINE+"Dimension");
-        translation.put(187, ChatColor.GOLD+"Set Filter Disctance");
+        translation.put(187, ChatColor.GOLD+"Set Filter Distance");
         translation.put(182,ChatColor.GOLD+""+ChatColor.UNDERLINE+"Distance");
         translation.put(183, "Overworld");
         translation.put(184, "Nether");
