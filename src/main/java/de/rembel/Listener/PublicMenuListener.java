@@ -457,6 +457,7 @@ public class PublicMenuListener implements Listener {
                                     lore.add(language.transalte(66));
                                     spongeMeta.setLore(lore);
                                 }
+                                sponge.setItemMeta(spongeMeta);
 
 
 
