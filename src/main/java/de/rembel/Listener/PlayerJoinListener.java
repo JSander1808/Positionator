@@ -59,14 +59,15 @@ public class PlayerJoinListener implements Listener {
                 player.sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
                 player.sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
                 player.sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
-                player.sendMessage(ChatColor.BLUE+"/backup "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
+                player.sendMessage(ChatColor.BLUE+"/pbackup "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
+                player.sendMessage(ChatColor.BLUE+"/pdevelopersettings "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
             }
         }else if(config.get("firstUse").equalsIgnoreCase("true")){
             if(player.isOp()){
                 player.sendMessage(ChatColor.GREEN+"Thanks for using "+ChatColor.GOLD+"Positionator"+ChatColor.GREEN+".");
                 player.sendMessage(ChatColor.BLUE+"/pos "+ChatColor.GREEN+"Open the Positionator Main Menu");
                 player.sendMessage(ChatColor.BLUE+"/pos <positon name> "+ChatColor.GREEN+"Create a new Position");
-                player.sendMessage(ChatColor.BLUE+"/backup "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
+                player.sendMessage(ChatColor.BLUE+"/pdevelopersettings "+ChatColor.GREEN+"Open the Positionator BackUp Menu");
             }
             config.set("firstUse","false");
         }
