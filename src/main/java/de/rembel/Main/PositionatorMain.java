@@ -72,6 +72,7 @@ public final class PositionatorMain extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        //test
         for(Player player : Bukkit.getOnlinePlayers()){
             if(player != null){
                 NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
