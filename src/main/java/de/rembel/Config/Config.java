@@ -232,6 +232,32 @@ public class Config {
         return false;
     }
 
+    public Position[] list(){
+        File file = new File(path);
+        try {
+            ArrayList<Position> data = new ArrayList<Position>();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                Position position = new Position(temp.split("->")[0], new String[]{temp.split("->")[1].split(" ")[0], temp.split("->")[1].split(" ")[1], temp.split("->")[1].split(" ")[2]}, temp.split("->")[2], temp.split("->")[3], Integer.valueOf(temp.split("->")[4]));
+
+                data.add(position);
+            }
+            Position[] finalData = new Position[data.size()];
+            for(int i = 0;i< data.size();i++){
+                finalData[i] = data.get(i);
+            }
+            reader.close();
+            return finalData;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public Position[] list(PositionFilter filter){
         File file = new File(path);
         try {
