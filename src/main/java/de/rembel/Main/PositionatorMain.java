@@ -18,6 +18,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.Callable;
+
 public final class PositionatorMain extends JavaPlugin {
 
     public static Plugin plugin;
@@ -36,6 +38,13 @@ public final class PositionatorMain extends JavaPlugin {
         }
 
         Metrics metrics = new Metrics(this,  	18738);
+
+        metrics.addCustomChart(new Metrics.SingleLineChart("saved_positions", new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                return General.getAllPositions().size();
+            }
+        }));
 
         BackUpManager backUpManager = new BackUpManager();
 

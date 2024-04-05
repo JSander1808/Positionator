@@ -1,6 +1,7 @@
 package de.rembel.General;
 
 import de.rembel.CBossbar.CBossbar;
+import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -8,10 +9,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 public class General {
 
@@ -70,5 +68,25 @@ public class General {
             compass.remove();
         }
         return true;
+    }
+
+    public static List<Position> getAllPositions(){
+        List<Position> allPositions = new ArrayList<Position>();
+
+        Config publicConfig = new Config("plugins//Positionator//Data//public.conf");
+        for(Position p : publicConfig.list()){
+            allPositions.add(p);
+        }
+
+        File file = new File("plugins//Positionator//Data//User//");
+        for(File f : file.listFiles()){
+            Config privateConfig = new Config("plugins//Positionator//Data//User//"+ f.getName() +"//data.conf");
+
+            for(Position p : privateConfig.list()){
+                allPositions.add(p);
+            }
+        }
+
+        return allPositions;
     }
 }
