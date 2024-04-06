@@ -56,7 +56,7 @@ public class GermanLanguageContainer {
         translation.put(28, ChatColor.RED+"Koordinaten: ");
         translation.put(29, ChatColor.RED+"Dimension: ");
 
-        //Geneal Public and Private Settings Menu
+        //General Public and Private Settings Menu
         translation.put(31, ChatColor.GREEN+"Füge ");
         translation.put(33, ChatColor.DARK_GRAY+"Links-Klick: Hinzufügen");
         translation.put(34, ChatColor.DARK_GRAY+"Rechts-Klick: Öffentliche Liste öffnen");
@@ -72,7 +72,7 @@ public class GermanLanguageContainer {
         translation.put(49, ChatColor.RED+"Du kannst diese Position nicht bearbeiten da sie ein anderer Erstellt hat.");
         translation.put(50, "Exestiert bereits");
         translation.put(51, ChatColor.GREEN+" erfolgreich umbennant");
-        translation.put(52, "Ungültig Name");
+        translation.put(52, "Ungültiger Name");
         translation.put(53, ChatColor.GOLD+"Position Umbennen");
         translation.put(54, ChatColor.RED+"Position ");
         translation.put(55, " würde erfolgreich gelöscht");

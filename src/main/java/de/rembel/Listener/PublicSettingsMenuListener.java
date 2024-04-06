@@ -54,16 +54,11 @@ public class PublicSettingsMenuListener implements Listener {
                                 }
                             }
                             event.setCancelled(true);
-                            player.sendMessage(language.transalte(58)+ChatColor.GOLD+"'cancel'"+language.transalte(59));
 
                             new AnvilGUI.Builder()
                                     .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
                                         if(slot != AnvilGUI.Slot.OUTPUT) {
                                             return Collections.emptyList();
-                                        }
-
-                                        if(stateSnapshot.getText().equalsIgnoreCase("cancel")){
-                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
                                         }
 
                                         if(stateSnapshot.getText() != null && stateSnapshot.getText() != ""){
@@ -80,12 +75,11 @@ public class PublicSettingsMenuListener implements Listener {
                                             if(config.existPosition(oldName)) config.rename(oldName, newName);
                                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
                                             player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+language.transalte(51));
-                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
+                                            return Arrays.asList(AnvilGUI.ResponseAction.run(() -> { new PublicMenu(player, 1); }));
                                         }else{
                                             return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(52)));
                                         }
                                     })
-                                    .preventClose()
                                     .text(event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))                              //sets the text the GUI should start with
                                     .title(language.transalte(53))                                       //set the title of the GUI (only works in 1.14+)
                                     .plugin(PositionatorMain.getPlugin())                                          //set the plugin instance
