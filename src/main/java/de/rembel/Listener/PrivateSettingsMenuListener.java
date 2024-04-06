@@ -83,7 +83,6 @@ public class PrivateSettingsMenuListener implements Listener {
                                             return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(52)));
                                         }
                                     })
-                                    .preventClose()
                                     .text(event.getView().getTitle().split(" ")[3].replace(ChatColor.GOLD+"", "").replace(ChatColor.RED+"", ""))                              //sets the text the GUI should start with
                                     .title(language.transalte(53))                                       //set the title of the GUI (only works in 1.14+)
                                     .plugin(PositionatorMain.getPlugin())                                          //set the plugin instance
