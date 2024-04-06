@@ -52,16 +52,11 @@ public class PrivateSettingsMenuListener implements Listener {
                     switch(event.getCurrentItem().getType()){
                         case NAME_TAG:
                             event.setCancelled(true);
-                            player.sendMessage(language.transalte(58)+ChatColor.GOLD+"'cancel'"+language.transalte(59));
 
                             new AnvilGUI.Builder()
                                     .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
                                         if(slot != AnvilGUI.Slot.OUTPUT) {
                                             return Collections.emptyList();
-                                        }
-
-                                        if(stateSnapshot.getText().equalsIgnoreCase("cancel")){
-                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
                                         }
 
                                         if(stateSnapshot.getText() != null && stateSnapshot.getText() != ""){
@@ -78,7 +73,7 @@ public class PrivateSettingsMenuListener implements Listener {
                                             if(config.existPosition(new Position(oldName))) config.rename(new Position(oldName), new Position(newName));
                                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
                                             player.sendMessage(ChatColor.GOLD+oldName+ChatColor.GREEN+" -> "+ChatColor.GOLD+newName+language.transalte(51));
-                                            return Arrays.asList(AnvilGUI.ResponseAction.close());
+                                            return Arrays.asList(AnvilGUI.ResponseAction.run(() -> { new PrivateMenu(player, 1); }));
                                         }else{
                                             return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(52)));
                                         }
