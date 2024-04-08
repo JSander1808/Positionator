@@ -54,7 +54,7 @@ public class PublicMenuListener implements Listener {
                                 new PublicFilterMenu(player);
                             }
                             break;
-                        case SPRUCE_SIGN:
+                        case PLAYER_HEAD:
                             if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
                                 new PublicMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
                             }else{

@@ -57,7 +57,7 @@ public class PrivateMenuListener implements Listener {
                                 new PrivateFilterMenu(player);
                             }
                             break;
-                        case SPRUCE_SIGN:
+                        case PLAYER_HEAD:
                             if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
                                 new PrivateMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
                             }else{
