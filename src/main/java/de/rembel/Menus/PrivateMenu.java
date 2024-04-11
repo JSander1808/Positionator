@@ -163,6 +163,12 @@ public class PrivateMenu {
                     }
                     ItemMeta itemmeta = item.getItemMeta();
                     itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());
+                    itemmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_DYE);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
                     ArrayList<String> itemlore = new ArrayList<String>();
                     itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){
