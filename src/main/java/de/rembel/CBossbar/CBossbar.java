@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.General.Position;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,6 +51,7 @@ public class CBossbar implements Listener {
     public final String SPLITTER = "/me02ng478hgn/n2m904ngh/";
     public final String ARRAYSPLITTER = "/meng99n3htn/03gnh48thngneje/";
     private ArrayList<CPosition> positionContainer = new ArrayList<CPosition>();
+    private int distanceYawTolerenz = 11;
     //private boolean enableWaitFormComplettRender = true;
 
 
@@ -266,6 +268,7 @@ public class CBossbar implements Listener {
     }
 
     private boolean renderBossbarTitle(int yaw){
+        CPosition selectedPosition = null;
         int currentStartYaw = 0;
         if(yaw < -(180-viewField/2)){
             currentStartYaw = 180-(viewField/2-(yaw-(-180)));
@@ -304,6 +307,9 @@ public class CBossbar implements Listener {
                             if(position.getSymbol().length()==2) i++;
                             isUsed = true;
                         }
+                        if(newYaw > player.getLocation().getYaw()-distanceYawTolerenz && newYaw < player.getLocation().getYaw()+distanceYawTolerenz){
+                            selectedPosition = position;
+                        }
                     }
                 }else if(position.getEntity()!=null && !isUsed){
                     Entity entity = Bukkit.getEntity(position.getEntity().getUniqueId());
@@ -339,7 +345,13 @@ public class CBossbar implements Listener {
             }
         }
 
-        bossBar.setTitle(title.toString());
+        if(selectedPosition != null){
+            String p = "     "+selectedPosition.getColor()+(int) selectedPosition.getLocation().distance(player.getLocation());
+            String space = new String(new char[p.length()]).replace('\0', ' ');
+            bossBar.setTitle(space+title.toString()+p);
+        }else{
+            bossBar.setTitle(title.toString());
+        }
         return true;
     }
 
