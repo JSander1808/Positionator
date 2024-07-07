@@ -2,10 +2,7 @@ package de.rembel.Menus;
 
 import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
-import de.rembel.General.General;
-import de.rembel.General.Position;
-import de.rembel.General.PositionFilter;
-import de.rembel.General.PositionType;
+import de.rembel.General.*;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,8 +39,9 @@ public class PublicMenu {
         closemeta.setDisplayName(language.transalte(10));
         close.setItemMeta(closemeta);
 
-        ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
-        ItemMeta previousmeta = previouspage.getItemMeta();
+        ItemStack previouspage = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==");
+//        ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
+        SkullMeta previousmeta = (SkullMeta) previouspage.getItemMeta();
         previousmeta.setDisplayName(language.transalte(11));
         previouspage.setItemMeta(previousmeta);
 
@@ -52,8 +50,9 @@ public class PublicMenu {
         backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
-        ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
-        ItemMeta nextmeta = nextpage.getItemMeta();
+        ItemStack nextpage = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19");
+//        ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
+        SkullMeta nextmeta = (SkullMeta) nextpage.getItemMeta();
         nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 
@@ -163,6 +162,12 @@ public class PublicMenu {
                     }
                     ItemMeta itemmeta = item.getItemMeta();
                     itemmeta.setDisplayName(ChatColor.GOLD+data[i+(multiplierer*(page-1))].getName());
+                    itemmeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_DYE);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+                    itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
                     ArrayList<String> itemlore = new ArrayList<String>();
                     itemlore.add(language.transalte(21)+ChatColor.BLUE+data[i+(multiplierer*(page-1))].getCreator());
                     if(player.getWorld().getEnvironment().name().equalsIgnoreCase(data[i+(multiplierer*(page-1))].getDimension())){

@@ -24,7 +24,7 @@ public class GermanLanguageContainer {
         //StartMenu
         translation.put(1, ChatColor.GOLD+"Öffentliche Positions Liste");
         translation.put(2, ChatColor.GREEN+"Jeder kann diese Liste sehen");
-        translation.put(3, ChatColor.GOLD+"Private Positions Lists");
+        translation.put(3, ChatColor.GOLD+"Private Positions Liste");
         translation.put(4, ChatColor.GREEN+"Nur du kannst diese Liste sehen");
         translation.put(5, ChatColor.GOLD+"Compass verwalten");
         translation.put(6, ChatColor.GOLD+"Einstellungen");
@@ -161,11 +161,11 @@ public class GermanLanguageContainer {
         translation.put(100, ChatColor.RED+"Du bist kein Operator");
 
         //Add Menu
-        translation.put(101, ChatColor.GOLD+"Hinzufügen von");
+        translation.put(101, ChatColor.GOLD+"Hinzufügen von ");
         translation.put(102, ChatColor.GOLD+"Zur Öffentlichen Liste hinzufügen");
         translation.put(103, ChatColor.GOLD+"Zur Privaten Liste hinzufügen");
-        translation.put(104, ChatColor.GOLD+" hat die Position ");
-        translation.put(105, ChatColor.GOLD+" erfolgreich zur Öffentlichen Liste hinzugefügt");
+        translation.put(104, ChatColor.GREEN+" hat die Position ");
+        translation.put(105, ChatColor.GREEN+" erfolgreich zur Öffentlichen Liste hinzugefügt");
         translation.put(106, ChatColor.RED+"Die Position ");
         translation.put(107, " exestiert bereits in der Öffentlichen Liste.");
         translation.put(108, " exestiert bereits in der Privaten Liste.");

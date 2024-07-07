@@ -26,6 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -57,7 +58,7 @@ public class PrivateMenuListener implements Listener {
                                 new PrivateFilterMenu(player);
                             }
                             break;
-                        case SPRUCE_SIGN:
+                        case PLAYER_HEAD:
                             if(event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(language.transalte(11))&&page>1){
                                 new PrivateMenu(player, Integer.valueOf(event.getView().getTitle().split(" ")[4])-1);
                             }else{
@@ -366,6 +367,12 @@ public class PrivateMenuListener implements Listener {
 
                                 ItemStack spawner = new ItemStack(Material.SPAWNER);
                                 ItemMeta spawnerMeta = spawner.getItemMeta();
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_DYE);
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_DESTROYS);
+                                spawnerMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
                                 spawnerMeta.setDisplayName(language.transalte(135));
                                 if(event.getCurrentItem().getType()==Material.SPAWNER){
                                     ArrayList lore = new ArrayList();
