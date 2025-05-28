@@ -34,7 +34,7 @@ public class PosDebugTabCompletor implements TabCompleter {
 
                         if(args[1].equalsIgnoreCase("modify")){
                             if(args.length == 3){
-                                String[] options2 = new String[]{"viewfield","spacebetween","smooth","directionWiser","progress"};
+                                String[] options2 = new String[]{"viewfield","spacebetween","smooth","directionWiser","progress","distanceTo"};
                                 StringUtil.copyPartialMatches(args[2], Arrays.asList(options2), collection);
                             }
 
@@ -45,6 +45,12 @@ public class PosDebugTabCompletor implements TabCompleter {
                                 }
                             }
                             if(args[2].equalsIgnoreCase("directionWiser")){
+                                if(args.length == 4){
+                                    String[] options3 = new String[]{"true","false"};
+                                    StringUtil.copyPartialMatches(args[3], Arrays.asList(options3), collection);
+                                }
+                            }
+                            if(args[2].equalsIgnoreCase("distanceTo")){
                                 if(args.length == 4){
                                     String[] options3 = new String[]{"true","false"};
                                     StringUtil.copyPartialMatches(args[3], Arrays.asList(options3), collection);

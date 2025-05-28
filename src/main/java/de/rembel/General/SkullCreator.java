@@ -9,10 +9,13 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import org.bukkit.profile.PlayerTextures;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Base64;
@@ -88,7 +91,42 @@ public class SkullCreator {
      * @return The head of the Player.
      */
     public static ItemStack itemFromBase64(String base64) {
-        return itemWithBase64(createSkull(), base64);
+        // Base64 → JSON → URL
+        String json = new String(Base64.getDecoder().decode(base64));
+        String url = extractSkinUrlFromJson(json);
+
+        if (url == null) {
+            throw new IllegalArgumentException("Kein gültiger URL in Base64-String gefunden.");
+        }
+
+        // PlayerProfile mit Skin-URL
+        PlayerProfile profile = (PlayerProfile) Bukkit.createPlayerProfile(UUID.randomUUID());
+        PlayerTextures textures = profile.getTextures();
+        try {
+            textures.setSkin(URI.create(url).toURL());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        profile.setTextures(textures);
+
+        // Kopf-Item mit diesem Profil
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        meta.setPlayerProfile(profile);
+        skull.setItemMeta(meta);
+
+        return skull;
+    }
+
+    private static String extractSkinUrlFromJson(String json) {
+        // Sehr einfache Extraktion ohne JSON-Parser:
+        String marker = "\"url\":\"";
+        int index = json.indexOf(marker);
+        if (index == -1) return null;
+        int start = index + marker.length();
+        int end = json.indexOf("\"", start);
+        if (end == -1) return null;
+        return json.substring(start, end);
     }
 
     /**
