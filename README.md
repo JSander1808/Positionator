@@ -1,5 +1,5 @@
 
-# Positionator +1.19.X
+# Positionator
 
 With this plugin you can easily set and manage markers.
 
