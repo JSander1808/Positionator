@@ -55,6 +55,11 @@ public class PosDebugCommand implements CommandExecutor {
                                 compass.setEnableDirectionWiser(Boolean.valueOf(args[3]));
                                 compass.renderBossbar();
                             }
+                            if(args[2].equalsIgnoreCase("distanceTo")){
+                                CBossbar compass = CBossbar.getByPlayer(player);
+                                compass.setRenderDistanceToPosition(Boolean.valueOf(args[3]));
+                                compass.renderBossbar();
+                            }
                             if(args[2].equalsIgnoreCase("progress")){
                                 CBossbar compass = CBossbar.getByPlayer(player);
                                 compass.setProgress(Double.valueOf(args[3]));

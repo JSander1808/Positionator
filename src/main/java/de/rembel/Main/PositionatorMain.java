@@ -24,6 +24,7 @@ public final class PositionatorMain extends JavaPlugin {
 
     public static Plugin plugin;
     public static JavaPlugin javaPlugin;
+    public static int CompassUpdaterTaskID;
 
     @Override
     public void onEnable() {
@@ -77,10 +78,21 @@ public final class PositionatorMain extends JavaPlugin {
         getCommand("pbackup").setTabCompleter(new BackUpTabCompletor());
         getCommand("pdevelopersettings").setTabCompleter(new PosDebugTabCompletor());
 
+        if(CBossbar.globalUpdateTime){
+            CompassUpdaterTaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                @Override
+                public void run() {
+                    for(CBossbar compass : General.bossbarContainer.values()){
+                        compass.renderBossbar();
+                    }
+                }
+            },0,1);
+        }
     }
 
     @Override
     public void onDisable() {
+        Bukkit.getScheduler().cancelTask(CompassUpdaterTaskID);
         for(Player player : Bukkit.getOnlinePlayers()){
             if(player != null){
                 NormalConfig playerConfig = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");

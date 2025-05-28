@@ -48,10 +48,12 @@ public class CBossbar implements Listener {
     private boolean renderInQueue;
     private boolean waitForComplettRender = true;
     private boolean enableDirectionWiser = true;
+    private boolean renderDistanceToPosition = true;
     public final String SPLITTER = "/me02ng478hgn/n2m904ngh/";
     public final String ARRAYSPLITTER = "/meng99n3htn/03gnh48thngneje/";
     private ArrayList<CPosition> positionContainer = new ArrayList<CPosition>();
     private int distanceYawTolerenz = 11;
+    public static boolean globalUpdateTime = true;
     //private boolean enableWaitFormComplettRender = true;
 
 
@@ -327,6 +329,9 @@ public class CBossbar implements Listener {
                                 if(position.getSymbol().length()==2) i++;
                                 isUsed = true;
                             }
+                            if(newYaw > player.getLocation().getYaw()-distanceYawTolerenz && newYaw < player.getLocation().getYaw()+distanceYawTolerenz){
+                                selectedPosition = position;
+                            }
                         }
                     }else{
                         removePosition(position.getUuid());
@@ -345,8 +350,13 @@ public class CBossbar implements Listener {
             }
         }
 
-        if(selectedPosition != null){
-            String p = "     "+selectedPosition.getColor()+(int) selectedPosition.getLocation().distance(player.getLocation());
+        if(selectedPosition != null && renderDistanceToPosition){
+            String p;
+            if(selectedPosition.getLocation() != null){
+                p = "     "+selectedPosition.getColor()+(int) selectedPosition.getLocation().distance(player.getLocation());
+            }else{
+                p = "     "+selectedPosition.getColor()+(int) selectedPosition.getEntity().getLocation().distance(player.getLocation());
+            }
             String space = new String(new char[p.length()]).replace('\0', ' ');
             bossBar.setTitle(space+title.toString()+p);
         }else{
@@ -407,7 +417,7 @@ public class CBossbar implements Listener {
 
             positionContainer.add(position);
             if(position.getEntity()!=null){
-                if(!Bukkit.getScheduler().isCurrentlyRunning(entityThread)){
+                if(!Bukkit.getScheduler().isCurrentlyRunning(entityThread) && !globalUpdateTime){
                     Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {renderBossbar(); }, 0, 100);
                 }
             }
@@ -561,7 +571,9 @@ public class CBossbar implements Listener {
     @EventHandler
     private void onMove(PlayerMoveEvent event){
         if(checkIsPlayerOnline(this.player)){
-            renderBossbar();
+            if(!globalUpdateTime){
+                renderBossbar();
+            }
         }
     }
 
@@ -585,6 +597,10 @@ public class CBossbar implements Listener {
 
     public BarColor getBarColor() {
         return barColor;
+    }
+
+    public boolean isGlobalUpdateTime() {
+        return globalUpdateTime;
     }
 
     public BarStyle getBarStyle() {
@@ -636,6 +652,10 @@ public class CBossbar implements Listener {
 
     public String getPlaceholder() {
         return placeholder;
+    }
+
+    public boolean isRenderDistanceToPosition() {
+        return renderDistanceToPosition;
     }
 
     public boolean getWaitForComplettRender(){
@@ -707,6 +727,10 @@ public class CBossbar implements Listener {
 
     private void setYaw(int yaw) {
         this.yaw = yaw;
+    }
+
+    public void setRenderDistanceToPosition(boolean renderDistanceToPosition) {
+        this.renderDistanceToPosition = renderDistanceToPosition;
     }
 
     private void setPositionContainer(ArrayList<CPosition> positionContainer) {
