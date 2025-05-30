@@ -572,7 +572,7 @@ public class CBossbar implements Listener {
     private void onMove(PlayerMoveEvent event){
         if(checkIsPlayerOnline(this.player)){
             if(!globalUpdateTime){
-                renderBossbar();
+//                renderBossbar();
             }
         }
     }
