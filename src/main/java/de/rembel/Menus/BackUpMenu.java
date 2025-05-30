@@ -2,6 +2,7 @@ package de.rembel.Menus;
 
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
+import de.rembel.General.SkullCreator;
 import de.rembel.Language.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -32,13 +34,15 @@ public class BackUpMenu {
         closemeta.setDisplayName(language.transalteDefaultEnglish(10));
         close.setItemMeta(closemeta);
 
-        ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
-        ItemMeta previousmeta = previouspage.getItemMeta();
+        ItemStack previouspage = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==");
+//        ItemStack previouspage = new ItemStack(Material.SPRUCE_SIGN);
+        SkullMeta previousmeta = (SkullMeta) previouspage.getItemMeta();
         previousmeta.setDisplayName(language.transalte(11));
         previouspage.setItemMeta(previousmeta);
 
-        ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
-        ItemMeta nextmeta = nextpage.getItemMeta();
+        ItemStack nextpage = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19");
+//        ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
+        SkullMeta nextmeta = (SkullMeta) nextpage.getItemMeta();
         nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 

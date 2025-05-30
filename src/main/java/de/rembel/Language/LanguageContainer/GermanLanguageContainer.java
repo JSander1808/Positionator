@@ -86,14 +86,14 @@ public class GermanLanguageContainer {
         //Private Settings Menu
         translation.put(30, ChatColor.GOLD+"Private Einstellungen - ");
         translation.put(32, " zur öffentliche Liste");
-        translation.put(56, ChatColor.RED+"Es gibt bereits eine Position in der Öffentlichen mit diesem Namen. Bennen sie um und versuche es erneut.");
-        translation.put(57, ChatColor.GOLD+" wurde erfolgreich zur öffentlichen Liste hinzugefügt");
+        translation.put(60, ChatColor.RED+"Es gibt bereits eine Position in der Öffentlichen Liste mit diesem Namen. Bennen sie um und versuche es erneut.");
+        translation.put(61, ChatColor.GOLD+" wurde erfolgreich zur öffentlichen Liste hinzugefügt");
 
         //Public Settings Menu
         translation.put(47, ChatColor.GOLD+"Öffentliche Eistellungen - ");
         translation.put(48, " zur privaten Liste");
-        translation.put(60, ChatColor.RED+"Es gibt bereits eine Position in der Privaten mit diesem Namen. Bennen sie um und versuche es erneut.");
-        translation.put(61, ChatColor.GOLD+" wurde erfolgreich zur privaten Liste hinzugefügt");
+        translation.put(56, ChatColor.RED+"Es gibt bereits eine Position in der Privaten Liste mit diesem Namen. Bennen sie um und versuche es erneut.");
+        translation.put(57, ChatColor.GOLD+" wurde erfolgreich zur privaten Liste hinzugefügt");
 
         //Bossbar
         translation.put(44, ChatColor.GOLD+"Dimension: ");
@@ -152,7 +152,7 @@ public class GermanLanguageContainer {
         translation.put(93, ChatColor.GRAY+"Wenn aktiv kannst du dich zu Position teleportieren");
         translation.put(94, ChatColor.GOLD+"Auto-Backup");
         translation.put(95, ChatColor.GRAY+"Wenn aktiv macht das Plugin automatisch Backups von");
-        translation.put(96, ChatColor.GRAY+"seinen Daten. Können mit /backup abgerufen werden");
+        translation.put(96, ChatColor.GRAY+"seinen Daten. Können mit /pbackup abgerufen werden");
 
         //Confirmation
         translation.put(97, ChatColor.GOLD+"Bestätigung");
