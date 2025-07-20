@@ -353,9 +353,9 @@ public class CBossbar implements Listener {
         if(selectedPosition != null && renderDistanceToPosition){
             String p;
             if(selectedPosition.getLocation() != null){
-                p = "     "+selectedPosition.getColor()+(int) selectedPosition.getLocation().distance(player.getLocation());
+                p = ""+selectedPosition.getColor()+(int) selectedPosition.getLocation().distance(player.getLocation());
             }else{
-                p = "     "+selectedPosition.getColor()+(int) selectedPosition.getEntity().getLocation().distance(player.getLocation());
+                p = ""+selectedPosition.getColor()+(int) selectedPosition.getEntity().getLocation().distance(player.getLocation());
             }
             String space = new String(new char[p.length()]).replace('\0', ' ');
             bossBar.setTitle(space+title.toString()+p);

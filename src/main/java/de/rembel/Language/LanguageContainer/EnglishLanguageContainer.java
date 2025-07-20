@@ -247,6 +247,13 @@ public class EnglishLanguageContainer {
         translation.put(165, ChatColor.GOLD+"Player Selector");
         translation.put(166, ChatColor.GREEN+"Here you can add Player to the Compass");
 
+        //Search
+        translation.put(191, ChatColor.GOLD+"Search");
+        translation.put(192, "Search for position name");
+        translation.put(193, ChatColor.GREEN+"Searched for: ");
+        translation.put(194, ChatColor.DARK_GRAY+"Left-Click: Search");
+        translation.put(195, ChatColor.DARK_GRAY+"Right-Click: Remove Search");
+
         //Debug Command
         translation.put(189, ChatColor.RED+"Incorrect argument for command: ");
 

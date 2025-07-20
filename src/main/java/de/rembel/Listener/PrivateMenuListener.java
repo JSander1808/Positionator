@@ -8,6 +8,7 @@ import de.rembel.Config.Config;
 import de.rembel.Config.NormalConfig;
 import de.rembel.General.General;
 import de.rembel.General.Position;
+import de.rembel.General.PositionFilter;
 import de.rembel.General.PositionType;
 import de.rembel.Language.LanguageManager;
 import de.rembel.Main.PositionatorMain;
@@ -15,6 +16,7 @@ import de.rembel.Menus.PrivateFilterMenu;
 import de.rembel.Menus.PrivateMenu;
 import de.rembel.Menus.PublicMenu;
 import de.rembel.Menus.StartMenu;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -31,6 +33,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class PrivateMenuListener implements Listener {
@@ -56,6 +60,46 @@ public class PrivateMenuListener implements Listener {
                                 new PrivateMenu(player, page);
                             }else if(event.getClick() == ClickType.LEFT){
                                 new PrivateFilterMenu(player);
+                            }
+                            break;
+                        case SPYGLASS:
+                            if(event.getClick() == ClickType.RIGHT){
+                                PositionFilter filter = General.PrivateFilter.get(player.getUniqueId().toString());
+                                if(filter != null && !filter.hasPlayername() && !filter.hasDimension() && !filter.hasDistance()){
+                                    General.PrivateFilter.remove(player.getUniqueId().toString());
+                                }else{
+                                    General.PrivateFilter.get(player.getUniqueId().toString()).removeName();
+                                }
+
+                                new PrivateMenu(player, 1);
+                            }else{
+                                new AnvilGUI.Builder()
+                                        .onClick((slot, stateSnapshot) -> { // Either use sync or async variant, not both
+                                            if(slot != AnvilGUI.Slot.OUTPUT) {
+                                                return Collections.emptyList();
+                                            }
+
+                                            if(stateSnapshot.getText() != null && stateSnapshot.getText() != ""){
+                                                String message = stateSnapshot.getText();
+                                                if(message.charAt(0) == ' '){
+                                                    message = message.substring(1);
+                                                }
+                                                if(!General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                                                    PositionFilter filter = new PositionFilter();
+                                                    filter.setPlayer(player);
+                                                    General.PrivateFilter.put(player.getUniqueId().toString(), filter);
+                                                }
+
+                                                General.PrivateFilter.get(player.getUniqueId().toString()).setName(message);
+                                                return Arrays.asList(AnvilGUI.ResponseAction.run(() -> { new PrivateMenu(player, 1); }));
+                                            }else{
+                                                return Arrays.asList(AnvilGUI.ResponseAction.replaceInputText(language.transalte(52)));
+                                            }
+                                        })
+                                        .text(" ")
+                                        .title(language.transalte(53))
+                                        .plugin(PositionatorMain.getPlugin())
+                                        .open(player);
                             }
                             break;
                         case PLAYER_HEAD:

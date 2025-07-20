@@ -153,6 +153,28 @@ public class Config {
         return null;
     }
 
+    public Position search(String positionName){
+        File file = new File(path);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while((temp = reader.readLine())!=null){
+                temp = General.decode(temp);
+                String[] result = temp.split("->");
+                if(result[0].contains(positionName)){
+                    Position position = new Position(positionName, new String[]{result[1].split(" ")[0], result[1].split(" ")[1], result[1].split(" ")[2]}, result[2], result[3], Integer.valueOf(result[4]));
+                    reader.close();
+                    return position;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Position get(Position newPosition){
         File file = new File(path);
         try {
@@ -278,7 +300,9 @@ public class Config {
                 if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
                     if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
                         if(filter == null || !filter.hasDistance() || distance <= filter.getDistance() && distance != -1){
-                            data.add(position);
+                            if(filter == null || !filter.hasName() || position.getName().toLowerCase().contains(filter.getName().toLowerCase())){
+                                data.add(position);
+                            }
                         }
                     }
                 }
@@ -308,16 +332,18 @@ public class Config {
                 Position position = new Position(temp.split("->")[0], new String[]{temp.split("->")[1].split(" ")[0], temp.split("->")[1].split(" ")[1], temp.split("->")[1].split(" ")[2]}, temp.split("->")[2], temp.split("->")[3], Integer.valueOf(temp.split("->")[4]));
                 if(filter == null || !filter.hasPlayername() || filter.getPlayername().equals(position.getCreator())){
                     if(filter == null || !filter.hasDimension() || filter.getDimension().equals(position.getDimension())){
-                        NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
+                        if(filter == null || !filter.hasName() || position.getName().toLowerCase().contains(filter.getName().toLowerCase())){
+                            NormalConfig config = new NormalConfig("plugins//Positionator//Data//User//"+player.getUniqueId().toString()+"//config.yml");
 //                        if(config.getBoolean("showDeathPositionInList") && position.getType() != PositionType.DEATHPOSITION){
 //                            data.add(position);
 //                        }
-                        if(position.getType()==PositionType.DEATHPOSITION){
-                            if(config.getBoolean("showDeathPositionInList")){
+                            if(position.getType()==PositionType.DEATHPOSITION){
+                                if(config.getBoolean("showDeathPositionInList")){
+                                    data.add(position);
+                                }
+                            }else{
                                 data.add(position);
                             }
-                        }else{
-                            data.add(position);
                         }
                     }
                 }

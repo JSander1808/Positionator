@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -56,6 +57,20 @@ public class PublicMenu {
         nextmeta.setDisplayName(language.transalte(13));
         nextpage.setItemMeta(nextmeta);
 
+        ItemStack search = new ItemStack(Material.SPYGLASS);
+        ItemMeta searchMeta = search.getItemMeta();
+        searchMeta.setDisplayName(language.transalte(191));
+        ArrayList<String> searchLore = new ArrayList<String>();
+        if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
+            if(General.PublicFilter.get(player.getUniqueId().toString()).hasName()){
+                searchLore.add(language.transalte(193)+General.PublicFilter.get(player.getUniqueId().toString()).getName());
+            }
+        }
+        searchLore.add(ChatColor.DARK_GRAY+language.transalte(194));
+        searchLore.add(ChatColor.DARK_GRAY+language.transalte(195));
+        searchMeta.setLore(searchLore);
+        search.setItemMeta(searchMeta);
+
         ItemStack filter = new ItemStack(Material.PAPER);
         ItemMeta filterMeta = filter.getItemMeta();
         filterMeta.setDisplayName(language.transalte(14));
@@ -73,6 +88,9 @@ public class PublicMenu {
             }
             if(filterData.hasDistance()){
                 filterLore.add(language.transalte(188)+"( < "+filterData.getDistance()+" )");
+            }
+            if(filterData.hasName()){
+                filterLore.add(language.transalte(193)+filterData.getName());
             }
         }else{
             filterLore.add(language.transalte(18));
@@ -187,7 +205,8 @@ public class PublicMenu {
             }
         }
         inv.setItem(45, previouspage);
-        if(normalConfig.getBoolean("enableFilter")) inv.setItem(48, filter);
+        if(normalConfig.getBoolean("enableFilter")) inv.setItem(47, filter);
+        inv.setItem(49, search);
         inv.setItem(51, nextpage);
         inv.setItem(52, back);
         inv.setItem(53, close);
