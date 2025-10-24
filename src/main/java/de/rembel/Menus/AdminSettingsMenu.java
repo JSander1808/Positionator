@@ -122,6 +122,24 @@ public class AdminSettingsMenu {
         backUpByServerRestartMeta.setLore(backUpByServerRestartLore);
         backUpByServerRestart.setItemMeta(backUpByServerRestartMeta);
 
+        ItemStack allowPlayerToSetOtherPlayerOnCompass = new ItemStack(Material.RECOVERY_COMPASS);
+        ItemMeta allowPlayerToSetOtherPlayerOnCompassMeta = allowPlayerToSetOtherPlayerOnCompass.getItemMeta();
+        allowPlayerToSetOtherPlayerOnCompassMeta.setDisplayName(ChatColor.GOLD+"Allow player to add player to the compass");
+        ArrayList<String> allowPlayerToSetOtherPlayerOnCompassLore = new ArrayList<String>();
+        if(config.getBoolean("allowPlayerToSetOtherPlayerOnCompass")){
+            allowPlayerToSetOtherPlayerOnCompassLore.add(ChatColor.GREEN+"➜ "+language.transalte(66));
+        }else{
+            allowPlayerToSetOtherPlayerOnCompassLore.add(ChatColor.GRAY+"   "+language.transalte(66));
+        }
+        if(!config.getBoolean("allowPlayerToSetOtherPlayerOnCompass")){
+            allowPlayerToSetOtherPlayerOnCompassLore.add(ChatColor.GREEN+"➜ "+ChatColor.RED+language.transalte(73));
+        }else{
+            allowPlayerToSetOtherPlayerOnCompassLore.add(ChatColor.GRAY+"   "+language.transalte(73));
+        }
+
+        allowPlayerToSetOtherPlayerOnCompassMeta.setLore(allowPlayerToSetOtherPlayerOnCompassLore);
+        allowPlayerToSetOtherPlayerOnCompass.setItemMeta(allowPlayerToSetOtherPlayerOnCompassMeta);
+
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closemeta = close.getItemMeta();
@@ -137,6 +155,7 @@ public class AdminSettingsMenu {
         inv.setItem(1, sendUpdateMessages);
         inv.setItem(2, teleport);
         inv.setItem(3, backUpByServerRestart);
+        inv.setItem(4, allowPlayerToSetOtherPlayerOnCompass);
         inv.setItem(25, back);
         inv.setItem(26, close);
 

@@ -38,6 +38,7 @@ public class DataFixer {
         if(!config.existdata("allowOpToTeleport")) config.set("allowOpToTeleport","false");
         if(!config.existdata("allowPlayerToTeleport")) config.set("allowPlayerToTeleport","false");
         if(!config.existdata("createBackUpByServerRestart")) config.set("createBackUpByServerRestart", "true");
+        if(!config.existdata("allowPlayerToSetOtherPlayerOnCompass")) config.set("allowPlayerToSetOtherPlayerOnCompass", "true");
         log("config initialized");
 
         log("completed");
