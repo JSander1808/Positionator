@@ -86,7 +86,7 @@ public final class PositionatorMain extends JavaPlugin {
                         compass.renderBossbar();
                     }
                 }
-            },0,1);
+            },0,0);
         }
     }
 

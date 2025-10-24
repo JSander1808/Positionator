@@ -178,7 +178,12 @@ public class CompassManagerMenuListener implements Listener {
                         new StartMenu(player);
                         break;
                     case ARMOR_STAND:
-                        new CompassSelectPlayerMenu(player, 1);
+                        NormalConfig mainConfig = new NormalConfig("plugins//Positionator//config.yml");
+                        if(mainConfig.get("allowPlayerToSetOtherPlayerOnCompass").equals("true")){
+                            new CompassSelectPlayerMenu(player, 1);
+                        }else{
+                            player.sendMessage(ChatColor.RED+"This function is disabled by an OP!");
+                        }
                         break;
                     default:
                         break;

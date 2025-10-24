@@ -49,6 +49,20 @@ public class PrivateMenu {
         backmeta.setDisplayName(language.transalte(12));
         back.setItemMeta(backmeta);
 
+        ItemStack search = new ItemStack(Material.SPYGLASS);
+        ItemMeta searchMeta = search.getItemMeta();
+        searchMeta.setDisplayName(language.transalte(191));
+        ArrayList<String> searchLore = new ArrayList<String>();
+        if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+            if(General.PrivateFilter.get(player.getUniqueId().toString()).hasName()){
+                searchLore.add(language.transalte(193)+General.PrivateFilter.get(player.getUniqueId().toString()).getName());
+            }
+        }
+        searchLore.add(ChatColor.DARK_GRAY+language.transalte(194));
+        searchLore.add(ChatColor.DARK_GRAY+language.transalte(195));
+        searchMeta.setLore(searchLore);
+        search.setItemMeta(searchMeta);
+
         ItemStack nextpage = SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19");
 //        ItemStack nextpage = new ItemStack(Material.SPRUCE_SIGN);
         SkullMeta nextmeta = (SkullMeta) nextpage.getItemMeta();
@@ -73,6 +87,9 @@ public class PrivateMenu {
             }
             if(filterData.hasDistance()){
                 filterLore.add(language.transalte(188)+"( < "+filterData.getDistance()+" )");
+            }
+            if(filterData.hasName()){
+                filterLore.add(language.transalte(193)+filterData.getName());
             }
         }else{
             filterLore.add(language.transalte(18));
@@ -188,7 +205,8 @@ public class PrivateMenu {
             }
         }
         inv.setItem(45,previouspage);
-        if(normalConfig.getBoolean("enableFilter")) inv.setItem(48, filter);
+        if(normalConfig.getBoolean("enableFilter")) inv.setItem(47, filter);
+        inv.setItem(49, search);
         inv.setItem(51,nextpage);
         inv.setItem(52,back);
         inv.setItem(53,close);

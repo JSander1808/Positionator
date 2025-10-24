@@ -7,6 +7,7 @@ public class PositionFilter {
     private String Playername;
     private String Dimension;
     private int Distance = -1;
+    private String Name;
     private Player Player;
 
     public PositionFilter(){
@@ -25,6 +26,10 @@ public class PositionFilter {
     }
     public Player getPlayer(){return Player;}
 
+    public String getName() {
+        return Name;
+    }
+
     public void setDimension(String dimension) {
         Dimension = dimension;
     }
@@ -36,6 +41,10 @@ public class PositionFilter {
         this.Distance=distance;
     }
     public void setPlayer(Player Player){this.Player=Player;}
+
+    public void setName(String name) {
+        this.Name = name;
+    }
 
     public boolean hasPlayername(){
         if(Playername != null) return true;
@@ -52,6 +61,12 @@ public class PositionFilter {
         }
         return true;
     }
+    public boolean hasName(){
+        if(Name != null){
+            return true;
+        }
+        return false;
+    }
     public boolean hasPlayer(){
         if(Player != null){
             return true;
@@ -66,4 +81,7 @@ public class PositionFilter {
     }
     public void removeDistance() {Distance = -1;}
     public void removePlayer(){Player = null;}
+    public void removeName(){
+        this.Name = null;
+    }
 }

@@ -95,6 +95,16 @@ public class AdminSettingsMenuListener implements Listener {
                         player.sendMessage(language.transalteDefaultEnglish(100));
                     }
                     break;
+                case RECOVERY_COMPASS:
+                    if(player.isOp()){
+                        if(!config.getBoolean("allowPlayerToSetOtherPlayerOnCompass")){
+                            config.set("allowPlayerToSetOtherPlayerOnCompass", "true");
+                        }else{
+                            config.set("allowPlayerToSetOtherPlayerOnCompass", "false");
+                        }
+                        new AdminSettingsMenu(player);
+                    }
+                    break;
                 case SPRUCE_DOOR:
                     new StartMenu(player);
                     break;
