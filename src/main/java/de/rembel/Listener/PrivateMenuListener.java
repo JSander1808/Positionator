@@ -68,7 +68,9 @@ public class PrivateMenuListener implements Listener {
                                 if(filter != null && !filter.hasPlayername() && !filter.hasDimension() && !filter.hasDistance()){
                                     General.PrivateFilter.remove(player.getUniqueId().toString());
                                 }else{
-                                    General.PrivateFilter.get(player.getUniqueId().toString()).removeName();
+                                    if(General.PrivateFilter.containsKey(player.getUniqueId().toString())){
+                                        General.PrivateFilter.get(player.getUniqueId().toString()).removeName();
+                                    }
                                 }
 
                                 new PrivateMenu(player, 1);

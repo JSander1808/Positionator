@@ -65,7 +65,9 @@ public class PublicMenuListener implements Listener {
                                 if(filter != null && !filter.hasPlayername() && !filter.hasDimension() && !filter.hasDistance()){
                                     General.PublicFilter.remove(player.getUniqueId().toString());
                                 }else{
-                                    General.PublicFilter.get(player.getUniqueId().toString()).removeName();
+                                    if(General.PublicFilter.containsKey(player.getUniqueId().toString())){
+                                        General.PublicFilter.get(player.getUniqueId().toString()).removeName();
+                                    }
                                 }
 
                                 new PublicMenu(player, 1);
